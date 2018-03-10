@@ -1,0 +1,4 @@
+__coverage__
+lib
+flow-typed
+__tests__/helpers
