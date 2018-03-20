@@ -2,6 +2,7 @@
 
 const SchemaGotSwagger = require('../../lib/index');
 const { SchemaGotSwaggerError } = require('../../lib/SchemaGotSwaggerError');
+const swaggerMainHelper = require('../__helpers__/swaggerMainSemverish');
 
 let tmpMocks = [];
 
@@ -27,10 +28,13 @@ describe('Sgs basic gets', () => {
 
 describe('test initialization', () => {
   test('basic init', () => {
-    expect.assertions(1);
+    expect.assertions(2);
     const schemaGotSwaggerInit = new SchemaGotSwagger();
-    return schemaGotSwaggerInit.init({}, {})
-    .then(ret => expect(ret).toBeInstanceOf(SchemaGotSwagger));
+    return schemaGotSwaggerInit.init(swaggerMainHelper, {})
+    .then(ret => {
+      expect(ret).toBeInstanceOf(SchemaGotSwagger);
+      expect(ret.getSwaggerSrc()).toMatchSnapshot();
+    });
   })
 })
 
@@ -38,7 +42,7 @@ describe('Bad Config', () => {
   test('bad config throws', () => {
     expect.assertions(1);
     const schemaGotSwaggerInit = new SchemaGotSwagger();
-    return schemaGotSwaggerInit.init({}, {}, { dumpydoodle: 'bad', mergeConfig: { sgs: false}})
+    return schemaGotSwaggerInit.init(swaggerMainHelper, {}, { dumpydoodle: 'bad', mergeConfig: { sgs: false}})
     .catch(e => expect(e).toBeInstanceOf(SchemaGotSwaggerError));
   })
 })

@@ -26,6 +26,7 @@ const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
 
 module.exports = class SchemaGotSwagger {
   config: sgsConfig
+  swaggerSrc: swaggerSource
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -50,9 +51,12 @@ module.exports = class SchemaGotSwagger {
    * @returns {SchemaGotSwagger}
    *   Returns and instance of this.
    */
-  init(swaggerSrc: swaggerSource, pathItemsSrc: pathItemSource, config: userSgsConfig = {}, swaggerSrcOptions: *, pathItemsSrcOptions: *) { // eslint-disable-line max-len
+  init(swaggerSrc: swaggerSource, pathItemsSrc: pathItemSource, config: userSgsConfig = {}, swaggerSrcOptions: swaggerSource, pathItemsSrcOptions: pathItemSource) { // eslint-disable-line max-len
     // async operations including validation.
-    return Promise.all([this.setConfig(config)])
+    return this.setConfig(config)
+      .then(() => Promise.all([
+        this.setSwaggerSrc(swaggerSrc),
+      ]))
       .then(() => this);
   }
 
@@ -86,5 +90,29 @@ module.exports = class SchemaGotSwagger {
    */
   getConfig(): sgsConfig {
     return this.config;
+  }
+
+  /**
+   * Sets the swagger source for this schemas got swagger instance.
+   *
+   * @param {swaggerSource} swaggerSrc
+   *   A semver or semverish shaped object with swagger source files.
+   *
+   * @returns {SchemaGotSwagger}
+   *   The current instance of this class.
+   */
+  setSwaggerSrc(swaggerSrc: swaggerSource) {
+    this.swaggerSrc = swaggerSrc;
+    return this;
+  }
+
+  /**
+   * Returns the swagger source for this SGS.
+   *
+   * @returns {swaggerSource}
+   *   A semver or semverish shaped object with swagger values.
+   */
+  getSwaggerSrc(): swaggerSource {
+    return this.swaggerSrc;
   }
 };

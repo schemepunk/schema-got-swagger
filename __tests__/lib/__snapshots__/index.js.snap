@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test initialization basic init 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "swagger": Object {
+        "test": "test 1.0.0",
+      },
+    },
+    "1": Object {
+      "swagger": Object {
+        "test": "test 1.1.0",
+      },
+    },
+    "2": Object {
+      "0": Object {
+        "swagger": Object {
+          "test": "test 1.2.0",
+        },
+      },
+      "1": Object {
+        "swagger": Object {
+          "test": "test 1.2.1",
+        },
+      },
+    },
+  },
+}
+`;
