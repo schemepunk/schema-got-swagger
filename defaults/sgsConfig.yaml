@@ -1,0 +1,4 @@
+---
+swaggerVersion: 3.0.0 # or 2.0.0
+apiType: jsonApi # or custom
+sgsType: semver # or file

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Configurator Get yaml files 1`] = `
+Object {
+  "apiType": "jsonApi",
+  "sgsType": "semver",
+  "swaggerVersion": "3.0.0",
+}
+`;
+
+exports[`Configurator mergeConfig 1`] = `
+Object {
+  "apiType": "custom",
+  "sgsType": "semver",
+  "swaggerVersion": "3.0.0",
+}
+`;
