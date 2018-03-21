@@ -1,6 +1,12 @@
 // @flow
 
-import type { pathItemSource, userSgsConfig, sgsConfig, swaggerSource } from './types/swaggerMaker';
+import type {
+  userSgsConfig,
+  sgsConfig,
+  swaggerMakerOptions,
+  swaggerSource,
+  pathItemsSource,
+} from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
 const { SchemaGotSwaggerError } = require('./SchemaGotSwaggerError');
@@ -27,6 +33,7 @@ const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
 module.exports = class SchemaGotSwagger {
   config: sgsConfig
   swaggerSrc: swaggerSource
+  pathItemsSrc: pathItemsSource
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -41,17 +48,17 @@ module.exports = class SchemaGotSwagger {
    *   A schema got swagger configuration object used to configure
    *   this instance of the class SchemaGotSwagger including swagger
    *   version, apiType, etc. By default this will be merged with Sgs defaults.
-   * @param {any} swaggerSrcOptions
+   * @param {swaggerMakerOptions} swaggerSrcOptions
    *   Optional swagger src options that will affect what and how swagger.json
    *   files are generated.
-   * @param {any} pathItemsSrcOptions
+   * @param {swaggerMakerOptions} pathItemsSrcOptions
    *   Optional path item src options that will affect how swagger path items
    *   are created and processed.
    *
    * @returns {SchemaGotSwagger}
    *   Returns and instance of this.
    */
-  init(swaggerSrc: swaggerSource, pathItemsSrc: pathItemSource, config: userSgsConfig = {}, swaggerSrcOptions: swaggerSource, pathItemsSrcOptions: pathItemSource) { // eslint-disable-line max-len
+  init(swaggerSrc: swaggerSource, pathItemsSrc: pathItemsSource, config: userSgsConfig = {}, swaggerSrcOptions: swaggerMakerOptions, pathItemsSrcOptions: swaggerMakerOptions) { // eslint-disable-line max-len
     // async operations including validation.
     return this.setConfig(config)
       .then(() => Promise.all([

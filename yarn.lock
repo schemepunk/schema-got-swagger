@@ -4509,7 +4509,7 @@ modify-values@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.0.tgz#e2b6cdeb9ce19f99317a53722f3dbf5df5eaaab2"
 
-molotov@^2.0.1:
+molotov@^2.0.1, molotov@^2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/molotov/-/molotov-2.1.5.tgz#40e14d1c037f302fb7ab229f73fd7361d768fb34"
   dependencies:
