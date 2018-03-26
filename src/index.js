@@ -2,10 +2,9 @@
 
 import type {
   userSgsConfig,
+  semverish,
   sgsConfig,
   swaggerMakerOptions,
-  swaggerSource,
-  pathItemsSource,
 } from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
@@ -14,8 +13,14 @@ const Ajv = require('ajv');
 const _ = require('lodash');
 const configurator = require('./configurator');
 
-const ajv = new Ajv({ schemas: [configSchemas.sgsConfig] }); // options can be passed, e.g. {allErrors: true}
+const ajv = new Ajv({
+  schemas: [
+    configSchemas.sgsConfig,
+    configSchemas.semverish,
+  ],
+}); // e
 const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
+
 
 // compile config schemas.
 // need a class that provides defaults
@@ -32,15 +37,15 @@ const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
 
 module.exports = class SchemaGotSwagger {
   config: sgsConfig
-  swaggerSrc: swaggerSource
-  pathItemsSrc: pathItemsSource
+  swaggerSrc: semverish
+  pathItemsSrc: semverish
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
-   * @param {swaggerSource} swaggerSrc
+   * @param {semverish} swaggerSrc
    *   A swagger source object containing a semver or semverish object
    *   with swagger keys populated with swagger file objects.
-   * @param {pathItemSource} pathItemsSrc
+   * @param {semverish} pathItemsSrc
    *   A path item source object containing a semver or semverish object
    *   with entity keys populated by json Schema objects representing
    *   those entities.
@@ -58,7 +63,7 @@ module.exports = class SchemaGotSwagger {
    * @returns {SchemaGotSwagger}
    *   Returns and instance of this.
    */
-  init(swaggerSrc: swaggerSource, pathItemsSrc: pathItemsSource, config: userSgsConfig = {}, swaggerSrcOptions: swaggerMakerOptions, pathItemsSrcOptions: swaggerMakerOptions) { // eslint-disable-line max-len
+  init(swaggerSrc: semverish, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions: swaggerMakerOptions, pathItemsSrcOptions: swaggerMakerOptions) { // eslint-disable-line max-len
     // async operations including validation.
     return this.setConfig(config)
       .then(() => Promise.all([
@@ -108,7 +113,11 @@ module.exports = class SchemaGotSwagger {
    * @returns {SchemaGotSwagger}
    *   The current instance of this class.
    */
-  setSwaggerSrc(swaggerSrc: swaggerSource) {
+  setSwaggerSrc(swaggerSrc: semverish) {
+    // Validate against semverish schema.
+    const semveristValidator = ajv.getSchema('http://example.com/schemas/semverish.json');
+    const validSemverish = semveristValidator(swaggerSrc);
+    if (!validSemverish) throw new SchemaGotSwaggerError(validSemverish.errors);
     this.swaggerSrc = swaggerSrc;
     return this;
   }
@@ -119,7 +128,7 @@ module.exports = class SchemaGotSwagger {
    * @returns {swaggerSource}
    *   A semver or semverish shaped object with swagger values.
    */
-  getSwaggerSrc(): swaggerSource {
+  getSwaggerSrc(): semverish {
     return this.swaggerSrc;
   }
 };

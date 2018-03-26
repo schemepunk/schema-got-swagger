@@ -25,9 +25,13 @@ export type userSgsConfig = {
   }
 }
 
-export type swaggerSource = {}
+export type semverishNumberOrObject = ({[string]: semverishNumberOrObject} | {}); // eslint-disable-line max-len
 
-export type pathItemsSource = {}
+export type semverish = {
+  [string]: {
+    [string]: semverishNumberOrObject
+  }
+}
 
 export type userConfigTypes = (userSgsConfig);
 export type configTypes = (sgsConfig);
@@ -50,7 +54,6 @@ export type schemePunkScheme = {
   },
   callPath?: string
 }
-
 
 export type swaggerMakerOptions = {
   data: {

@@ -46,3 +46,12 @@ describe('Bad Config', () => {
     .catch(e => expect(e).toBeInstanceOf(SchemaGotSwaggerError));
   })
 })
+
+describe('Not a semverist shape.', () => {
+  test('Non semverist shape throws', () => {
+    expect.assertions(1);
+    const schemaGotSwaggerInit = new SchemaGotSwagger();
+    return schemaGotSwaggerInit.init({nunchuks: 'nope'}, {},)
+    .catch(e => expect(e).toBeInstanceOf(SchemaGotSwaggerError));
+  })
+})

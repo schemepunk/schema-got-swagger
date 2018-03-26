@@ -1,5 +1,3 @@
-
-
 module.exports = {
   title: 'Semverist config schema',
   description: 'A schema describing the shape of semverist config.',
