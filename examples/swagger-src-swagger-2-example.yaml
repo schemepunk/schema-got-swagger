@@ -1,0 +1,112 @@
+# template file.
+"1":
+  swaggerSrc:
+    apiName: 'Swagger Example APi' #required
+    apiVersion: '3.14.0' #required
+    apiDescription: 'An example Api for example corp.' #optional
+    termsOfService: '' #optional
+    contact: #optional
+      - name: 'Dave Example' #contact name
+      - url: 'http://example.com'  #http://example.com
+      - email: 'example@example.com' #example@example.com
+    license: #optional
+      - name: "apache 2.0",
+      - url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    apiHost: "example.com"
+    apiBasePath: "/api" # must start with a leading slash.
+    schemes:
+      - scheme:
+        - name: "https"
+        - comma: true
+      - scheme:
+        - name: "http"
+        - comma: false
+    produces:
+      - mime:
+        - type: "vnd.api+json"
+        - comma: false
+    definitions:
+      - definition:
+        name: 'example'
+        body:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              format: "int64"
+            name:
+              type: "string"
+      - definition:
+        name: 'example2'
+        body:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+    parameters:
+      - parameter:
+        name: 'skipParam'
+        body:
+          name: skip
+          in: query
+          description: number of items to skip
+          required: true
+          type: integer
+          format: int32
+        comma: false
+    responses:
+      - response:
+        name: notFound
+        body:
+          description: Entity not found.
+      - response:
+        name: IllegalInput
+        body:
+          description: Illegal input for operation.
+      - response:
+        name: GeneralError
+        body:
+          description: General Error
+          schema:
+            $ref: '#/definitions/example2'
+    securityDefinitions:
+      - securityDefinition:
+        name: api_key
+        body:
+          type: apiKey
+          name: api_key
+          in: header
+      - securityDefinition:
+        name: petstore_auth
+        body:
+          type: oauth2
+          authorizationUrl: "http://swagger.io/api/oauth/dialog"
+          flow: implicit
+          scopes:
+            write.pets: modify pets in your account
+            read.pets: read your pets
+    security:
+      -
+        securityName: petstore_auth
+        items:
+          -
+            name: write:pets
+            comma: true
+          -
+            name: read:pets
+            comma: false
+    tags:
+      - tag:
+        name: pet
+        description: Pets operations
+        externaldocs:
+          description: pet docs
+          url: http://example.com/pet
+        comma: true
+      - tag:
+        name: carrot
+        description: Vegetable
+        comma: false
+    externalDocs:
+      description: Further api docs
+      url: http://example.com/docs
