@@ -227,9 +227,9 @@
     node-fetch "^2.1.1"
     url-template "^2.0.8"
 
-"@schemepunk/scheme-punk@^5.2.1":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/@schemepunk/scheme-punk/-/scheme-punk-5.2.1.tgz#5b82ae7c825f3be673cc6d8822c0e7b33cf65af9"
+"@schemepunk/scheme-punk@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@schemepunk/scheme-punk/-/scheme-punk-5.3.0.tgz#e6aa68a29a4980be4b729175e3c6eaa2507c6ba2"
   dependencies:
     fs-extra "^5.0.0"
     lodash "^4.16.4"
