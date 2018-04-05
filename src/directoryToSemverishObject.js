@@ -58,12 +58,9 @@ const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<sem
           // Grab this file's content.
           let objPathValue = fs.readFileSync(item.path, { encoding: 'utf8' });
 
-          // Parse out data by it's extension.
           // TODO: This should likely be broken into configurable helper,
           // perhaps a mixin so that more file types can be supported.
-          if (p.ext === '.json') {
-            objPathValue = JSON.parse(objPathValue);
-          }
+          objPathValue = JSON.parse(objPathValue);
 
           _.set(semverishObject, objPath, objPathValue);
         }
