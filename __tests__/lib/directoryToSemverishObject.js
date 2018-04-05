@@ -5,7 +5,6 @@
 
 const path = require('path');
 const directoryToSemverishObject = require('../../lib/directoryToSemverishObject');
-const semverishObject = require('../__helpers__/semverishObject.json');
 
 describe('directoryToSemverishObject', () => {
   test('Can return a semverish object from a given path to a semverish directory', () => {
