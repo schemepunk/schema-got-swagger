@@ -5,6 +5,8 @@
  */
 
 // @flow
+import type { semverish } from './types/swaggerMaker';
+
 const klaw = require('klaw');
 const _ = require('lodash');
 const fs = require('fs');
@@ -16,11 +18,11 @@ const path = require('path');
  * @param {string} semverishDirectoryPath
  *   A string representing a file system path to a a semverish directory.
  *
- * @returns {Promise}
+ * @returns {Promise<semverish>}
  *   Promise object that resolves a Semverist-shaped object representing
  *   the given directory structure at {semverishDirectoryPath}.
  */
-const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<string> =>
+const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<semverish> =>
   new Promise((resolve, reject) => {
     const semverishObject = {};
     let root = false;
@@ -39,7 +41,7 @@ const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<str
         // Create a regexp for identifying all path separators in a string.
         const pathSep = new RegExp(path.sep, 'g');
 
-        // If this path is a directory, just add it as an empty object so that 
+        // If this path is a directory, just add it as an empty object so that
         // more sub-directories or files can be added as children.
         if (item.stats.isDirectory()) {
           // Replace the path separator with dot notation.
@@ -48,13 +50,10 @@ const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<str
           _.set(semverishObject, objPath, {});
         }
         else {
-          // Extract file name and extension.
-          const fname = path.basename(item.path);
-          const ext = path.extname(fname);
-
+          const p = path.parse(item.path);
           // Remove the file name from the object path, and replace the path
           // separator with dot notation.
-          objPath = `${objPath.replace(fname, '').replace(pathSep, '.')}['${fname}']`;
+          objPath = `${objPath.replace(p.base, '').replace(pathSep, '.')}['${p.name}']`;
 
           // Grab this file's content.
           let objPathValue = fs.readFileSync(item.path, { encoding: 'utf8' });
@@ -62,7 +61,7 @@ const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<str
           // Parse out data by it's extension.
           // TODO: This should likely be broken into configurable helper,
           // perhaps a mixin so that more file types can be supported.
-          if (ext === '.json') {
+          if (p.ext === '.json') {
             objPathValue = JSON.parse(objPathValue);
           }
 
