@@ -83,7 +83,7 @@
     ]
   },
   "dependencies": {
-    "@schemepunk/scheme-punk": "5.3.0",
+    "@schemepunk/scheme-punk": "5.3.1",
     "ajv": "^6.3.0",
     "js-yaml": "^3.11.0",
     "lodash": "^4.17.5",
