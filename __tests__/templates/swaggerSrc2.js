@@ -1,5 +1,3 @@
-'use strict';
-
 const SchemePunk = require('@schemepunk/scheme-punk');
 const fs = require('fs');
 const yaml = require('js-yaml');
