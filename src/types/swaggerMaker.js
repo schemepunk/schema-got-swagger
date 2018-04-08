@@ -55,6 +55,72 @@ export type schemePunkScheme = {
   callPath?: string
 }
 
+export type swaggerMainData = {
+  apiName: string,
+  apiVersion: string,
+  apiDescription?: string,
+  termsOfService?: string,
+  contact?: {
+    name?: string,
+    url?: string,
+    email?: string,
+  },
+  license?: {
+    name?: string,
+    url?: string,
+  },
+  apiHost?: string,
+  apiBasePath?: string,
+  schemes?: {
+    items?: Array<string>,
+    process: () => Array<string>,
+  },
+  consumes?: Array<{
+    items?: {
+      type?: string,
+      comma?: boolean
+    }
+  }>,
+  produces?: Array<{
+    items?: {
+      type?: string,
+      comma?: boolean
+    }
+  }>,
+  definitions: {
+    process: () => {},
+    items?: {}
+  },
+  parameters: {
+    process: () => {},
+    items?: {},
+  },
+  responses: {
+    process: () => {},
+    items?: {},
+  },
+  securityDefinitions: {
+    process: () => {},
+    items?: {}
+  },
+  security: {
+    process: () => {},
+    items?: {}
+  },
+  tags?: {
+    process: () => {},
+    items?: Array<{
+      name: string,
+      description?: string,
+      url?: string
+    }>
+  },
+  externalDocs?: {
+    description?: string,
+    url?: string
+  }
+}
+
 export type swaggerMakerOptions = {
   data: {
     semveristConfig: semveristConfig,
