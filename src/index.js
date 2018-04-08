@@ -3,6 +3,7 @@
 import type {
   userSgsConfig,
   semverish,
+  semverishSrc,
   sgsConfig,
   swaggerMakerOptions,
 } from './types/swaggerMaker';
@@ -37,7 +38,7 @@ const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
 
 module.exports = class SchemaGotSwagger {
   config: sgsConfig
-  swaggerSrc: semverish
+  swaggerSrc: semverishSrc
   pathItemsSrc: semverish
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
@@ -63,7 +64,7 @@ module.exports = class SchemaGotSwagger {
    * @returns {SchemaGotSwagger}
    *   Returns and instance of this.
    */
-  init(swaggerSrc: semverish, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions: swaggerMakerOptions, pathItemsSrcOptions: swaggerMakerOptions) { // eslint-disable-line max-len
+  init(swaggerSrc: semverishSrc, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions: swaggerMakerOptions, pathItemsSrcOptions: swaggerMakerOptions) { // eslint-disable-line max-len
     // async operations including validation.
     return this.setConfig(config)
       .then(() => Promise.all([

@@ -121,6 +121,36 @@ export type swaggerMainData = {
   }
 }
 
+export type semverishNumberOrMain = ({[string]: semverishNumberOrMain} | swaggerMainData); // eslint-disable-line max-len
+
+export type semverishSrc = {
+  [string]: {
+    [string]: semverishNumberOrMain
+  }
+}
+
+export type mainTeamplate = {
+  title: string,
+  description?: string,
+  version: string,
+  termsOfService?: string,
+  contact?: string,
+  license?: string,
+  host?: string,
+  basePath?: string,
+  schemes?: string,
+  consumes?: string,
+  produces?: string,
+  definitions?: string,
+  parameters?: string,
+  responses?: string,
+  securityDefinitions?: string,
+  security?: string,
+  tags?: string,
+  externalsDocs?: string,
+  destinationTemplate: string
+}
+
 export type swaggerMakerOptions = {
   data: {
     semveristConfig: semveristConfig,
