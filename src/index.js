@@ -5,7 +5,8 @@ import type {
   semverish,
   semverishSrc,
   sgsConfig,
-  swaggerMakerOptions,
+  mainSwaggerMakerOptions,
+  pathSwaggerMakerOptions,
 } from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
@@ -18,6 +19,7 @@ const ajv = new Ajv({
   schemas: [
     configSchemas.sgsConfig,
     configSchemas.semverish,
+    configSchemas.semverishMainData,
   ],
 }); // e
 const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
@@ -64,7 +66,7 @@ module.exports = class SchemaGotSwagger {
    * @returns {SchemaGotSwagger}
    *   Returns and instance of this.
    */
-  init(swaggerSrc: semverishSrc, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions: swaggerMakerOptions, pathItemsSrcOptions: swaggerMakerOptions) { // eslint-disable-line max-len
+  init(swaggerSrc: semverishSrc, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions: mainSwaggerMakerOptions, pathItemsSrcOptions: pathSwaggerMakerOptions) { // eslint-disable-line max-len
     // async operations including validation.
     return this.setConfig(config)
       .then(() => Promise.all([
@@ -116,7 +118,7 @@ module.exports = class SchemaGotSwagger {
    */
   setSwaggerSrc(swaggerSrc: semverish) {
     // Validate against semverish schema.
-    const semveristValidator = ajv.getSchema('http://example.com/schemas/semverish.json');
+    const semveristValidator = ajv.getSchema('http://example.com/schemas/semverishMainData.json');
     const validSemverish = semveristValidator(swaggerSrc);
     if (!validSemverish) throw new SchemaGotSwaggerError(validSemverish.errors);
     this.swaggerSrc = swaggerSrc;

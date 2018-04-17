@@ -129,7 +129,7 @@ export type semverishSrc = {
   }
 }
 
-export type mainTeamplate = {
+export type mainTemplate = {
   title: string,
   description?: string,
   version: string,
@@ -151,7 +151,15 @@ export type mainTeamplate = {
   destinationTemplate: string
 }
 
-export type swaggerMakerOptions = {
+export type semverishNumberOrTemplate = ({[string]: semverishNumberOrTemplate} | mainTemplate); // eslint-disable-line max-len
+
+export type templateSemverish = {
+  [string]: {
+    [string]: semverishNumberOrTemplate
+  }
+}
+
+export type mainSwaggerMakerOptions = {
   data: {
     semveristConfig: semveristConfig,
     semveristMolotovOptions: molotovConfig
@@ -163,6 +171,23 @@ export type swaggerMakerOptions = {
     semveristConfig: semveristConfig,
     semveristMolotovOptions: molotovConfig,
     schemePunkMolotovOptions: molotovConfig,
-    templateOverrides: {}
+    templateOverrides: (mainTemplate | templateSemverish);
   }
 }
+
+export type pathSwaggerMakerOptions = {
+  data: {
+    semveristConfig: semveristConfig,
+    semveristMolotovOptions: molotovConfig
+  },
+  schemes: {
+    schemes: {
+      [string]: Array<Array<schemePunkScheme>>
+    },
+    semveristConfig: semveristConfig,
+    semveristMolotovOptions: molotovConfig,
+    schemePunkMolotovOptions: molotovConfig,
+    templateOverrides: (mainTemplate | templateSemverish);
+  }
+}
+

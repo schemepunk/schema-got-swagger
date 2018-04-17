@@ -34,7 +34,8 @@ describe('test initialization', () => {
     .then(ret => {
       expect(ret).toBeInstanceOf(SchemaGotSwagger);
       expect(ret.getSwaggerSrc()).toMatchSnapshot();
-    });
+    })
+    .catch(e => console.log(e));
   })
 })
 
