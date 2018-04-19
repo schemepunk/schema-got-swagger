@@ -1,6 +1,7 @@
 // @flow
 
 
+import type { semveristConfig } from './types/semveristConfig';
 import type { sgsConfig, configTypes, configNames, userConfigTypes } from './types/swaggerMaker';
 
 // gets default configurations for all schemaGotSwagger options and config.
@@ -24,8 +25,20 @@ class Configurator {
    * @returns {Promise<sgsConfig>}
    *   Returns Schema got swagger configurations.
    */
-  getSgsDefaults(): Promise<sgsConfig> {
+  getSgsDefaults(): Promise<configTypes> {
     return this.promiseYamlRetrieval(`${__dirname}/../defaults/sgsConfig.yaml`)
+      .then(data => data);
+  }
+
+  /**
+   * Get swaggerSrc semverist default configs.
+   *
+   * @returns {Promise<semveristConfig>}
+   *   Returns semverist config defaults for swagger src.
+   * @memberof Configurator
+   */
+  getSwaggerSrcSemveristDefaults(): Promise<configTypes> {
+    return this.promiseYamlRetrieval(`${__dirname}/../defaults/swaggerSrcSemverist.yaml`)
       .then(data => data);
   }
 

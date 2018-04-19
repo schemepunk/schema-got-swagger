@@ -38,7 +38,8 @@ module.exports = {
           description: 'A url associated with the contact for this api.',
         },
         email: {
-          type: 'An email associated with the contact for this api.',
+          type: 'string',
+          description: 'An email associated with the contact for this api.',
         },
       },
     },
@@ -194,24 +195,17 @@ module.exports = {
           items: {
             type: 'object',
             properties: {
-              type: 'object',
-              description: 'Items are each declarations of a tag', // eslint-disable-line max-len
-              required: [
-                'name',
-              ],
-              properties: {
-                name: {
-                  type: 'string',
-                  description: 'A tag name',
-                },
-                description: {
-                  type: 'string',
-                  description: 'A description of the tag.',
-                },
-                url: {
-                  type: 'string',
-                  description: 'A url associated with this tag.',
-                },
+              name: {
+                type: 'string',
+                description: 'A tag name',
+              },
+              description: {
+                type: 'string',
+                description: 'A description of the tag.',
+              },
+              url: {
+                type: 'string',
+                description: 'A url associated with this tag.',
               },
             },
           },

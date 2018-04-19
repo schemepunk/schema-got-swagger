@@ -1,24 +1,24 @@
 # Semverist config begins
-swaggerSrc:
-  semveristBehaviors:
-    inheritence: lazySemverist
-    lazySemverist:
-      preReleaseForwards: false
-      attributes: false
-    default: true
-    defaultName: default
-    groups: false
-    mergeStrategy: merge
-    preReleasePattern: "[a-z]"
-  groups:
-    swagger
-      members:
-        - swagger
-  prereleaseOrdering: {}
-  directoryFileIgnorePattern: "json$"
-  converterType: default
-  semverishObjectLocation: ""
-  composer:
-    composerType: default  # can be default (object) or directory
-    destination: ""
-    priority: default
+
+semveristBehaviors:
+  inheritence: lazySemverist
+  lazySemverist:
+    preReleaseForwards: false
+    attributes: false
+  default: false
+  defaultName: default
+  groups: false
+  mergeStrategy: merge
+  preReleasePattern: "[a-z]"
+groups:
+  swagger:
+    members:
+      - swaggerSrc
+prereleaseOrdering: {}
+directoryFileIgnorePattern: "json$"
+converterType: default
+semverishObjectLocation: ""
+composer:
+  composerType: default  # can be default (object) or directory
+  destination: ""
+  priority: default

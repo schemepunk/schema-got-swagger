@@ -5,7 +5,7 @@ import { type semveristConfig } from './semveristConfig';
 
 export type semveristJsonSchema = {};
 
-export type configNames = ("Sgs");
+export type configNames = ("Sgs" | "SwaggerSrcSemverist");
 
 export type sgsConfig = {
   swaggerVersion: string,
@@ -33,8 +33,8 @@ export type semverish = {
   }
 }
 
-export type userConfigTypes = (userSgsConfig);
-export type configTypes = (sgsConfig);
+export type userConfigTypes = (userSgsConfig | semveristConfig);
+export type configTypes = (sgsConfig | semveristConfig);
 
 export type schemePunkScheme = {
   source: {
@@ -156,6 +156,25 @@ export type semverishNumberOrTemplate = ({[string]: semverishNumberOrTemplate} |
 export type templateSemverish = {
   [string]: {
     [string]: semverishNumberOrTemplate
+  }
+}
+
+export type molotovConfigDefaults = {
+  overrides: {},
+  cocktailClasses: []
+};
+
+export type swaggerMakerDefaults = {
+  data: {
+    semveristConfig: {},
+    semveristMolotovOptions: molotovConfigDefaults
+  },
+  schemes: {
+    schemes: {},
+    semveristConfig: {},
+    semveristMolotovOptions: molotovConfigDefaults,
+    schemePunkMolotovOptions: molotovConfigDefaults,
+    templateOverrides: {};
   }
 }
 
