@@ -64,4 +64,11 @@ describe('Semverist object maker', () => {
     schemaGotSwagger.setSwaggerSemverRealizations(['1.1.0', '1.1.1', '1.1.0-alpha.0'])
     expect(schemaGotSwagger.semverizeToRealizations('example', {test: 'what'})).toEqual({"1": {"1": {"0": {"alpha.0": {"example": {"test": "what"}}, "example": {"test": "what"}}, "1": {"example": {"test": "what"}}}}});
  })
+});
+
+describe('Composer creator errors with bad params', () => {
+  test('Bad params throws', () => {
+    expect.assertions(1);
+    expect(() => SchemaGotSwagger.createComposer('junk', 'junk', 'unk')).toThrow();
+  })
 })
