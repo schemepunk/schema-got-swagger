@@ -56,3 +56,12 @@ describe('Not a semverist shape.', () => {
     .catch(e => expect(e).toBeInstanceOf(SchemaGotSwaggerError));
   })
 })
+
+describe('Semverist object maker', () => {
+  test('Semverist rocks', () => {
+    expect.assertions(1);
+    const schemaGotSwagger = new SchemaGotSwagger();
+    schemaGotSwagger.setSwaggerSemverRealizations(['1.1.0', '1.1.1', '1.1.0-alpha.0'])
+    expect(schemaGotSwagger.semverizeToRealizations('example', {test: 'what'})).toEqual({"1": {"1": {"0": {"alpha.0": {"example": {"test": "what"}}, "example": {"test": "what"}}, "1": {"example": {"test": "what"}}}}});
+ })
+})

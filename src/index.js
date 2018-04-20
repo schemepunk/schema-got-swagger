@@ -20,6 +20,7 @@ import type { semveristConfig } from './types/semveristConfig';
 const configSchemas = require('./../configSchemas');
 const { SchemaGotSwaggerError } = require('./SchemaGotSwaggerError');
 const Ajv = require('ajv');
+const semver = require('semver');
 const _ = require('lodash');
 const configurator = require('./configurator');
 const semverist = require('semverist');
@@ -125,8 +126,28 @@ module.exports = class SchemaGotSwagger {
    * @returns {semverish}
    *   A semver shape with related attributes.
    */
-  semverizeToRealizations(targetName: string, targetValue) {
+  semverizeToRealizations(targetName: string, targetValue: *) {
+    const realizations = this.getSwaggerSemverRealizations();
+    let targetInjectedSemver = {};
+    realizations.forEach((semverNum) => {
+      const parsed = semver.parse(semverNum);
+      const writeToAttributes = _.concat(
+        [],
+        parsed.major.toString(),
+        parsed.minor.toString(),
+        parsed.patch.toString(),
+        parsed.prerelease.join('.'),
+        targetName,
+      );
+      targetInjectedSemver = _.setWith(
+        targetInjectedSemver,
+        _.without(writeToAttributes, ''),
+        _.cloneDeep(targetValue),
+        Object
+      );
+    });
 
+    return targetInjectedSemver;
   }
 
   /**
@@ -261,7 +282,7 @@ module.exports = class SchemaGotSwagger {
       tmpConfig = configurator.mergeConfig(configName, config)
         .then(mergedConfig => mergedConfig);
     }
-    // $FlowFixMe This is probably a dynamic call issue.d
+    // $FlowFixMe This is probably a dynamic call issue.
     return tmpConfig;
   }
 
