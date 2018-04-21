@@ -2,7 +2,7 @@
 
 
 import type { semveristConfig } from './types/semveristConfig';
-import type { sgsConfig, configTypes, configNames, userConfigTypes } from './types/swaggerMaker';
+import type { sgsConfig, configTypes, configNames, mainTemplate, userConfigTypes } from './types/swaggerMaker';
 
 // gets default configurations for all schemaGotSwagger options and config.
 // require defaults
@@ -11,6 +11,7 @@ const _ = require('lodash');
 const yaml = require('js-yaml');
 const { SchemaGotSwaggerReThrownError } = require('./SchemaGotSwaggerError');
 const { YAML_FILE_LOAD_PROBLEM } = require('./_errors');
+const swaggerMainTemplates = require('./../templates/swaggerSrc');
 // load up yaml.
 
 /**
@@ -39,6 +40,50 @@ class Configurator {
    */
   getSwaggerSrcSemveristDefaults(): Promise<configTypes> {
     return this.promiseYamlRetrieval(`${__dirname}/../defaults/swaggerSrcSemverist.yaml`)
+      .then(data => data);
+  }
+
+  /**
+   * Get the swagger Src Scheme
+   *
+   * @returns {Promise<configTypes>}
+   *   Returns a schemepunk scheme for processing the swagger main src files.
+   * @memberof Configurator
+   */
+  getSwaggerSrcSchemesDefaults(): Promise<configTypes> {
+    return this.promiseYamlRetrieval(`${__dirname}/../defaults/swaggerSrcSchemesSemverist.yaml`)
+      .then(data => data);
+  }
+
+  /**
+   * Get the swagger src templates semverist config.
+   *
+   * @returns {Promise<configTypes>}
+   *   A semverist config for any templates semverist.
+   * @memberof Configurator
+   */
+  getSwaggerSrcTemplatesSemveristDefaults(): Promise<configTypes> {
+    return this.promiseYamlRetrieval(`${__dirname}/../defaults/swaggerSrcTemplatesSemverist.yaml`)
+      .then(data => data);
+  }
+
+  /**
+   * Gets the main swaggerSrc template defaults.  This is not a yaml
+   *   file but a js file and the pathing is a little different.
+   *
+   * @param {string} swaggerVersion
+   *   A semver string representing the swagger version.
+   * @returns {Promise<mainTemplate>}
+   *   A swagger template appropriate to the version of swagger
+   *   you are targeting.
+   * @memberof Configurator
+   */
+  getSwaggerMainTemplateDefaults(swaggerVersion: string): Promise<mainTemplate> {
+    return Promise.resolve(_.get(
+      swaggerMainTemplates,
+      `swagger_${swaggerVersion.split('.').join('_')}`,
+      swaggerMainTemplates.swagger_2_0_0
+    ))
       .then(data => data);
   }
 

@@ -5,7 +5,12 @@ import { type semveristConfig } from './semveristConfig';
 
 export type semveristJsonSchema = {};
 
-export type configNames = ("Sgs" | "SwaggerSrcSemverist");
+export type configNames = (
+  "Sgs" |
+  "SwaggerSrcSemverist" |
+  "swaggerMainTemplate" |
+  "SwaggerSrcTemplatesSemverist" |
+  "SwaggerSrcSchemes");
 
 export type sgsConfig = {
   swaggerVersion: string,
@@ -33,9 +38,6 @@ export type semverish = {
   }
 }
 
-export type userConfigTypes = (userSgsConfig | semveristConfig);
-export type configTypes = (sgsConfig | semveristConfig);
-
 export type schemePunkScheme = {
   source: {
     target?: string,
@@ -54,6 +56,9 @@ export type schemePunkScheme = {
   },
   callPath?: string
 }
+
+export type userConfigTypes = (userSgsConfig | semveristConfig);
+export type configTypes = (sgsConfig | semveristConfig | schemePunkScheme);
 
 export type swaggerMainData = {
   apiName: string,
@@ -181,7 +186,7 @@ export type swaggerMakerDefaults = {
 export type mainSwaggerMakerOptions = {
   data: {
     semveristConfig: semveristConfig,
-    semveristMolotovOptions: molotovConfig
+    semveristMolotovOptions?: molotovConfig
   },
   schemes: {
     schemes: {
@@ -189,8 +194,12 @@ export type mainSwaggerMakerOptions = {
     },
     semveristConfig: semveristConfig,
     semveristMolotovOptions: molotovConfig,
-    schemePunkMolotovOptions: molotovConfig,
+    schemePunkMolotovOptions?: molotovConfig,
+  },
+  templates: {
+    semveristConfig: semveristConfig,
     templateOverrides: (mainTemplate | templateSemverish);
+    semveristMolotovOptions?: molotovConfig
   }
 }
 
@@ -206,7 +215,11 @@ export type pathSwaggerMakerOptions = {
     semveristConfig: semveristConfig,
     semveristMolotovOptions: molotovConfig,
     schemePunkMolotovOptions: molotovConfig,
+  },
+  templates: {
+    semveristConfig: semveristConfig,
     templateOverrides: (mainTemplate | templateSemverish);
+    semveristMolotovOptions: molotovConfig
   }
 }
 

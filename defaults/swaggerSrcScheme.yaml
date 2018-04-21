@@ -1,0 +1,10 @@
+source:
+  target: swaggerSource
+  plugin: originalSchemeSource
+transform:
+  plugin: tokenTemplateValues
+  named: false
+  json: true
+  unescape: false
+destination:
+  target: swaggerSource

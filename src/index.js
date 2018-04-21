@@ -18,7 +18,12 @@ import type {
 import type { semveristConfig } from './types/semveristConfig';
 
 const configSchemas = require('./../configSchemas');
-const { SchemaGotSwaggerError } = require('./SchemaGotSwaggerError');
+const {
+  SCHEMA_GOT_SWAGGER_CONFIG_VALIDATION_ERROR,
+} = require('./_errors');
+const {
+  SchemaGotSwaggerError,
+} = require('./SchemaGotSwaggerError');
 const Ajv = require('ajv');
 const semver = require('semver');
 const _ = require('lodash');
@@ -27,15 +32,20 @@ const semverist = require('semverist');
 
 const ajv = new Ajv({
   schemas: [
+    configSchemas.schemePunkConfig,
     configSchemas.sgsConfig,
     configSchemas.semverish,
     configSchemas.semverishMainData,
+    configSchemas.swaggerMainTemplates,
     configSchemas.semveristConfig,
   ],
 }); // e
 const sgsValidator = ajv.getSchema('http://example.com/schemas/sgsConfig.json');
 const swaggerMainSemveristSrcValidator = ajv.getSchema('http://example.com/schemas/semverishMainData.json');
 const semveristConfigValidator = ajv.getSchema('http://example.com/schemas/semveristConfig.json');
+const templateValidator = ajv.getSchema('http://example.com/schemas/swaggerMainTemplate.json');
+const schemePunkValidator = ajv.getSchema('http://example.com/schemas/schemePunkConfig.json');
+const semverishValidator = ajv.getSchema('http://example.com/schemas/semverish.json');
 
 // compile config schemas.
 // need a class that provides defaults
@@ -55,8 +65,16 @@ module.exports = class SchemaGotSwagger {
   mainSwaggerComposer: {}
   swaggerSrc: semverishSrc
   swaggerMainSemveristSrcConfig: semveristConfig
+  swaggerMainSemveristSchemesConfig: semveristConfig
   pathItemsSrc: semverish
+  swaggerMainSemveristTemplatesConfig: semveristConfig
   swaggerSemverRealizations: Array<string>
+  swaggerMainSemveristSrcMolotov: {}
+  swaggerMainTemplateMolotov: {}
+  swaggerMainSchemesMolotov: {
+    schemes: {},
+    semverist: {}
+  }
 
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
@@ -82,24 +100,23 @@ module.exports = class SchemaGotSwagger {
    * @returns {SchemaGotSwagger}
    *   Returns and instance of this.
    */
-  init(swaggerSrc: semverishSrc, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions: (mainSwaggerMakerOptions | {}) = {}, pathItemsSrcOptions: pathSwaggerMakerOptions) { // eslint-disable-line max-len
+  init(swaggerSrc: semverishSrc, pathItemsSrc: semverish, config: userSgsConfig = {}, swaggerSrcOptions?: mainSwaggerMakerOptions, pathItemsSrcOptions: pathSwaggerMakerOptions) { // eslint-disable-line max-len
     // async operations including validation.
     return this.setConfig(config)
       .then(() => Promise.all([
         this.setSwaggerSrc(swaggerSrc),
       ]))
       .then(() => {
-        const tmpSrcOptions = _.get(swaggerSrcOptions, ['data', 'semveristConfig'], {});
-        return this.setSwaggerMainSemveristSrcConfig(tmpSrcOptions);
+        if (swaggerSrcOptions) {
+          return this.setSwaggerSrcConfig(swaggerSrcOptions);
+        }
+        return this.setSwaggerSrcConfig({});
       })
       .then(() => SchemaGotSwagger.createComposer(
         this.getSwaggerSrc(),
         { swaggerMain: this.getSwaggerMainSemveristSrcConfig() },
         'swaggerMain',
-        _.get(swaggerSrcOptions, ['data', 'semveristMolotovOptions'], {
-          overrides: {},
-          cocktailClasses: [],
-        })
+        this.getSwaggerMainSemveristSrcMolotov()
       ))
       .then((mainSwaggerComposer) => {
         this.setMainSwaggerComposer(mainSwaggerComposer);
@@ -107,26 +124,33 @@ module.exports = class SchemaGotSwagger {
         this.setSwaggerSemverRealizations(this.getMainSwaggerComposer().getConverterClass().getSemverRealizations()); // eslint-disable-line max-len
         return this;
       })
+      .then(() => this)
+      // Now set templates and templates composer (need to write setters)
+      // Now set schemes and schemes composer (need to write setters)
+      // return this;
+      .then(() => {
+        // Add templates and holdovers to scheme
+        // now run schemePunk for all the main swagger semverist to produce
+      })
       .then(() => this);
   }
-
 
   /**
    * Takes value and places it at all semverRealizations for this
    *   SGS under the given name.  This can be useful in creating semver
    *   objects that contain default objects like templates or schemePunk
    *   schemes.
-   *
-   * @param {string} targetName
-   *   An attribute name
    * @param {*} targetValue
    *   A value to assign to the targetName attribute at all terminal
    *   semver realizations.
    *
+   * @param {string} targetName
+   *   An attribute name
+
    * @returns {semverish}
    *   A semver shape with related attributes.
    */
-  semverizeToRealizations(targetName: string, targetValue: *) {
+  semverizeToRealizations(targetValue: *, targetName?: string = '') {
     const realizations = this.getSwaggerSemverRealizations();
     let targetInjectedSemver = {};
     realizations.forEach((semverNum) => {
@@ -148,6 +172,62 @@ module.exports = class SchemaGotSwagger {
     });
 
     return targetInjectedSemver;
+  }
+
+  /**
+   * Semverize parameters provides a uniform way to test parameters in
+   *   config because we can have 3 kinds.
+   *   1) nothing - meaning we should use defaults.
+   *   2) a semverish shape that a implementer is passing - meaning they have
+   *      explicit plans for whatever the parameter is and we should
+   *       pass through.
+   *   3) a valid parameter type to override the default.
+   *
+   * @param {(('swaggerMainTemplate' | 'schemePunkConfig'))} sgsDefaultType
+   *   The parameter type to validate against.
+   * @param {{}} value
+   *   The value of the parameter we wish to semverize.
+   * @param {semveristConfig} semveristConfiguration
+   *   Semverist configuration for this parameter if needed.
+   * @param {molotovConfig} semveristMolotov
+   *   Any applicable molotov config for this semverist.
+   * @returns {Promise<{}>}
+   *   Returns a semverized version of the passed parameter type/value.
+   */
+  semverizeParameters(
+    sgsDefaultType: ('swaggerMainTemplate' | 'SwaggerSrcSchemes'),
+    value: {},
+    semveristConfiguration: semveristConfig,
+    semveristMolotov: molotovConfig
+  ) {
+    let makeSemverish = true;
+    let tmpValue;
+    if (value) {
+      // Determine if the value is a semverish.
+      const parameterIsSemverish = semverishValidator(tmpValue);
+      if (parameterIsSemverish) {
+        makeSemverish = false;
+      }
+    }
+    // Otherwise use configurator with value to get merged defaults.
+
+    if (makeSemverish) {
+      // Now make semverish.
+      tmpValue = this.mergeConfig(value, sgsDefaultType, this.getConfig())
+        .then(preparedParameter => this.semverizeToRealizations(preparedParameter, 'swagger'));
+    }
+    else {
+      // This is either a semverist shape or semverish.
+      // So we should run semverist on it and get back
+      // the realized semver shape.
+      tmpValue = SchemaGotSwagger.createComposer(
+        value,
+        { swaggerParam: semveristConfiguration },
+        'swaggerParam',
+        semveristMolotov
+      );
+    }
+    return tmpValue;
   }
 
   /**
@@ -190,10 +270,13 @@ module.exports = class SchemaGotSwagger {
     return this.mergeConfig(config, 'Sgs', config)
       .then((finalConfig) => {
         const validConfig: sgsConfig = sgsValidator(finalConfig);
-        if (!validConfig) throw new SchemaGotSwaggerError(validConfig.errors);
+        if (!validConfig) {
+          throw new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_CONFIG_VALIDATION_ERROR} ${validConfig.errors}`); // eslint-disable-line max-len
+        }
         this.config = validConfig;
         return this;
-      });
+      })
+      .catch(e => Promise.reject(e));
   }
 
   /**
@@ -202,6 +285,132 @@ module.exports = class SchemaGotSwagger {
    */
   getConfig(): sgsConfig {
     return this.config;
+  }
+
+  /**
+   * Set configs for main swagger src production.
+   *
+   * @param {mainSwaggerMakerOptions} swaggerSourceOptions
+   *   A swagger src options parameter containing all src options.
+   * @returns {SchemaGotSwagger}
+   *   Returns and instance of this.
+   */
+  setSwaggerSrcConfig(swaggerSourceOptions: (mainSwaggerMakerOptions | {}) = {}) {
+    const mainSwaggerSourceConfig = _.get(swaggerSourceOptions, ['data', 'semveristConfig'], {});
+    const mainSwaggerTemplatesConfig = _.get(swaggerSourceOptions, ['templates', 'semveristConfig'], {});
+    const mainSwaggerSchemesConfig = _.get(swaggerSourceOptions, ['schemes', 'semveristConfig'], {});
+    const mainSemveristSrcMolotov = _.get(swaggerSourceOptions, ['data', 'semveristMolotovOptions'], {});
+    const mainSwaggerTemplatesMolotov = _.get(swaggerSourceOptions, ['templates', 'semveristMolotovOptions'], {});
+    const mainSwaggerSchemesSemveristMolotov = _.get(swaggerSourceOptions, ['schemes', 'semveristMolotovOptions'], {});
+    const mainSwaggerSchemesSchemePunkMolotov = _.get(swaggerSourceOptions, ['schemes', 'schemePunkMolotovOptions'], {});
+    // Set all semverist configs.
+    // main swagger src config
+    // templates src config
+    // schema src config
+    return this.setSwaggerMainSemveristSrcConfig(mainSwaggerSourceConfig)
+      .then(() => this.setSwaggerMainSemveristTemplatesConfig(mainSwaggerTemplatesConfig))
+      .then(() => this.setSwaggerMainSemveristSchemesConfig(mainSwaggerSchemesConfig))
+      .then(() => {
+        this.setSwaggerMainSemveristSrcMolotov(mainSemveristSrcMolotov)
+          .setSwaggerMainTemplatesMolotov(mainSwaggerTemplatesMolotov)
+          .setSwaggerMainSchemesMolotov(
+            mainSwaggerSchemesSemveristMolotov,
+            mainSwaggerSchemesSchemePunkMolotov
+          );
+        return this;
+      })
+      .catch(e => Promise.reject(e));
+  }
+
+  /**
+   * A default molotov settings provider.
+   *
+   * @param {{}} molotovValue
+   *   A molotov value or empty object.
+   * @returns {{}}
+   *   A molotov config default values object.
+   */
+  molotovTester(molotovValue: {}) {
+    let tmp = molotovValue;
+    if (!Object.keys(tmp).length) {
+      tmp = {
+        overrides: {},
+        cocktailClasses: [],
+      };
+    }
+    return tmp;
+  }
+  /**
+   * Sets swagger main semverist molotov config.
+   *
+   * @param {{}} semveristMolotov
+   *   A molotov config
+   * @returns {SchemaGotSwagger}
+   *   returns an instance of this.
+   */
+  setSwaggerMainSemveristSrcMolotov(semveristMolotov: {}) {
+    this.swaggerMainSemveristSrcMolotov = this.molotovTester(semveristMolotov);
+    return this;
+  }
+
+  /**
+   * Returns the swagger main semverist molotov config.
+   *
+   * @returns {{}}
+   *   Returns a molotov config.
+   */
+  getSwaggerMainSemveristSrcMolotov() {
+    return this.swaggerMainSemveristSrcMolotov;
+  }
+
+  /**
+   * Sets swagger main semverist template molotov config.
+   *
+   * @param {{}} semveristMolotov
+   *   A molotov config
+   * @returns {SchemaGotSwagger}
+   *   returns an instance of this.
+   */
+  setSwaggerMainTemplatesMolotov(semveristMolotov: {}) {
+    this.swaggerMainTemplateMolotov = this.molotovTester(semveristMolotov);
+    return this;
+  }
+
+  /**
+   * Returns the swagger main templates molotov config.
+   *
+   * @returns {{}}
+   *   Returns a molotov config.
+   */
+  getSwaggerMainTemplatesMolotov() {
+    return this.swaggerMainTemplateMolotov;
+  }
+  /**
+   * Sets swagger main semverist molotov config.
+   *
+   * @param {{}} semveristMolotov
+   *   A molotov config
+   * @param {{}} schemesMolotov
+   *   A molotov config
+   * @returns {SchemaGotSwagger}
+   *   returns an instance of this.
+   */
+  setSwaggerMainSchemesMolotov(semveristMolotov: {}, schemesMolotov: {}) {
+    this.swaggerMainSchemesMolotov = {
+      semverist: this.molotovTester(semveristMolotov),
+      schemes: this.molotovTester(schemesMolotov),
+    };
+    return this;
+  }
+  /**
+   * Returns the swagger main schemes molotov config.
+   * @param {("semverist" | "schemes")} type
+   *   A type of molotov config you want to return.
+   * @returns {{}}
+   *   Returns a molotov config.
+   */
+  getSwaggerMainSchemesMolotov(type: ("semverist" | "schemes")) {
+    return this.swaggerMainSchemesMolotov[type];
   }
 
   /**
@@ -219,7 +428,8 @@ module.exports = class SchemaGotSwagger {
         if (!validConfig) throw new SchemaGotSwaggerError(validConfig.errors);
         this.swaggerMainSemveristSrcConfig = finalConfig;
         return this;
-      });
+      })
+      .catch(e => Promise.reject(e));
   }
 
   /**
@@ -230,6 +440,72 @@ module.exports = class SchemaGotSwagger {
    */
   getSwaggerMainSemveristSrcConfig(): semveristConfig {
     return this.swaggerMainSemveristSrcConfig;
+  }
+
+  /**
+   * Gets the semverist config for main swagger templates.
+   *
+   * @param {semveristConfig} swaggerMainSemveristTemplatesConfig
+   *   The passed semverist config.
+   * @returns {Promise<SchemaGotSwagger>}
+   *   The semverist config for main swagger templates.
+   */
+  setSwaggerMainSemveristTemplatesConfig(swaggerMainSemveristTemplatesConfig: Promise<SchemaGotSwagger>) {
+    return this.mergeConfig(
+      swaggerMainSemveristTemplatesConfig,
+      'SwaggerSrcTemplatesSemverist',
+      this.getConfig()
+    )
+      .then((finalConfig) => {
+        const validConfig: semveristConfig = semveristConfigValidator(finalConfig);
+        if (!validConfig) throw new SchemaGotSwaggerError(validConfig.errors);
+        this.swaggerMainSemveristTemplatesConfig = finalConfig;
+        return this;
+      })
+      .catch(e => Promise.reject(e));
+  }
+
+  /**
+   * Get the semverist config for the swagger main templates.
+   *
+   * @returns {semveristConfig}
+   *   Returns the semverist config for swagger main templates.
+   */
+  getSwaggerMainSemveristTemplatesConfig() {
+    return this.swaggerMainSemveristTemplatesConfig;
+  }
+
+  /**
+   * Sets the default or overrides for the semverist config
+   *   for the main swagger schemes.
+   *
+   * @param {semveristConfig} swaggerMainSemveristSchemesConfig
+   *   A semverist config.
+   * @returns {Promise<SchemaGotSwagger>}
+   *   An instance of this.
+   */
+  setSwaggerMainSemveristSchemesConfig(swaggerMainSemveristSchemesConfig: semveristConfig): Promise<SchemaGotSwagger> {
+    return this.mergeConfig(
+      swaggerMainSemveristSchemesConfig,
+      'SwaggerSrcSchemes',
+      this.getConfig()
+    )
+      .then((finalConfig) => {
+        const validConfig: semveristConfig = semveristConfigValidator(finalConfig);
+        if (!validConfig) throw new SchemaGotSwaggerError(validConfig.errors);
+        this.swaggerMainSemveristSchemesConfig = finalConfig;
+        return this;
+      })
+      .catch(e => Promise.reject(e));
+  }
+
+  /**
+   * Returns the semverist config for the main schemes.
+   * @returns {semveristConfig}
+   *   Returns the semverist config for the main schemes.
+   */
+  getSwaggerMainSemveristSchemesConfig() {
+    return this.swaggerMainSemveristSchemesConfig;
   }
 
   /**
@@ -299,7 +575,7 @@ module.exports = class SchemaGotSwagger {
     // Validate against semverish schema.
     const semveristValidator = ajv.getSchema('http://example.com/schemas/semverishMainData.json');
     const validSemverish = semveristValidator(swaggerSrc);
-    if (!validSemverish) throw new SchemaGotSwaggerError(validSemverish.errors);
+    if (!validSemverish) throw new SchemaGotSwaggerError(validSemverish.err);
     this.swaggerSrc = swaggerSrc;
     return this;
   }
