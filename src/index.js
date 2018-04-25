@@ -1,10 +1,6 @@
 // @flow
 
-import type { molotovConfig } from 'molotov/lib/types/molotov';
-
 import type {
-  configNames,
-  molotovConfigDefaults,
   userSgsConfig,
   semverish,
   semverishSrc,
@@ -15,8 +11,6 @@ import type {
   swaggerMainData,
   mainTemplate,
 } from './types/swaggerMaker';
-
-import type { semveristConfig } from './types/semveristConfig';
 
 const configSchemas = require('./../configSchemas');
 const {
@@ -94,7 +88,11 @@ module.exports = class SchemaGotSwagger {
           },
           {
             semveristConfig: _.get(swaggerSrcOptions, ['data', 'semveristConfig'], {}),
-            semverishMolotov: _.get(swaggerSrcOptions, ['data', 'semveristMolotovOptions'], { overrides: {}, cocktailClasses: [] }),
+            semverishMolotov: _.get(
+              swaggerSrcOptions,
+              ['data', 'semveristMolotovOptions'],
+              { overrides: {}, cocktailClasses: [] }
+            ),
             desiredRealizations: this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(swaggerSrcOptions, ['data', 'desiredRealizations'], []), // eslint-disable-line max-len
             validate: true,
             swaggerVersion: this.getConfig().swaggerVersion,
@@ -115,7 +113,11 @@ module.exports = class SchemaGotSwagger {
           },
           {
             semveristConfig: _.get(swaggerSrcOptions, ['templates', 'semveristConfig'], {}),
-            semverishMolotov: _.get(swaggerSrcOptions, ['templates', 'semveristMolotovOptions'], { overrides: {}, cocktailClasses: [] }),
+            semverishMolotov: _.get(
+              swaggerSrcOptions,
+              ['templates', 'semveristMolotovOptions'],
+              { overrides: {}, cocktailClasses: [] }
+            ),
             desiredRealizations: this.getDesiredRealizations(),
             validate: true,
             swaggerVersion: this.getConfig().swaggerVersion,
@@ -131,7 +133,11 @@ module.exports = class SchemaGotSwagger {
           },
           {
             semveristConfig: _.get(swaggerSrcOptions, ['schemes', 'semveristConfig'], {}),
-            semverishMolotov: _.get(swaggerSrcOptions, ['schemes', 'semveristMolotovOptions'], { overrides: {}, cocktailClasses: [] }),
+            semverishMolotov: _.get(
+              swaggerSrcOptions,
+              ['schemes', 'semveristMolotovOptions'],
+              { overrides: {}, cocktailClasses: [] }
+            ),
             desiredRealizations: this.getDesiredRealizations(),
             validate: true,
             swaggerVersion: this.getConfig().swaggerVersion,
