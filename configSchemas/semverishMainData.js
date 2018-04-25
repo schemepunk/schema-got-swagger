@@ -1,5 +1,3 @@
-const swaggerMainData = require('./swaggerMainData');
-
 module.exports = {
   title: 'Semverish shapes',
   description: 'A semverish object is one that is organized hierarchically like a semver version number by major, minor, patch and pre-release versions', // eslint-disable-line max-len

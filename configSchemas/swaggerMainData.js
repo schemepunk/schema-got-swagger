@@ -179,8 +179,11 @@ module.exports = {
         items: {
           type: 'object',
           additionalProperties: {
-            type: 'object',
+            type: 'array',
             description: 'Items are each declarations of security schemes', // eslint-disable-line max-len
+            items: {
+              type: 'string',
+            },
           },
         },
       },

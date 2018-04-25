@@ -85,6 +85,7 @@
   "dependencies": {
     "@schemepunk/scheme-punk": "5.3.1",
     "ajv": "^6.3.0",
+    "ajv-errors": "^1.0.0",
     "js-yaml": "^3.11.0",
     "lodash": "^4.17.5",
     "molotov": "^2.1.5",

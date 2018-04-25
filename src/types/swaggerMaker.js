@@ -8,7 +8,7 @@ export type semveristJsonSchema = {};
 export type configNames = (
   "Sgs" |
   "SwaggerSrcSemverist" |
-  "swaggerMainTemplate" |
+  "SwaggerMainTemplates" |
   "SwaggerSrcTemplatesSemverist" |
   "SwaggerSrcSchemes");
 
@@ -186,7 +186,9 @@ export type swaggerMakerDefaults = {
 export type mainSwaggerMakerOptions = {
   data: {
     semveristConfig: semveristConfig,
-    semveristMolotovOptions?: molotovConfig
+    semveristMolotovOptions?: molotovConfig,
+    targetName: string,
+    desiredRealizations: Array<string>,
   },
   schemes: {
     schemes: {
@@ -195,11 +197,13 @@ export type mainSwaggerMakerOptions = {
     semveristConfig: semveristConfig,
     semveristMolotovOptions: molotovConfig,
     schemePunkMolotovOptions?: molotovConfig,
+    targetName: string,
   },
   templates: {
     semveristConfig: semveristConfig,
     templateOverrides: (mainTemplate | templateSemverish);
-    semveristMolotovOptions?: molotovConfig
+    semveristMolotovOptions?: molotovConfig,
+    targetName: string,
   }
 }
 
