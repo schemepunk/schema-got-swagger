@@ -197,7 +197,14 @@ module.exports = class SchemaGotSwagger {
     const templates = this.getSwaggerSrcTemplatesSpClass().realized;
     // For each semverRealizations
     this.getMainDataSpClass().getSemverRealizations().forEach((semverNum) => {
-      const tempSchemeArray = _.get(schemes, _.concat(semverNum.split('.'), [schemesTarget], [this.getConfig().mainSwaggerSchemeProcessName]));
+      const tempSchemeArray = _.get(
+        schemes,
+        _.concat(
+          semverNum.split('.'),
+          [schemesTarget],
+          [this.getConfig().mainSwaggerSchemeProcessName]
+        )
+      );
       tempSchemeArray.forEach((innerArray, index) => {
         if (innerArray[0].transform.plugin === 'tokenTemplateValues') {
           const tmpArray = innerArray[0];
@@ -205,11 +212,22 @@ module.exports = class SchemaGotSwagger {
           const holdOvers = _.get(tmpArray, 'holdOvers', {});
           tmpArray.holdOvers = _.merge(holdOvers, { apiSemver: semverNum });
           // Now set templates.
-          tmpArray.templateObject = _.get(templates, _.concat(semverNum.split('.'), [templatesTarget]));
+          tmpArray.templateObject = _.get(
+            templates,
+            _.concat(semverNum.split('.'), [templatesTarget])
+          );
           tempSchemeArray[index][0] = tmpArray;
         }
       });
-      _.set(schemes, _.concat(semverNum.split('.'), [schemesTarget], [this.getConfig().mainSwaggerSchemeProcessName]), tempSchemeArray);
+      _.set(
+        schemes,
+        _.concat(
+          semverNum.split('.'),
+          [schemesTarget],
+          [this.getConfig().mainSwaggerSchemeProcessName]
+        ),
+        tempSchemeArray
+      );
     });
     this.getSwaggerSrcSchemesSpClass().realized = schemes;
     // insert a holdover for the api value in the scheme.
