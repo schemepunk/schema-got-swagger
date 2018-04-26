@@ -23,7 +23,10 @@ module.exports = {
       type: 'object',
       description: 'This configuration option allows you to control whether implementation provided configuration and options are merged with default settings. By default all implementation specific configuration will be merged with Schema got swagger defaults.', // eslint-disable-line max-len
       properties: {
-        Sgs: true,
+        sgs: {
+          type: 'boolean',
+          description: 'Whether to merge sgs config.',
+        },
       },
     },
     sgsType: {

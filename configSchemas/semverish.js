@@ -3,6 +3,7 @@ module.exports = {
   description: 'A semverish object is one that is organized hierarchically like a semver version number by major, minor, patch and pre-release versions', // eslint-disable-line max-len
   $id: 'http://example.com/schemas/semverish.json',
   type: 'object',
+  minProperties: 1,
   patternProperties: {
     '^\\d+$': { // eslint-disable-line no-useless-escape
       type: 'object',

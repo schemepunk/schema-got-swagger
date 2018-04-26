@@ -121,7 +121,7 @@ module.exports = class SchemaGotSwagger {
             desiredRealizations: this.getDesiredRealizations(),
             validate: true,
             swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['templates', 'targetName'], 'swagger'),
+            targetName: _.get(swaggerSrcOptions, ['templates', 'targetName'], 'swaggerSrc'),
           }
         );
         const swaggerSrcSchemes = new SemverizeParameters(
@@ -129,7 +129,7 @@ module.exports = class SchemaGotSwagger {
           'schemePunkValidator',
           {
             dataDefaultsType: 'SwaggerSrcScheme',
-            semveristConfigDefaults: 'SwaggerSrcSchemeSemverist',
+            semveristConfigDefaults: 'SwaggerSrcSchemesSemverist',
           },
           {
             semveristConfig: _.get(swaggerSrcOptions, ['schemes', 'semveristConfig'], {}),
@@ -141,7 +141,7 @@ module.exports = class SchemaGotSwagger {
             desiredRealizations: this.getDesiredRealizations(),
             validate: true,
             swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['schemes', 'targetName'], 'swagger'),
+            targetName: _.get(swaggerSrcOptions, ['schemes', 'targetName'], 'default'),
           }
         );
         return Promise.all([
@@ -169,7 +169,7 @@ module.exports = class SchemaGotSwagger {
   setConfig(config: sgsConfig): SchemaGotSwagger {
     const validConfig: sgsConfig = sgsValidator(config);
     if (!validConfig) {
-      throw new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_CONFIG_VALIDATION_ERROR} ${validConfig.errors}`); // eslint-disable-line max-len
+      throw new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_CONFIG_VALIDATION_ERROR} ${sgsValidator.errors[0].message}`); // eslint-disable-line max-len
     }
     this.config = validConfig;
     return this;
@@ -185,7 +185,6 @@ module.exports = class SchemaGotSwagger {
 
   /**
    * Set Main Data Semverized Parameters Class.
-   *
    * @param {SemverizeParameters} mainDataSp
    *   A semverized Parameter class.
    * @returns {SchemaGotSwagger}
@@ -277,6 +276,6 @@ module.exports = class SchemaGotSwagger {
    *  Returns an sp class for the scheme punk schemes.
    */
   getSwaggerSrcSchemesSpClass() {
-    return this.templatesSp;
+    return this.schemesSp;
   }
 };

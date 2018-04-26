@@ -1,0 +1,601 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index functional Index full 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "apiBasePath": "/api",
+          "apiDescription": "An example Api for example corp.",
+          "apiHost": "example.com",
+          "apiName": "Swagger Example APi",
+          "apiVersion": "3.14.0",
+          "consumes": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "contact": Object {
+            "email": "example@example.com",
+            "name": "Dave Example",
+            "url": "http://example.com",
+          },
+          "definitions": Object {
+            "items": Object {
+              "example": Object {
+                "properties": Object {
+                  "id": Object {
+                    "format": "int64",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+              "example2": Object {
+                "properties": Object {
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+            },
+            "process": null,
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "license": Object {
+            "name": "apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+          },
+          "parameters": Object {
+            "items": Object {
+              "skipParam": Object {
+                "description": "number of items to skip",
+                "format": "int32",
+                "in": "query",
+                "name": "skip",
+                "required": true,
+                "type": "integer",
+              },
+            },
+            "process": null,
+          },
+          "produces": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "responses": Object {
+            "items": Object {
+              "GeneralError": Object {
+                "description": "General Error",
+              },
+              "IllegalInput": Object {
+                "description": "Illegal input for operation.",
+              },
+              "notFound": Object {
+                "description": "Entity not found.",
+              },
+            },
+            "process": null,
+          },
+          "schemes": Object {
+            "items": Array [
+              "https",
+              "http",
+            ],
+            "process": null,
+          },
+          "security": Object {
+            "items": Object {
+              "petstore_auth": Array [
+                "write:pets",
+                "read:pets",
+              ],
+            },
+            "process": null,
+          },
+          "securityDefinitions": Object {
+            "items": Object {
+              "api_key": Object {
+                "in": "header",
+                "name": "api_key",
+                "type": "apiKey",
+              },
+              "petstore_auth": Object {
+                "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+                "flow": "implicit",
+                "scopes": Object {
+                  "read.pets": "read your pets",
+                  "write.pets": "modify pets in your account",
+                },
+                "type": "oauth2",
+              },
+            },
+            "process": null,
+          },
+          "tags": Object {
+            "items": Array [
+              Object {
+                "description": "Pets operations",
+                "externalDocs": Object {
+                  "description": "pet docs",
+                  "url": "http://example.com/pet",
+                },
+                "name": "pet",
+              },
+              Object {
+                "description": "Vegetable",
+                "name": "carrot",
+              },
+            ],
+            "process": null,
+          },
+          "termsOfService": "",
+        },
+      },
+    },
+    "1": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "apiBasePath": "/api",
+          "apiDescription": "An example Api for example corp.",
+          "apiHost": "example.com",
+          "apiName": "Swagger Example APi",
+          "apiVersion": "3.14.0",
+          "consumes": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "contact": Object {
+            "email": "example@example.com",
+            "name": "Dave Example",
+            "url": "http://example.com",
+          },
+          "definitions": Object {
+            "items": Object {
+              "example": Object {
+                "properties": Object {
+                  "id": Object {
+                    "format": "int64",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+              "example2": Object {
+                "properties": Object {
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+            },
+            "process": null,
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "license": Object {
+            "name": "apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+          },
+          "parameters": Object {
+            "items": Object {
+              "skipParam": Object {
+                "description": "number of items to skip",
+                "format": "int32",
+                "in": "query",
+                "name": "skip",
+                "required": true,
+                "type": "integer",
+              },
+            },
+            "process": null,
+          },
+          "produces": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "responses": Object {
+            "items": Object {
+              "GeneralError": Object {
+                "description": "General Error",
+              },
+              "IllegalInput": Object {
+                "description": "Illegal input for operation.",
+              },
+              "notFound": Object {
+                "description": "Entity not found.",
+              },
+            },
+            "process": null,
+          },
+          "schemes": Object {
+            "items": Array [
+              "https",
+              "http",
+            ],
+            "process": null,
+          },
+          "security": Object {
+            "items": Object {
+              "petstore_auth": Array [
+                "write:pets",
+                "read:pets",
+              ],
+            },
+            "process": null,
+          },
+          "securityDefinitions": Object {
+            "items": Object {
+              "api_key": Object {
+                "in": "header",
+                "name": "api_key",
+                "type": "apiKey",
+              },
+              "petstore_auth": Object {
+                "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+                "flow": "implicit",
+                "scopes": Object {
+                  "read.pets": "read your pets",
+                  "write.pets": "modify pets in your account",
+                },
+                "type": "oauth2",
+              },
+            },
+            "process": null,
+          },
+          "tags": Object {
+            "items": Array [
+              Object {
+                "description": "Pets operations",
+                "externalDocs": Object {
+                  "description": "pet docs",
+                  "url": "http://example.com/pet",
+                },
+                "name": "pet",
+              },
+              Object {
+                "description": "Vegetable",
+                "name": "carrot",
+              },
+            ],
+            "process": null,
+          },
+          "termsOfService": "",
+        },
+      },
+      "1": Object {
+        "swaggerSrc": Object {
+          "apiBasePath": "/api",
+          "apiDescription": "An example Api for example corp.",
+          "apiHost": "example.com",
+          "apiName": "Swagger Example APi",
+          "apiVersion": "3.14.0",
+          "consumes": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "contact": Object {
+            "email": "example@example.com",
+            "name": "Dave Example",
+            "url": "http://example.com",
+          },
+          "definitions": Object {
+            "items": Object {
+              "example": Object {
+                "properties": Object {
+                  "id": Object {
+                    "format": "int64",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+              "example2": Object {
+                "properties": Object {
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+            },
+            "process": null,
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "license": Object {
+            "name": "apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+          },
+          "parameters": Object {
+            "items": Object {
+              "skipParam": Object {
+                "description": "number of items to skip",
+                "format": "int32",
+                "in": "query",
+                "name": "skip",
+                "required": true,
+                "type": "integer",
+              },
+            },
+            "process": null,
+          },
+          "produces": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "responses": Object {
+            "items": Object {
+              "GeneralError": Object {
+                "description": "General Error",
+              },
+              "IllegalInput": Object {
+                "description": "Illegal input for operation.",
+              },
+              "notFound": Object {
+                "description": "Entity not found.",
+              },
+            },
+            "process": null,
+          },
+          "schemes": Object {
+            "items": Array [
+              "https",
+              "http",
+            ],
+            "process": null,
+          },
+          "security": Object {
+            "items": Object {
+              "petstore_auth": Array [
+                "write:pets",
+                "read:pets",
+              ],
+            },
+            "process": null,
+          },
+          "securityDefinitions": Object {
+            "items": Object {
+              "api_key": Object {
+                "in": "header",
+                "name": "api_key",
+                "type": "apiKey",
+              },
+              "petstore_auth": Object {
+                "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+                "flow": "implicit",
+                "scopes": Object {
+                  "read.pets": "read your pets",
+                  "write.pets": "modify pets in your account",
+                },
+                "type": "oauth2",
+              },
+            },
+            "process": null,
+          },
+          "tags": Object {
+            "items": Array [
+              Object {
+                "description": "Pets operations",
+                "externalDocs": Object {
+                  "description": "pet docs",
+                  "url": "http://example.com/pet",
+                },
+                "name": "pet",
+              },
+              Object {
+                "description": "Vegetable",
+                "name": "carrot",
+              },
+            ],
+            "process": null,
+          },
+          "termsOfService": "",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Index functional Index full 2`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "processTemplates": Array [
+            Array [
+              Object {
+                "destination": Object {
+                  "target": "swaggerSource",
+                },
+                "source": Object {
+                  "plugin": "originalSchemeSource",
+                  "target": "swaggerSource",
+                },
+                "transform": Object {
+                  "json": true,
+                  "named": false,
+                  "plugin": "tokenTemplateValues",
+                  "unescape": false,
+                },
+              },
+            ],
+          ],
+        },
+      },
+    },
+    "1": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "processTemplates": Array [
+            Array [
+              Object {
+                "destination": Object {
+                  "target": "swaggerSource",
+                },
+                "source": Object {
+                  "plugin": "originalSchemeSource",
+                  "target": "swaggerSource",
+                },
+                "transform": Object {
+                  "json": true,
+                  "named": false,
+                  "plugin": "tokenTemplateValues",
+                  "unescape": false,
+                },
+              },
+            ],
+          ],
+        },
+      },
+      "1": Object {
+        "swaggerSrc": Object {
+          "processTemplates": Array [
+            Array [
+              Object {
+                "destination": Object {
+                  "target": "swaggerSource",
+                },
+                "source": Object {
+                  "plugin": "originalSchemeSource",
+                  "target": "swaggerSource",
+                },
+                "transform": Object {
+                  "json": true,
+                  "named": false,
+                  "plugin": "tokenTemplateValues",
+                  "unescape": false,
+                },
+              },
+            ],
+          ],
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Index functional Index full 3`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "basePath": "{{apiBasePath}}",
+          "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
+          "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
+          "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
+          "description": "{{apiDescription}}",
+          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}termsOfService: \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+          "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
+          "host": "{{apiHost}}",
+          "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
+          "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
+          "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
+          "responses": "{{#responses}}{{&process}}{{/responses}}",
+          "schemes": "{{#schemes}}{{&process}}{{/schemes}}",
+          "security": "{{#security}}{{&process}}{{/security}}",
+          "securityDefinitions": "{{#securityDefinitions}}{{&process}}{{/securityDefinitions}}",
+          "tags": "{{#tags}}{{&process}}{{/tags}}",
+          "termsOfService": "{{termsOfService}}",
+          "title": "{{apiName}}",
+          "version": "{{apiVersion}}",
+        },
+      },
+    },
+    "1": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "basePath": "{{apiBasePath}}",
+          "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
+          "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
+          "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
+          "description": "{{apiDescription}}",
+          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}termsOfService: \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+          "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
+          "host": "{{apiHost}}",
+          "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
+          "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
+          "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
+          "responses": "{{#responses}}{{&process}}{{/responses}}",
+          "schemes": "{{#schemes}}{{&process}}{{/schemes}}",
+          "security": "{{#security}}{{&process}}{{/security}}",
+          "securityDefinitions": "{{#securityDefinitions}}{{&process}}{{/securityDefinitions}}",
+          "tags": "{{#tags}}{{&process}}{{/tags}}",
+          "termsOfService": "{{termsOfService}}",
+          "title": "{{apiName}}",
+          "version": "{{apiVersion}}",
+        },
+      },
+      "1": Object {
+        "swaggerSrc": Object {
+          "basePath": "{{apiBasePath}}",
+          "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
+          "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
+          "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
+          "description": "{{apiDescription}}",
+          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}termsOfService: \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+          "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
+          "host": "{{apiHost}}",
+          "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
+          "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
+          "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
+          "responses": "{{#responses}}{{&process}}{{/responses}}",
+          "schemes": "{{#schemes}}{{&process}}{{/schemes}}",
+          "security": "{{#security}}{{&process}}{{/security}}",
+          "securityDefinitions": "{{#securityDefinitions}}{{&process}}{{/securityDefinitions}}",
+          "tags": "{{#tags}}{{&process}}{{/tags}}",
+          "termsOfService": "{{termsOfService}}",
+          "title": "{{apiName}}",
+          "version": "{{apiVersion}}",
+        },
+      },
+    },
+  },
+}
+`;

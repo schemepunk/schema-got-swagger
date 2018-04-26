@@ -11,9 +11,9 @@ semveristBehaviors:
   mergeStrategy: merge
   preReleasePattern: "[a-z]"
 groups:
-  swagger:
+  example:
     members:
-      - swagger
+      - example
 prereleaseOrdering: {}
 directoryFileIgnorePattern: "json$"
 converterType: default

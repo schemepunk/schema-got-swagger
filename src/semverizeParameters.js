@@ -130,10 +130,12 @@ module.exports = class SemverizeParameters<T> {
         const merged: Promise<semveristConfig> = mergeDefaults(this.semveristConfigtmp, defaults);
         return merged;
       })
-      .then(data => this.setSemveristConfig(data)
-        .prepareSemverish(this.tmpData)) // eslint-disable-line max-len
+      .then((data) => {
+        this.setSemveristConfig(data);
+        return this.prepareSemverish(this.tmpData);
+      }) // eslint-disable-line max-len
       .then((prepped) => {
-        this.preppedData = prepped;
+        this.preppedData = _.cloneDeep(prepped);
         return this;
       })
       // Now run the semverist on the data with semverist config.
@@ -223,7 +225,7 @@ module.exports = class SemverizeParameters<T> {
    *   Returns an instance of this.
    */
   validateRealizedParameters(): SemverizeParameters<T> {
-    this.semverRealizations.forEach((semverNum) => {
+    this.getSemverRealizations().forEach((semverNum) => {
       try {
         const testCase = _.get(this.realized, _.concat(semverNum.split('.'), [this.targetName]));
         this.validator(this.validatorId, testCase);
@@ -265,7 +267,7 @@ module.exports = class SemverizeParameters<T> {
         parsed.minor.toString(),
         parsed.patch.toString(),
         parsed.prerelease.join('.'),
-        targetName,
+        `${targetName}`,
       );
       targetInjectedSemver = _.setWith(
         targetInjectedSemver,

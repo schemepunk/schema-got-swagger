@@ -12,6 +12,7 @@ const DEFAULT_TYPES = {
 
 const FUNCTION_DEFAULT_TYPES = [
   'SwaggerMainTemplates',
+  'UserInput',
 ];
 
 // gets default configurations for all schemaGotSwagger options and config.
@@ -44,9 +45,9 @@ class GetDefaults<T> {
    *   It defaults to 3.0.0
    * @memberof GetDefaults
    */
-  constructor(defaultType: string, swaggerVersion?: string = '3.0.0'): void {
+  constructor(defaultType: string, swaggerVersion?: string = '2.0.0'): void {
     if (!_.has(DEFAULT_TYPES, defaultType)) {
-      throw new SchemaGotSwaggerError(DEFAULT_DID_NOT_EXIST);
+      throw new SchemaGotSwaggerError(`${DEFAULT_DID_NOT_EXIST}: ${defaultType}`);
     }
     this.defaultType = defaultType;
     this.swaggerVersion = swaggerVersion;
