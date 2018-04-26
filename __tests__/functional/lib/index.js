@@ -13,7 +13,8 @@ const config = {
   sgsType: 'semver',
   mergeConfig: {
     sgs: true
-  }
+  },
+  mainSwaggerSchemeProcessName: 'processTemplates'
 };
 
 const swaggerSrcOptions = {
@@ -47,8 +48,8 @@ describe('Index functional', () => {
       expect(sgs.getSwaggerSrcTemplatesSpClass()).toBeInstanceOf(SemverizeParameters);
       expect(sgs.getMainDataSpClass()).toBeInstanceOf(SemverizeParameters);
       expect(sgs.getMainDataSpClass().realized).toMatchSnapshot();
-      expect(sgs.getSwaggerSrcSchemesSpClass().realized).toMatchSnapshot();
       expect(sgs.getSwaggerSrcTemplatesSpClass().realized).toMatchSnapshot();
+      expect(sgs.getSwaggerSrcSchemesSpClass().realized).toMatchSnapshot();
     });
   });
 });

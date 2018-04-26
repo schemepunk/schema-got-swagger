@@ -18,7 +18,8 @@ export type sgsConfig = {
   sgsType: string,
   mergeConfig: {
     sgs: boolean
-  }
+  },
+  mainSwaggerSchemeProcessName: string
 }
 
 export type userSgsConfig = {

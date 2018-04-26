@@ -156,7 +156,7 @@ module.exports = class SchemaGotSwagger {
         swaggerSrcSchemesSp,
       ]) => this.setSwaggerSrcTemplatesSpClass(swaggerSrcTemplatesSp)
         .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp))
-      .then(() => this); // Need to blend in templates data to schemes as well as semver number for template use. Then Run schemes.
+      .then(() => this.integrateTemplatesAndSchemes()); // Need to blend in templates data to schemes as well as semver number for template use. Then Run schemes.
   }
 
   /**
@@ -171,7 +171,7 @@ module.exports = class SchemaGotSwagger {
     if (!validConfig) {
       throw new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_CONFIG_VALIDATION_ERROR} ${sgsValidator.errors[0].message}`); // eslint-disable-line max-len
     }
-    this.config = validConfig;
+    this.config = config;
     return this;
   }
 
@@ -181,6 +181,40 @@ module.exports = class SchemaGotSwagger {
    */
   getConfig(): sgsConfig {
     return this.config;
+  }
+
+  /**
+   * Integrate templates and schemas.
+   *
+   * @returns {SchemaGotSwagger}
+   *   returns an instance of this.
+   *
+   */
+  integrateTemplatesAndSchemes(): SchemaGotSwagger {
+    const schemes = this.getSwaggerSrcSchemesSpClass().realized;
+    const schemesTarget = this.getSwaggerSrcSchemesSpClass().targetName;
+    const templatesTarget = this.getSwaggerSrcTemplatesSpClass().targetName;
+    const templates = this.getSwaggerSrcTemplatesSpClass().realized;
+    // For each semverRealizations
+    this.getMainDataSpClass().getSemverRealizations().forEach((semverNum) => {
+      const tempSchemeArray = _.get(schemes, _.concat(semverNum.split('.'), [schemesTarget], [this.getConfig().mainSwaggerSchemeProcessName]));
+      tempSchemeArray.forEach((innerArray, index) => {
+        if (innerArray[0].transform.plugin === 'tokenTemplateValues') {
+          const tmpArray = innerArray[0];
+          // Set api version for templates use as a holdOver.
+          const holdOvers = _.get(tmpArray, 'holdOvers', {});
+          tmpArray.holdOvers = _.merge(holdOvers, { apiSemver: semverNum });
+          // Now set templates.
+          tmpArray.templateObject = _.get(templates, _.concat(semverNum.split('.'), [templatesTarget]));
+          tempSchemeArray[index][0] = tmpArray;
+        }
+      });
+      _.set(schemes, _.concat(semverNum.split('.'), [schemesTarget], [this.getConfig().mainSwaggerSchemeProcessName]), tempSchemeArray);
+    });
+    this.getSwaggerSrcSchemesSpClass().realized = schemes;
+    // insert a holdover for the api value in the scheme.
+    // insert the templates into the scheme.
+    return this;
   }
 
   /**
