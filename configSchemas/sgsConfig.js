@@ -22,7 +22,7 @@ module.exports = {
     mainSwaggerSchemeProcessName: {
       type: 'string',
       default: 'processTemplates',
-      description: 'Using defaults the process name under the scheme targetName is set to processTemplates. You can change it here if you provide your own schemes for the schemePunk processing of the main swagger file.',
+      description: 'Using defaults the process name under the scheme targetName is set to processTemplates. You can change it here if you provide your own schemes for the schemePunk processing of the main swagger file.', // eslint-disable-line max-len
     },
     mergeConfig: {
       type: 'object',
