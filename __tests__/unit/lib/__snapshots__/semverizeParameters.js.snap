@@ -894,9 +894,9 @@ Object {
           "converterType": "default",
           "directoryFileIgnorePattern": "json$",
           "groups": Object {
-            "swagger": Object {
+            "example": Object {
               "members": Array [
-                "swagger",
+                "example",
               ],
             },
           },
@@ -931,9 +931,9 @@ Object {
           "converterType": "default",
           "directoryFileIgnorePattern": "json$",
           "groups": Object {
-            "swagger": Object {
+            "example": Object {
               "members": Array [
-                "swagger",
+                "example",
               ],
             },
           },
