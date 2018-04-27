@@ -1,0 +1,10 @@
+processTemplates:
+  -
+    -
+      source:
+        target: swaggerSrc
+        plugin: originalSchemeSource
+      transform:
+        plugin: tokenTemplateValues
+      destination:
+        target: swaggerSrc
