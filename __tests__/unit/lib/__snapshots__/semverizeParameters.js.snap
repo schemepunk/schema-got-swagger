@@ -47,7 +47,7 @@ Object {
                 "type": "object",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "externalDocs": Object {
             "description": "Further api docs",
@@ -68,7 +68,7 @@ Object {
                 "type": "integer",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "produces": Array [
             Object {
@@ -90,14 +90,14 @@ Object {
                 "description": "Entity not found.",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "schemes": Object {
             "items": Array [
               "https",
               "http",
             ],
-            "process": null,
+            "process": [Function],
           },
           "security": Object {
             "items": Object {
@@ -106,7 +106,7 @@ Object {
                 "read:pets",
               ],
             },
-            "process": null,
+            "process": [Function],
           },
           "securityDefinitions": Object {
             "items": Object {
@@ -125,7 +125,7 @@ Object {
                 "type": "oauth2",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "tags": Object {
             "items": Array [
@@ -142,7 +142,7 @@ Object {
                 "name": "carrot",
               },
             ],
-            "process": null,
+            "process": [Function],
           },
           "termsOfService": "",
         },
@@ -192,7 +192,7 @@ Object {
                 "type": "object",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "externalDocs": Object {
             "description": "Further api docs",
@@ -213,7 +213,7 @@ Object {
                 "type": "integer",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "produces": Array [
             Object {
@@ -235,14 +235,14 @@ Object {
                 "description": "Entity not found.",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "schemes": Object {
             "items": Array [
               "https",
               "http",
             ],
-            "process": null,
+            "process": [Function],
           },
           "security": Object {
             "items": Object {
@@ -251,7 +251,7 @@ Object {
                 "read:pets",
               ],
             },
-            "process": null,
+            "process": [Function],
           },
           "securityDefinitions": Object {
             "items": Object {
@@ -270,7 +270,7 @@ Object {
                 "type": "oauth2",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "tags": Object {
             "items": Array [
@@ -287,7 +287,7 @@ Object {
                 "name": "carrot",
               },
             ],
-            "process": null,
+            "process": [Function],
           },
           "termsOfService": "",
         },
@@ -335,7 +335,7 @@ Object {
                 "type": "object",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "externalDocs": Object {
             "description": "Further api docs",
@@ -356,7 +356,7 @@ Object {
                 "type": "integer",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "produces": Array [
             Object {
@@ -378,14 +378,14 @@ Object {
                 "description": "Entity not found.",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "schemes": Object {
             "items": Array [
               "https",
               "http",
             ],
-            "process": null,
+            "process": [Function],
           },
           "security": Object {
             "items": Object {
@@ -394,7 +394,7 @@ Object {
                 "read:pets",
               ],
             },
-            "process": null,
+            "process": [Function],
           },
           "securityDefinitions": Object {
             "items": Object {
@@ -413,7 +413,7 @@ Object {
                 "type": "oauth2",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "tags": Object {
             "items": Array [
@@ -430,7 +430,7 @@ Object {
                 "name": "carrot",
               },
             ],
-            "process": null,
+            "process": [Function],
           },
           "termsOfService": "",
         },
@@ -487,7 +487,7 @@ Object {
                 "type": "object",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "externalDocs": Object {
             "description": "Further api docs",
@@ -508,7 +508,7 @@ Object {
                 "type": "integer",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "produces": Array [
             Object {
@@ -530,14 +530,14 @@ Object {
                 "description": "Entity not found.",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "schemes": Object {
             "items": Array [
               "https",
               "http",
             ],
-            "process": null,
+            "process": [Function],
           },
           "security": Object {
             "items": Object {
@@ -546,7 +546,7 @@ Object {
                 "read:pets",
               ],
             },
-            "process": null,
+            "process": [Function],
           },
           "securityDefinitions": Object {
             "items": Object {
@@ -565,7 +565,7 @@ Object {
                 "type": "oauth2",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "tags": Object {
             "items": Array [
@@ -582,7 +582,7 @@ Object {
                 "name": "carrot",
               },
             ],
-            "process": null,
+            "process": [Function],
           },
           "termsOfService": "",
         },
@@ -632,7 +632,7 @@ Object {
                 "type": "object",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "externalDocs": Object {
             "description": "Further api docs",
@@ -653,7 +653,7 @@ Object {
                 "type": "integer",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "produces": Array [
             Object {
@@ -675,14 +675,14 @@ Object {
                 "description": "Entity not found.",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "schemes": Object {
             "items": Array [
               "https",
               "http",
             ],
-            "process": null,
+            "process": [Function],
           },
           "security": Object {
             "items": Object {
@@ -691,7 +691,7 @@ Object {
                 "read:pets",
               ],
             },
-            "process": null,
+            "process": [Function],
           },
           "securityDefinitions": Object {
             "items": Object {
@@ -710,7 +710,7 @@ Object {
                 "type": "oauth2",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "tags": Object {
             "items": Array [
@@ -727,7 +727,7 @@ Object {
                 "name": "carrot",
               },
             ],
-            "process": null,
+            "process": [Function],
           },
           "termsOfService": "",
         },
@@ -775,7 +775,7 @@ Object {
                 "type": "object",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "externalDocs": Object {
             "description": "Further api docs",
@@ -796,7 +796,7 @@ Object {
                 "type": "integer",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "produces": Array [
             Object {
@@ -818,14 +818,14 @@ Object {
                 "description": "Entity not found.",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "schemes": Object {
             "items": Array [
               "https",
               "http",
             ],
-            "process": null,
+            "process": [Function],
           },
           "security": Object {
             "items": Object {
@@ -834,7 +834,7 @@ Object {
                 "read:pets",
               ],
             },
-            "process": null,
+            "process": [Function],
           },
           "securityDefinitions": Object {
             "items": Object {
@@ -853,7 +853,7 @@ Object {
                 "type": "oauth2",
               },
             },
-            "process": null,
+            "process": [Function],
           },
           "tags": Object {
             "items": Array [
@@ -870,7 +870,7 @@ Object {
                 "name": "carrot",
               },
             ],
-            "process": null,
+            "process": [Function],
           },
           "termsOfService": "",
         },

@@ -2,12 +2,9 @@ processTemplates:
   -
     -
       source:
-        target: swaggerSource
+        target: swaggerSrc
         plugin: originalSchemeSource
       transform:
         plugin: tokenTemplateValues
-        named: false
-        json: true
-        unescape: false
       destination:
-        target: swaggerSource
+        target: swaggerSrc

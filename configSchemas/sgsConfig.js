@@ -8,7 +8,7 @@ module.exports = {
     'apiType',
     'sgsType',
   ],
-  additionalProperties: false,
+  additionalProperties: true,
   properties: {
     apiType: {
       type: 'string',

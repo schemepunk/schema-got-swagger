@@ -13,11 +13,13 @@ import type {
 } from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
+const SchemeRunner = require('@schemepunk/scheme-punk/lib/SchemeRunner');
 const {
   SCHEMA_GOT_SWAGGER_CONFIG_VALIDATION_ERROR,
 } = require('./_errors');
 const {
   SchemaGotSwaggerError,
+  SchemaGotSwaggerReThrownError,
 } = require('./SchemaGotSwaggerError');
 const Ajv = require('ajv');
 const GetDefaults = require('./getDefaults');
@@ -38,6 +40,8 @@ module.exports = class SchemaGotSwagger {
   templatesSp: SemverizeParameters<mainTemplate>
   schemesSp: SemverizeParameters<schemePunkScheme>
   desiredRealizations: Array<string>
+  realizedMainSwagger: semverish
+  swaggerComposer: *
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -156,7 +160,29 @@ module.exports = class SchemaGotSwagger {
         swaggerSrcSchemesSp,
       ]) => this.setSwaggerSrcTemplatesSpClass(swaggerSrcTemplatesSp)
         .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp))
-      .then(() => this.integrateTemplatesAndSchemes()); // Need to blend in templates data to schemes as well as semver number for template use. Then Run schemes.
+      .then(() => this.integrateTemplatesAndSchemes())
+      .then(() => this.schemeRunner(this.getMainDataSpClass(), this.getSwaggerSrcSchemesSpClass()))
+      .then((realizedMainSemverish) => {
+        this.realizedMainSwagger = realizedMainSemverish;
+        // Run realizedMainSwagger through semverist.
+        this.mainDataSp.getSemverRealizations().forEach((semver) => {
+          _.set(
+            this.realizedMainSwagger,
+            _.concat(this.semverStringSplit(semver), ['swagger']),
+            JSON.parse(_.get(this.realizedMainSwagger, _.concat(this.semverStringSplit(semver), ['swagger'])))
+          );
+        });
+        return SemverizeParameters.createComposer(
+          this.realizedMainSwagger,
+          { swaggerMain: this.getConfig().sgsSemver },
+          'swaggerMain',
+          { overrides: {}, cocktailClasses: [] }
+        );
+      })
+      .then((comp) => {
+        this.swaggerComposer = comp;
+        return this;
+      });
   }
 
   /**
@@ -181,6 +207,25 @@ module.exports = class SchemaGotSwagger {
    */
   getConfig(): sgsConfig {
     return this.config;
+  }
+
+  /**
+   * Write the final swagger to object or directory.
+   *
+   * @returns {void};
+   */
+  writeSwagger(): void {
+    this.swaggerComposer.writeComposition();
+  }
+
+  /**
+   * Gets the final swagger.
+   *
+   * @returns {semverish}
+   *   A final swagger document.
+   */
+  getSwagger() {
+    return this.swaggerComposer.getComposition();
   }
 
   /**
@@ -230,6 +275,7 @@ module.exports = class SchemaGotSwagger {
       );
     });
     this.getSwaggerSrcSchemesSpClass().realized = schemes;
+    this.getSwaggerSrcSchemesSpClass().composer.setComposition(schemes);
     // insert a holdover for the api value in the scheme.
     // insert the templates into the scheme.
     return this;
@@ -329,5 +375,69 @@ module.exports = class SchemaGotSwagger {
    */
   getSwaggerSrcSchemesSpClass() {
     return this.schemesSp;
+  }
+
+  /**
+   * A schemeRunner, a way to apply schemes to data shapes.
+   *
+   * @param {SemverizeParameters} dataSp
+   *   A SemverizeParameters class for the data.
+   * @param {SemverizeParameters} schemesSp
+   *   A SemverizeParameters class for the schemes.
+   * @returns {Promise<SemverizeParameters<swaggerMainData>>}
+   *  Returns an instance of this.
+   */
+  schemeRunner(
+    dataSp: SemverizeParameters<swaggerMainData>,
+    schemesSp: SemverizeParameters<schemePunkScheme>
+  ): Promise<semverish> {
+    const schemeTransformedData = {};
+    const items = [];
+    dataSp.getSemverRealizations().forEach((semverNum) => {
+      if (_.has(
+        schemesSp.realized,
+        _.concat(this.semverStringSplit(semverNum), [schemesSp.targetName])
+      )) {
+        // We have a matching scheme. So we can move forward with
+        // schemePunk processing.
+        const schemeConfig = _.get(
+          schemesSp.realized,
+          _.concat(this.semverStringSplit(semverNum), [schemesSp.targetName])
+        );
+
+        const obj = _.get(
+          dataSp.realized,
+          _.concat(this.semverStringSplit(semverNum))
+        );
+
+        const schemeRunner = new SchemeRunner();
+
+        items.push(schemeRunner.init(_.cloneDeep(obj), _.cloneDeep(schemeConfig), { overrides: {}, cocktailClasses: [] })
+          .then(sr => sr.runScheme())
+          .then(data => _.setWith(
+            schemeTransformedData,
+            _.concat(
+              this.semverStringSplit(semverNum),
+              ['swagger']
+            ),
+            data[dataSp.targetName],
+            Object
+          )));
+      }
+    });
+    return Promise.all(items)
+      .then(() => schemeTransformedData);
+  }
+
+  /**
+   * Split a semver string into an array.
+   *
+   * @param {string} semverString
+   *   A semver string.
+   * @returns {Array<string>}
+   *   An array of semver strings.
+   */
+  semverStringSplit(semverString: string) {
+    return semverString.split('.');
   }
 };

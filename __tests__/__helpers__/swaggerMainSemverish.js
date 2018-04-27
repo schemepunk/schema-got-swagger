@@ -18,7 +18,7 @@ module.exports = {
         apiHost: 'example.com',
         apiBasePath: '/api',
         schemes: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: [
             'https',
             'http',
@@ -37,7 +37,7 @@ module.exports = {
           },
         }],
         definitions: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             example: {
               type: 'object',
@@ -62,7 +62,7 @@ module.exports = {
           },
         },
         parameters: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             skipParam: {
               name: 'skip',
@@ -75,7 +75,7 @@ module.exports = {
           },
         },
         responses: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             notFound: {
               description: 'Entity not found.',
@@ -89,7 +89,7 @@ module.exports = {
           },
         },
         securityDefinitions: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)},  // eslint-disable-line
           items: {
             api_key: {
               type: 'apiKey',
@@ -108,7 +108,7 @@ module.exports = {
           },
         },
         security: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             petstore_auth: [
               'write:pets',
@@ -117,7 +117,7 @@ module.exports = {
           },
         },
         tags: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: [
             {
               name: 'pet',
@@ -157,7 +157,7 @@ module.exports = {
         apiHost: 'example.com',
         apiBasePath: '/api',
         schemes: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: [
             'https',
             'http',
@@ -176,7 +176,7 @@ module.exports = {
           },
         }],
         definitions: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             example: {
               type: 'object',
@@ -201,7 +201,7 @@ module.exports = {
           },
         },
         parameters: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             skipParam: {
               name: 'skip',
@@ -214,7 +214,7 @@ module.exports = {
           },
         },
         responses: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             notFound: {
               description: 'Entity not found.',
@@ -228,7 +228,7 @@ module.exports = {
           },
         },
         securityDefinitions: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             api_key: {
               type: 'apiKey',
@@ -247,7 +247,7 @@ module.exports = {
           },
         },
         security: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: {
             petstore_auth: [
               'write:pets',
@@ -256,7 +256,7 @@ module.exports = {
           },
         },
         tags: {
-          process: null,
+          process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
           items: [
             {
               name: 'pet',
@@ -295,7 +295,7 @@ module.exports = {
           apiHost: 'example.com',
           apiBasePath: '/api',
           schemes: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: [
               'https',
               'http',
@@ -314,7 +314,7 @@ module.exports = {
             },
           }],
           definitions: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: {
               example: {
                 type: 'object',
@@ -339,7 +339,7 @@ module.exports = {
             },
           },
           parameters: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: {
               skipParam: {
                 name: 'skip',
@@ -352,7 +352,7 @@ module.exports = {
             },
           },
           responses: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: {
               notFound: {
                 description: 'Entity not found.',
@@ -366,7 +366,7 @@ module.exports = {
             },
           },
           securityDefinitions: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: {
               api_key: {
                 type: 'apiKey',
@@ -385,7 +385,7 @@ module.exports = {
             },
           },
           security: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: {
               petstore_auth: [
                 'write:pets',
@@ -394,7 +394,7 @@ module.exports = {
             },
           },
           tags: {
-            process: null,
+            process: function() {return JSON.stringify(this.items)}, // eslint-disable-line
             items: [
               {
                 name: 'pet',

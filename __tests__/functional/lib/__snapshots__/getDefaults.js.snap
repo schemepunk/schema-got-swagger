@@ -4,6 +4,36 @@ exports[`Get Defaults Get existing yaml file 1`] = `
 Object {
   "apiType": "jsonApi",
   "mainSwaggerSchemeProcessName": "processTemplates",
+  "sgsSemver": Object {
+    "composer": Object {
+      "composerType": "default",
+      "destination": "",
+      "priority": "default",
+    },
+    "converterType": "default",
+    "directoryFileIgnorePattern": "json$",
+    "groups": Object {
+      "example": Object {
+        "members": Array [
+          "test",
+        ],
+      },
+    },
+    "prereleaseOrdering": Object {},
+    "semverishObjectLocation": "",
+    "semveristBehaviors": Object {
+      "default": false,
+      "defaultName": "default",
+      "groups": false,
+      "inheritence": "semverImplied",
+      "lazySemverist": Object {
+        "attributes": false,
+        "preReleaseForwards": false,
+      },
+      "mergeStrategy": "merge",
+      "preReleasePattern": "[a-z]",
+    },
+  },
   "sgsType": "semver",
   "swaggerVersion": "3.0.0",
 }

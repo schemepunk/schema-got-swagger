@@ -19,7 +19,8 @@ export type sgsConfig = {
   mergeConfig: {
     sgs: boolean
   },
-  mainSwaggerSchemeProcessName: string
+  mainSwaggerSchemeProcessName: string,
+  sgsSemver: semveristConfig
 }
 
 export type userSgsConfig = {

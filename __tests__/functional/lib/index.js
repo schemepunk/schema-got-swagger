@@ -38,8 +38,8 @@ const swaggerSrcOptions = {
 const swaggerSrc = swaggerMainHelper;
 
 describe('Index functional', () => {
-  test('Index full', () => {
-    expect.assertions(7);
+  test('Index full with object output.', () => {
+    expect.assertions(8);
     const schemaGotSwagger = new SchemaGotSwagger();
     return schemaGotSwagger.init(swaggerSrc, {}, config, swaggerSrcOptions)
     .then((sgs) => {
@@ -50,6 +50,7 @@ describe('Index functional', () => {
       expect(sgs.getMainDataSpClass().realized).toMatchSnapshot();
       expect(sgs.getSwaggerSrcTemplatesSpClass().realized).toMatchSnapshot();
       expect(sgs.getSwaggerSrcSchemesSpClass().realized).toMatchSnapshot();
+      expect(sgs.getSwagger()).toMatchSnapshot();
     });
   });
 });
