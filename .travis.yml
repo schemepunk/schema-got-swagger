@@ -39,12 +39,3 @@ jobs:
       script:
         - yarn run lint
         - yarn test
-
-    - stage: release
-      node_js: 'lts/carbon'
-      script:
-        - yarn semantic-release-github
-
-    - stage: deploy
-      node_js: 'lts/carbon'
-      script: npm run npmpublish
