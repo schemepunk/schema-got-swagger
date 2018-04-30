@@ -1006,3 +1006,533 @@ Object {
   },
 }
 `;
+
+exports[`Index functional simple swagger Src Simple swagger src.. 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "apiBasePath": "/api",
+          "apiDescription": "An example Api for example corp.",
+          "apiHost": "example.com",
+          "apiName": "Swagger Example APi",
+          "consumes": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "contact": Object {
+            "email": "example@example.com",
+            "name": "Dave Example",
+            "url": "http://example.com",
+          },
+          "definitions": Object {
+            "items": Object {
+              "example": Object {
+                "properties": Object {
+                  "id": Object {
+                    "format": "int64",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+              "example2": Object {
+                "properties": Object {
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+            },
+            "process": [Function],
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "license": Object {
+            "name": "apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+          },
+          "parameters": Object {
+            "items": Object {
+              "skipParam": Object {
+                "description": "number of items to skip",
+                "format": "int32",
+                "in": "query",
+                "name": "skip",
+                "required": true,
+                "type": "integer",
+              },
+            },
+            "process": [Function],
+          },
+          "produces": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "responses": Object {
+            "items": Object {
+              "GeneralError": Object {
+                "description": "General Error",
+              },
+              "IllegalInput": Object {
+                "description": "Illegal input for operation.",
+              },
+              "notFound": Object {
+                "description": "Entity not found.",
+              },
+            },
+            "process": [Function],
+          },
+          "schemes": Object {
+            "items": Array [
+              "https",
+              "http",
+            ],
+            "process": [Function],
+          },
+          "security": Object {
+            "items": Object {
+              "petstore_auth": Array [
+                "write:pets",
+                "read:pets",
+              ],
+            },
+            "process": [Function],
+          },
+          "securityDefinitions": Object {
+            "items": Object {
+              "api_key": Object {
+                "in": "header",
+                "name": "api_key",
+                "type": "apiKey",
+              },
+              "petstore_auth": Object {
+                "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+                "flow": "implicit",
+                "scopes": Object {
+                  "read.pets": "read your pets",
+                  "write.pets": "modify pets in your account",
+                },
+                "type": "oauth2",
+              },
+            },
+            "process": [Function],
+          },
+          "tags": Object {
+            "items": Array [
+              Object {
+                "description": "Pets operations",
+                "externalDocs": Object {
+                  "description": "pet docs",
+                  "url": "http://example.com/pet",
+                },
+                "name": "pet",
+              },
+              Object {
+                "description": "Vegetable",
+                "name": "carrot",
+              },
+            ],
+            "process": [Function],
+          },
+          "termsOfService": "",
+        },
+      },
+    },
+    "2": Object {
+      "0": Object {
+        "swaggerSrc": Object {
+          "apiBasePath": "/api",
+          "apiDescription": "An example Api for example corp.",
+          "apiHost": "example.com",
+          "apiName": "Swagger Example APi",
+          "consumes": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "contact": Object {
+            "email": "example@example.com",
+            "name": "Dave Example",
+            "url": "http://example.com",
+          },
+          "definitions": Object {
+            "items": Object {
+              "example": Object {
+                "properties": Object {
+                  "id": Object {
+                    "format": "int64",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+              "example2": Object {
+                "properties": Object {
+                  "name": Object {
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+            },
+            "process": [Function],
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "license": Object {
+            "name": "apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+          },
+          "parameters": Object {
+            "items": Object {
+              "skipParam": Object {
+                "description": "number of items to skip",
+                "format": "int32",
+                "in": "query",
+                "name": "skip",
+                "required": true,
+                "type": "integer",
+              },
+            },
+            "process": [Function],
+          },
+          "produces": Array [
+            Object {
+              "mime": Object {
+                "comma": false,
+                "type": "vnd.api+json",
+              },
+            },
+          ],
+          "responses": Object {
+            "items": Object {
+              "GeneralError": Object {
+                "description": "General Error",
+              },
+              "IllegalInput": Object {
+                "description": "Illegal input for operation.",
+              },
+              "notFound": Object {
+                "description": "Entity not found.",
+              },
+            },
+            "process": [Function],
+          },
+          "schemes": Object {
+            "items": Array [
+              "https",
+              "http",
+            ],
+            "process": [Function],
+          },
+          "security": Object {
+            "items": Object {
+              "petstore_auth": Array [
+                "write:pets",
+                "read:pets",
+              ],
+            },
+            "process": [Function],
+          },
+          "securityDefinitions": Object {
+            "items": Object {
+              "api_key": Object {
+                "in": "header",
+                "name": "api_key",
+                "type": "apiKey",
+              },
+              "petstore_auth": Object {
+                "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+                "flow": "implicit",
+                "scopes": Object {
+                  "read.pets": "read your pets",
+                  "write.pets": "modify pets in your account",
+                },
+                "type": "oauth2",
+              },
+            },
+            "process": [Function],
+          },
+          "tags": Object {
+            "items": Array [
+              Object {
+                "description": "Pets operations",
+                "externalDocs": Object {
+                  "description": "pet docs",
+                  "url": "http://example.com/pet",
+                },
+                "name": "pet",
+              },
+              Object {
+                "description": "Vegetable",
+                "name": "carrot",
+              },
+            ],
+            "process": [Function],
+          },
+          "termsOfService": "",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Index functional simple swagger Src Simple swagger src.. 2`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swagger": Object {
+          "consumes": Array [
+            "vnd.api+json",
+          ],
+          "definitions": Object {
+            "example": Object {
+              "properties": Object {
+                "id": Object {
+                  "format": "int64",
+                  "type": "integer",
+                },
+                "name": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "example2": Object {
+              "properties": Object {
+                "name": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "info": Object {
+            "contact": Object {
+              "email": "example@example.com",
+              "name": "Dave Example",
+              "url": "http://example.com",
+            },
+            "license": Object {
+              "name": "apache 2.0",
+              "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+            },
+            "title": "Swagger Example APi",
+            "version": "1.0.0",
+          },
+          "parameters": Object {
+            "skipParam": Object {
+              "description": "number of items to skip",
+              "format": "int32",
+              "in": "query",
+              "name": "skip",
+              "required": true,
+              "type": "integer",
+            },
+          },
+          "paths": Object {},
+          "produces": Array [
+            "vnd.api+json",
+          ],
+          "responses": Object {
+            "GeneralError": Object {
+              "description": "General Error",
+            },
+            "IllegalInput": Object {
+              "description": "Illegal input for operation.",
+            },
+            "notFound": Object {
+              "description": "Entity not found.",
+            },
+          },
+          "schemes": Array [
+            "https",
+            "http",
+          ],
+          "security": Object {
+            "petstore_auth": Array [
+              "write:pets",
+              "read:pets",
+            ],
+          },
+          "securityDefinitions": Object {
+            "api_key": Object {
+              "in": "header",
+              "name": "api_key",
+              "type": "apiKey",
+            },
+            "petstore_auth": Object {
+              "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+              "flow": "implicit",
+              "scopes": Object {
+                "read.pets": "read your pets",
+                "write.pets": "modify pets in your account",
+              },
+              "type": "oauth2",
+            },
+          },
+          "swagger": "2.0",
+          "tags": Array [
+            Object {
+              "description": "Pets operations",
+              "externalDocs": Object {
+                "description": "pet docs",
+                "url": "http://example.com/pet",
+              },
+              "name": "pet",
+            },
+            Object {
+              "description": "Vegetable",
+              "name": "carrot",
+            },
+          ],
+        },
+      },
+    },
+    "2": Object {
+      "0": Object {
+        "swagger": Object {
+          "consumes": Array [
+            "vnd.api+json",
+          ],
+          "definitions": Object {
+            "example": Object {
+              "properties": Object {
+                "id": Object {
+                  "format": "int64",
+                  "type": "integer",
+                },
+                "name": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "example2": Object {
+              "properties": Object {
+                "name": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "info": Object {
+            "contact": Object {
+              "email": "example@example.com",
+              "name": "Dave Example",
+              "url": "http://example.com",
+            },
+            "license": Object {
+              "name": "apache 2.0",
+              "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+            },
+            "title": "Swagger Example APi",
+            "version": "1.2.0",
+          },
+          "parameters": Object {
+            "skipParam": Object {
+              "description": "number of items to skip",
+              "format": "int32",
+              "in": "query",
+              "name": "skip",
+              "required": true,
+              "type": "integer",
+            },
+          },
+          "paths": Object {},
+          "produces": Array [
+            "vnd.api+json",
+          ],
+          "responses": Object {
+            "GeneralError": Object {
+              "description": "General Error",
+            },
+            "IllegalInput": Object {
+              "description": "Illegal input for operation.",
+            },
+            "notFound": Object {
+              "description": "Entity not found.",
+            },
+          },
+          "schemes": Array [
+            "https",
+            "http",
+          ],
+          "security": Object {
+            "petstore_auth": Array [
+              "write:pets",
+              "read:pets",
+            ],
+          },
+          "securityDefinitions": Object {
+            "api_key": Object {
+              "in": "header",
+              "name": "api_key",
+              "type": "apiKey",
+            },
+            "petstore_auth": Object {
+              "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+              "flow": "implicit",
+              "scopes": Object {
+                "read.pets": "read your pets",
+                "write.pets": "modify pets in your account",
+              },
+              "type": "oauth2",
+            },
+          },
+          "swagger": "2.0",
+          "tags": Array [
+            Object {
+              "description": "Pets operations",
+              "externalDocs": Object {
+                "description": "pet docs",
+                "url": "http://example.com/pet",
+              },
+              "name": "pet",
+            },
+            Object {
+              "description": "Vegetable",
+              "name": "carrot",
+            },
+          ],
+        },
+      },
+    },
+  },
+}
+`;
