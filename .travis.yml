@@ -24,10 +24,3 @@ jobs:
       script:
         - yarn run lint
         - yarn test
-        - yarn run coveralls
-
-    -  stage: test
-      node_js: 'lts/boron'
-      script:
-        - yarn run lint
-        - yarn test
