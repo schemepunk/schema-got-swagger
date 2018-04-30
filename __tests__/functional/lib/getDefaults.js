@@ -1,6 +1,6 @@
 'use strict';
 
-const GetDefaults = require('./../../../lib/GetDefaults');
+const GetDefaults = require('./../../../lib/getDefaults');
 const _ = require('lodash');
 const { SchemaGotSwaggerError } = require('./../../lib/SchemaGotSwaggerError');
 
