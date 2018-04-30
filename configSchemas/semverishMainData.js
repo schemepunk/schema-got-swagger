@@ -17,7 +17,7 @@ module.exports = {
         },
         apiVersion: {
           type: 'string',
-          description: 'A semantic version string. You can also use the magic value in your template apiSemver to use dynamically created apiVersion.',
+          description: 'A semantic version string an automatic `apiSemver` value also exists.',
         },
         apiDescription: {
           type: 'string',
