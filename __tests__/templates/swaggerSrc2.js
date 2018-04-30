@@ -14,7 +14,7 @@ const data = new Promise((resolve, reject) => {
 
 const swagger2Template = require('./../../templates/swaggerSrc/2/0/0/swagger');
 
-describe('Configurator', () => {
+describe('Main Swagger template tests.', () => {
   beforeEach(() => {
     tmpMocks.forEach(mock => mock.mockRestore());
     tmpMocks = [];
