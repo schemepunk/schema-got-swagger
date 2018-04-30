@@ -10,7 +10,6 @@ Object {
           "apiDescription": "An example Api for example corp.",
           "apiHost": "example.com",
           "apiName": "Swagger Example APi",
-          "apiVersion": "3.14.0",
           "consumes": Array [
             Object {
               "mime": Object {
@@ -155,7 +154,6 @@ Object {
           "apiDescription": "An example Api for example corp.",
           "apiHost": "example.com",
           "apiName": "Swagger Example APi",
-          "apiVersion": "3.14.0",
           "consumes": Array [
             Object {
               "mime": Object {
@@ -298,7 +296,6 @@ Object {
           "apiDescription": "An example Api for example corp.",
           "apiHost": "example.com",
           "apiName": "Swagger Example APi",
-          "apiVersion": "3.14.0",
           "consumes": Array [
             Object {
               "mime": Object {
@@ -464,7 +461,7 @@ Object {
           "tags": "{{#tags}}{{&process}}{{/tags}}",
           "termsOfService": "{{termsOfService}}",
           "title": "{{apiName}}",
-          "version": "{{apiVersion}}",
+          "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
         },
       },
     },
@@ -489,7 +486,7 @@ Object {
           "tags": "{{#tags}}{{&process}}{{/tags}}",
           "termsOfService": "{{termsOfService}}",
           "title": "{{apiName}}",
-          "version": "{{apiVersion}}",
+          "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
         },
       },
       "1": Object {
@@ -512,7 +509,7 @@ Object {
           "tags": "{{#tags}}{{&process}}{{/tags}}",
           "termsOfService": "{{termsOfService}}",
           "title": "{{apiName}}",
-          "version": "{{apiVersion}}",
+          "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
         },
       },
     },
@@ -558,7 +555,7 @@ Object {
                   "tags": "{{#tags}}{{&process}}{{/tags}}",
                   "termsOfService": "{{termsOfService}}",
                   "title": "{{apiName}}",
-                  "version": "{{apiVersion}}",
+                  "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
                 },
                 "transform": Object {
                   "plugin": "tokenTemplateValues",
@@ -604,7 +601,7 @@ Object {
                   "tags": "{{#tags}}{{&process}}{{/tags}}",
                   "termsOfService": "{{termsOfService}}",
                   "title": "{{apiName}}",
-                  "version": "{{apiVersion}}",
+                  "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
                 },
                 "transform": Object {
                   "plugin": "tokenTemplateValues",
@@ -648,7 +645,7 @@ Object {
                   "tags": "{{#tags}}{{&process}}{{/tags}}",
                   "termsOfService": "{{termsOfService}}",
                   "title": "{{apiName}}",
-                  "version": "{{apiVersion}}",
+                  "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
                 },
                 "transform": Object {
                   "plugin": "tokenTemplateValues",
@@ -709,7 +706,7 @@ Object {
               "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
             },
             "title": "Swagger Example APi",
-            "version": "3.14.0",
+            "version": "1.0.0",
           },
           "parameters": Object {
             "skipParam": Object {
@@ -823,7 +820,7 @@ Object {
               "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
             },
             "title": "Swagger Example APi",
-            "version": "3.14.0",
+            "version": "1.1.0",
           },
           "parameters": Object {
             "skipParam": Object {
@@ -935,7 +932,7 @@ Object {
               "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
             },
             "title": "Swagger Example APi",
-            "version": "3.14.0",
+            "version": "1.1.1",
           },
           "parameters": Object {
             "skipParam": Object {

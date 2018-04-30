@@ -169,7 +169,10 @@ module.exports = class SchemaGotSwagger {
           _.set(
             this.realizedMainSwagger,
             _.concat(this.semverStringSplit(semver), ['swagger']),
-            JSON.parse(_.get(this.realizedMainSwagger, _.concat(this.semverStringSplit(semver), ['swagger'])))
+            JSON.parse(_.get(
+              this.realizedMainSwagger,
+              _.concat(this.semverStringSplit(semver), ['swagger'])
+            ))
           );
         });
         return SemverizeParameters.createComposer(
@@ -274,8 +277,10 @@ module.exports = class SchemaGotSwagger {
         tempSchemeArray
       );
     });
-    this.getSwaggerSrcSchemesSpClass().realized = schemes;
-    this.getSwaggerSrcSchemesSpClass().composer.setComposition(schemes);
+    const tempSpClass = this.getSwaggerSrcSchemesSpClass();
+    tempSpClass.realized = schemes;
+    tempSpClass.composer.setComposition(schemes);
+    this.setSwaggerSrcSchemesSpClass(tempSpClass);
     // insert a holdover for the api value in the scheme.
     // insert the templates into the scheme.
     return this;
@@ -412,7 +417,11 @@ module.exports = class SchemaGotSwagger {
 
         const schemeRunner = new SchemeRunner();
 
-        items.push(schemeRunner.init(_.cloneDeep(obj), _.cloneDeep(schemeConfig), { overrides: {}, cocktailClasses: [] })
+        items.push(schemeRunner.init(
+          _.cloneDeep(obj),
+          _.cloneDeep(schemeConfig),
+          { overrides: {}, cocktailClasses: [] }
+        )
           .then(sr => sr.runScheme())
           .then(data => _.setWith(
             schemeTransformedData,

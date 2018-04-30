@@ -2,7 +2,7 @@
 module.exports = {
   title: '{{apiName}}',
   description: '{{apiDescription}}',
-  version: '{{apiVersion}}',
+  version: '{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}',
   termsOfService: '{{termsOfService}}',
   contact: '{{=<% %>=}}{<%={{ }}=%> "name": "{{contact.name}}", "url": "{{&contact.url}}", "email": "{{contact.email}}" {{=<% %>=}}}<%={{ }}=%>', // eslint-disable-line max-len
   license: '{{=<% %>=}}{ "name": "<%license.name%>", "url": "<%&license.url%>"}<%={{ }}=%>',
