@@ -6,7 +6,6 @@ module.exports = {
   additionalProperties: false,
   required: [
     'apiName',
-    'apiVersion',
   ],
   properties: {
     apiName: {

@@ -274,8 +274,10 @@ module.exports = class SchemaGotSwagger {
         tempSchemeArray
       );
     });
-    this.getSwaggerSrcSchemesSpClass().realized = schemes;
-    this.getSwaggerSrcSchemesSpClass().composer.setComposition(schemes);
+    const tempSpClass = this.getSwaggerSrcSchemesSpClass();
+    tempSpClass.realized = schemes;
+    tempSpClass.composer.setComposition(schemes);
+    this.setSwaggerSrcSchemesSpClass(tempSpClass);
     // insert a holdover for the api value in the scheme.
     // insert the templates into the scheme.
     return this;
