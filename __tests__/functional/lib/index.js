@@ -1,9 +1,9 @@
 'use strict';
 
-const SchemaGotSwagger = require('../../../lib/index');
-const SemverizeParameters = require('../../../lib/semverizeParameters');
-const { SchemaGotSwaggerError } = require('../../../lib/SchemaGotSwaggerError');
-const swaggerMainHelper = require('../../__helpers__/swaggerMainSemverish');
+const SchemaGotSwagger = require('./../../../lib/index');
+const SemverizeParameters = require('./../../../lib/semverizeParameters');
+const { SchemaGotSwaggerError } = require('./../../../lib/SchemaGotSwaggerError');
+const swaggerMainHelper = require('./../../__helpers__/swaggerMainSemverish');
 
 let tmpMocks = [];
 
