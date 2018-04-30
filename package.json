@@ -21,7 +21,7 @@
     "travis-deploy-once": "travis-deploy-once",
     "coveralls": "cat ./__coverage__/lcov.info | coveralls"
   },
-  "main": "index.js",
+  "main": "./lib/index.js",
   "repository": "git@github.com:schemepunk/schema-got-swagger.git",
   "author": "David Diers <david.diers@fourkitchens.com>",
   "license": "MIT",
