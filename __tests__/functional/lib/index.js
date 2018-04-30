@@ -54,3 +54,21 @@ describe('Index functional', () => {
     });
   });
 });
+
+describe('Index functional simple swagger Src', () => {
+  test('Simple swagger src..', () => {
+    expect.assertions(6);
+    const schemaGotSwagger = new SchemaGotSwagger();
+    schemaGotSwagger.setDesiredRealizations(['1.0.0', '1.2.0'])
+    return schemaGotSwagger.init(swaggerSrc[1][0], {}, config, swaggerSrcOptions)
+    .then((sgs) => {
+      expect(sgs).toBeInstanceOf(SchemaGotSwagger)
+      expect(sgs.getSwaggerSrcSchemesSpClass()).toBeInstanceOf(SemverizeParameters);
+      expect(sgs.getSwaggerSrcTemplatesSpClass()).toBeInstanceOf(SemverizeParameters);
+      expect(sgs.getMainDataSpClass()).toBeInstanceOf(SemverizeParameters);
+      expect(sgs.getMainDataSpClass().realized).toMatchSnapshot();
+      expect(sgs.getSwagger()).toMatchSnapshot();
+    });
+  });
+});
+
