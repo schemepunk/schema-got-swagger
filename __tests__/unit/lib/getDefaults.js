@@ -1,4 +1,4 @@
-const GetDefaults = require('../../../lib/GetDefaults');
+const GetDefaults = require('./../../../lib/GetDefaults');
 const _ = require('lodash');
 const { SchemaGotSwaggerError, SchemaGotSwaggerReThrownError } = require('../../../lib/SchemaGotSwaggerError');
 
