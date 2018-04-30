@@ -1,6 +1,6 @@
 const GetDefaults = require('./../../../lib/GetDefaults');
 const _ = require('lodash');
-const { SchemaGotSwaggerError, SchemaGotSwaggerReThrownError } = require('../../../lib/SchemaGotSwaggerError');
+const { SchemaGotSwaggerError, SchemaGotSwaggerReThrownError } = require('./../../../lib/SchemaGotSwaggerError');
 
 let tmpMocks = [];
 

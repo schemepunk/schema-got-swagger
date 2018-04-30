@@ -1,7 +1,7 @@
 'use strict';
 
-const mergeDefaults = require('../../../lib/mergeDefaults');
-const { SchemaGotSwaggerError } = require('../../lib/SchemaGotSwaggerError');
+const mergeDefaults = require('./../../../lib/mergeDefaults');
+const { SchemaGotSwaggerError } = require('./../../lib/SchemaGotSwaggerError');
 
 describe('Merge Defaults', () => {
   test('Merge', () => {
