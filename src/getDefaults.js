@@ -26,6 +26,7 @@ const {
   DEFAULT_DID_NOT_EXIST,
 } = require('./_errors');
 const swaggerMainTemplates = require('./../templates/swaggerSrc');
+const swaggerPathsTemplates = require('./../templates/swaggerPaths');
 // load up yaml.
 
 /**
@@ -94,13 +95,40 @@ class GetDefaults<T> {
    * @memberof Configurator
    */
   getSwaggerMainTemplatesDefaults(): Promise<T> {
+    return this.getSwaggerTemplateYaml(swaggerMainTemplates);
+  }
+
+  /**
+   * Gets the main swaggerSrc template defaults.  This is not a yaml
+   *   file but a js file and the pathing is a little different.
+   *
+   * @returns {Promise<mainTemplate>}
+   *   A swagger template appropriate to the version of swagger
+   *   you are targeting.
+   * @memberof Configurator
+   */
+  getSwaggerPathsTemplatesDefaults(): Promise<T> {
+    return this.getSwaggerTemplateYaml(swaggerPathsTemplates);
+  }
+
+  /**
+   * Gets swagger template yaml.
+   *
+   * @param {Object} defaults
+   *   An object containing templates for different versions of swagger.
+   * @returns {Promise<T>}
+   *   Returns a templateData bearing promise.
+   * @memberof GetDefaults
+   */
+  getSwaggerTemplateYaml(defaults: Object): Promise<T> {
     return Promise.resolve(_.get(
-      swaggerMainTemplates,
+      defaults,
       `swagger_${this.swaggerVersion.split('.').join('_')}`,
-      swaggerMainTemplates.swagger_2_0_0
+      defaults.swagger_2_0_0
     ))
       .then(data => data);
   }
+
 
   /**
    * Unifies setting of defaults for
