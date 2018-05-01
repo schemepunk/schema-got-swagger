@@ -85,17 +85,25 @@ module.exports = class SchemaGotSwagger {
       .then((sgsMergedConfig) => {
         this.setConfig(sgsMergedConfig);
         // Create a swaggerSrc semverize parameters.
-        const tmpDesired = this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(swaggerSrcOptions, ['data', 'desiredRealizations'], []);
+        const tmpDesired = this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(
+          swaggerSrcOptions,
+          ['data', 'desiredRealizations'],
+          []
+        );
         this.setDesiredRealizations(tmpDesired);
         _.set(swaggerSrcOptions, ['data', 'data'], swaggerSrc);
-        const swaggerSrcSp: SemverizeParameters<swaggerMainData> = this.spMaker('data', 'swaggerSrc', swaggerSrcOptions);
+        const swaggerSrcSp: SemverizeParameters<swaggerMainData> = this.spMaker(
+          'data',
+          'swaggerSrc',
+          swaggerSrcOptions
+        );
         return swaggerSrcSp.init();
       })
       .then(swaggerMain => this.setMainDataSpClass(swaggerMain)
         .setDesiredRealizations(this.getMainDataSpClass().getSemverRealizations()))
       .then(() => {
-        const swaggerSrcTemplates = this.spMaker('templates', 'swaggerSrc', swaggerSrcOptions);
-        const swaggerSrcSchemes = this.spMaker('schemes', 'swaggerSrc', swaggerSrcOptions);
+        const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker('templates', 'swaggerSrc', swaggerSrcOptions);
+        const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker('schemes', 'swaggerSrc', swaggerSrcOptions);
         return Promise.all([
           swaggerSrcTemplates.init(),
           // Create a swagger src templates semverize parameters
@@ -404,20 +412,19 @@ module.exports = class SchemaGotSwagger {
   /**
    * Sp maker instantiates a semverize Parameter class.
    *
-   * @param {string} [configNameSpace='templates']
-   *  a
-   * @param {string} [sgsDataType ='swaggerSrc']
-   *  a
-   * @param {string} [options={}]
-   *  a
-   *  a
+   * @param {configNameSpace} configNameSpaceType
+   *   A config name space, data, templates, or schemes.
+   * @param {sgsDataType} sgsDataTypeName
+   *   A sgs data type name swaggerSrc or paths.
+   * @param {*} options
+   *   An options object.
    * @returns {SemverizeParameters}
    *  A sp.
    */
   spMaker(
     configNameSpaceType: configNameSpace,
     sgsDataTypeName: sgsDataType,
-    options: mainSwaggerMakerOptions
+    options: *
   ) {
     if (!_.has(options, [configNameSpaceType, configNameSpaceType])) {
       throw new SchemaGotSwaggerError(`Bad config for ${sgsDataTypeName} and ${configNameSpaceType}`); // eslint-disable-line max-len
