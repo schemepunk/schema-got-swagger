@@ -92,7 +92,7 @@ describe('Setters', () => {
       {test: 'example'},
       'UserInput'
     );
-    expect(() => semverizeParameters.setSemveristConfig({nope: 'nope'})).toThrow(SchemaGotSwaggerError);
+    expect(() => semverizeParameters.setSemveristConfig({nope: 'nope'})).toThrow(Array);
   });
   test('Set semverize Realizations with good realizations.', () => {
     expect.assertions(2);
