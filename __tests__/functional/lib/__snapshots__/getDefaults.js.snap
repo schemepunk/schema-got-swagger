@@ -57,7 +57,7 @@ Object {
   "security": "{{#security}}{{&process}}{{/security}}",
   "securityDefinitions": "{{#securityDefinitions}}{{&process}}{{/securityDefinitions}}",
   "tags": "{{#tags}}{{&process}}{{/tags}}",
-  "termsOfService": "{{termsOfService}}",
+  "termsOfService": "{{&termsOfService}}",
   "title": "{{apiName}}",
   "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
 }
