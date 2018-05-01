@@ -59,6 +59,6 @@ Object {
   "tags": "{{#tags}}{{&process}}{{/tags}}",
   "termsOfService": "{{termsOfService}}",
   "title": "{{apiName}}",
-  "version": "{{apiVersion}}",
+  "version": "{{#apiVersion}}{{apiVersion}}{{/apiVersion}}{{^apiVersion}}{{apiSemver}}{{/apiVersion}}",
 }
 `;

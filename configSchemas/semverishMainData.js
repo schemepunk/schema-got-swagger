@@ -9,7 +9,6 @@ module.exports = {
       additionalProperties: false,
       required: [
         'apiName',
-        'apiVersion',
       ],
       properties: {
         apiName: {
@@ -18,7 +17,7 @@ module.exports = {
         },
         apiVersion: {
           type: 'string',
-          description: 'A semantic version string.',
+          description: 'A semantic version string an automatic `apiSemver` value also exists.',
         },
         apiDescription: {
           type: 'string',

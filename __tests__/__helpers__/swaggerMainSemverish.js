@@ -3,7 +3,6 @@ module.exports = {
     0: {
       swaggerSrc: {
         apiName: 'Swagger Example APi',
-        apiVersion: '3.14.0',
         apiDescription: 'An example Api for example corp.',
         termsOfService: '',
         contact: {
@@ -142,7 +141,6 @@ module.exports = {
     1: {
       swaggerSrc: {
         apiName: 'Swagger Example APi',
-        apiVersion: '3.14.0',
         apiDescription: 'An example Api for example corp.',
         termsOfService: '',
         contact: {
@@ -280,7 +278,6 @@ module.exports = {
       1: {
         swaggerSrc: {
           apiName: 'Swagger Example APi',
-          apiVersion: '3.14.0',
           apiDescription: 'An example Api for example corp.',
           termsOfService: '',
           contact: {

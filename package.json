@@ -16,12 +16,11 @@
     "lint": "eslint .",
     "flowstatus": "./node_modules/.bin/flow status",
     "flowremove": "flow-remove-types -p src -i .test.js -d lib",
-    "flowgen": "flow gen-flow-files ./src/foo.js > ./dist/foo.js.flow",
     "flowstop": "flow stop",
     "travis-deploy-once": "travis-deploy-once",
     "coveralls": "cat ./__coverage__/lcov.info | coveralls"
   },
-  "main": "index.js",
+  "main": "./lib/index.js",
   "repository": "git@github.com:schemepunk/schema-got-swagger.git",
   "author": "David Diers <david.diers@fourkitchens.com>",
   "license": "MIT",
@@ -66,10 +65,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
+        "branches": 84,
+        "functions": 94,
+        "lines": 97,
+        "statements": 97
       }
     },
     "testEnvironment": "node",
@@ -83,7 +82,7 @@
     ]
   },
   "dependencies": {
-    "@schemepunk/scheme-punk": "5.3.1",
+    "@schemepunk/scheme-punk": "5.3.2",
     "ajv": "^6.3.0",
     "ajv-errors": "^1.0.0",
     "js-yaml": "^3.11.0",

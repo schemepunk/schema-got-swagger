@@ -130,8 +130,8 @@ module.exports = class SemverizeParameters<T> {
         const merged: Promise<semveristConfig> = mergeDefaults(this.semveristConfigtmp, defaults);
         return merged;
       })
-      .then((data) => {
-        this.setSemveristConfig(data);
+      .then((mergedConfig) => {
+        this.setSemveristConfig(mergedConfig);
         return this.prepareSemverish(this.tmpData);
       }) // eslint-disable-line max-len
       .then((prepped) => {
@@ -319,7 +319,7 @@ module.exports = class SemverizeParameters<T> {
     }
     catch (e) {
       // This did not validate. It is not semverish.
-      return this.semverizeParameters(value);
+      return this.semverizeParameters(_.get(value, this.targetName, value));
     }
   }
 
