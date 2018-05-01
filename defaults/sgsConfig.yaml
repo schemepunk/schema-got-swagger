@@ -2,3 +2,27 @@
 swaggerVersion: 3.0.0 # or 2.0.0
 apiType: jsonApi # or custom
 sgsType: semver # or file
+mainSwaggerSchemeProcessName: processTemplates
+sgsSemver:
+  semveristBehaviors:
+    inheritence: semverImplied
+    lazySemverist:
+      preReleaseForwards: false
+      attributes: false
+    default: false
+    defaultName: default
+    groups: false
+    mergeStrategy: merge
+    preReleasePattern: "[a-z]"
+  groups:
+    example:
+      members:
+        - test
+  prereleaseOrdering: {}
+  directoryFileIgnorePattern: "json$"
+  converterType: default
+  semverishObjectLocation: ""
+  composer:
+    composerType: default  # can be default (object) or directory
+    destination: ""
+    priority: default

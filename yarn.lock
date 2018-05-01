@@ -227,9 +227,9 @@
     node-fetch "^2.1.1"
     url-template "^2.0.8"
 
-"@schemepunk/scheme-punk@5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@schemepunk/scheme-punk/-/scheme-punk-5.3.0.tgz#e6aa68a29a4980be4b729175e3c6eaa2507c6ba2"
+"@schemepunk/scheme-punk@5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@schemepunk/scheme-punk/-/scheme-punk-5.3.2.tgz#d2fe0be5308eb45c06f6cff75baf0189039aa937"
   dependencies:
     fs-extra "^5.0.0"
     lodash "^4.16.4"
@@ -353,6 +353,10 @@ aggregate-error@^1.0.0:
   dependencies:
     clean-stack "^1.0.0"
     indent-string "^3.0.0"
+
+ajv-errors@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.0.tgz#ecf021fa108fd17dfb5e6b383f2dd233e31ffc59"
 
 ajv-keywords@^2.1.0:
   version "2.1.1"
