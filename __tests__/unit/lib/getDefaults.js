@@ -17,7 +17,7 @@ describe('Get Defaults Unit', () => {
   });
   test('Problem with fs will throw.', () => {
     expect.assertions(1);
-    const getDefaults = new GetDefaults('SwaggerMainTemplates', '2.0.0');
+    const getDefaults = new GetDefaults('swaggerSrctemplates', '2.0.0');
     return getDefaults.promiseYamlRetrieval('nope')
       .catch(e => expect(e).toBeInstanceOf(SchemaGotSwaggerReThrownError))
   });

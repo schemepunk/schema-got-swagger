@@ -52,10 +52,10 @@ describe('Basic functional swagger main data', () => {
     expect.assertions(1);
     const semverizeParameters = new SemverizeParameters(
       semverishTest,
-      'swaggerMainSrcValidator',
+      'swaggerSrcdataValidator',
       {
-        dataDefaultsType: 'SwaggerSrcSchemes',
-        semveristConfigDefaults: 'SgsSemverist'
+        dataDefaultsType: 'swaggerSrcsdata',
+        semveristConfigDefaults: 'swaggerSrcdataSemverist'
       },
       {
         semveristConfig: semveristToPass,

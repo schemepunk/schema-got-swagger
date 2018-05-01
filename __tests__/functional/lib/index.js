@@ -21,7 +21,6 @@ const swaggerSrcOptions = {
   data: {
     semveristConfig: {},
     targetName: 'swaggerSrc',
-    desiredRealizations: [],
   },
   schemes: {
     schemes: {},
@@ -30,7 +29,7 @@ const swaggerSrcOptions = {
   },
   templates: {
     semveristConfig: {},
-    templateOverrides: {},
+    templates: {},
     targetName: 'swaggerSrc'
   }
 };

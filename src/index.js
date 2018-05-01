@@ -10,6 +10,8 @@ import type {
   schemePunkScheme,
   swaggerMainData,
   mainTemplate,
+  sgsDataType,
+  configNameSpace,
 } from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
@@ -73,7 +75,7 @@ module.exports = class SchemaGotSwagger {
     swaggerSrcOptions?: mainSwaggerMakerOptions,
     pathItemsSrcOptions: pathSwaggerMakerOptions
   ): Promise<SchemaGotSwagger> {
-    const getterDefaults: GetDefaults<sgsConfig> = new GetDefaults('Sgs'); // eslint-disable-line max-len
+    const getterDefaults: GetDefaults<sgsConfig> = new GetDefaults('sgs'); // eslint-disable-line max-len
 
     return getterDefaults.getDefaults()
       .then((defaults) => {
@@ -83,71 +85,17 @@ module.exports = class SchemaGotSwagger {
       .then((sgsMergedConfig) => {
         this.setConfig(sgsMergedConfig);
         // Create a swaggerSrc semverize parameters.
-        const swaggerSrcSp: SemverizeParameters<swaggerMainData> = new SemverizeParameters(
-          swaggerSrc,
-          'swaggerMainSrcValidator',
-          {
-            dataDefaultsType: 'UserInput',
-            semveristConfigDefaults: 'SgsSemverist',
-          },
-          {
-            semveristConfig: _.get(swaggerSrcOptions, ['data', 'semveristConfig'], {}),
-            semverishMolotov: _.get(
-              swaggerSrcOptions,
-              ['data', 'semveristMolotovOptions'],
-              { overrides: {}, cocktailClasses: [] }
-            ),
-            desiredRealizations: this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(swaggerSrcOptions, ['data', 'desiredRealizations'], []), // eslint-disable-line max-len
-            validate: true,
-            swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['data', 'targetName'], 'swaggerSrc'),
-          }
-        );
+        const tmpDesired = this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(swaggerSrcOptions, ['data', 'desiredRealizations'], []);
+        this.setDesiredRealizations(tmpDesired);
+        _.set(swaggerSrcOptions, ['data', 'data'], swaggerSrc);
+        const swaggerSrcSp: SemverizeParameters<swaggerMainData> = this.spMaker('data', 'swaggerSrc', swaggerSrcOptions);
         return swaggerSrcSp.init();
       })
       .then(swaggerMain => this.setMainDataSpClass(swaggerMain)
         .setDesiredRealizations(this.getMainDataSpClass().getSemverRealizations()))
       .then(() => {
-        const swaggerSrcTemplates = new SemverizeParameters(
-          _.get(swaggerSrcOptions, ['templates', 'templatesOverrides'], {}),
-          'templateValidator',
-          {
-            dataDefaultsType: 'SwaggerMainTemplates',
-            semveristConfigDefaults: 'SwaggerSrcTemplates',
-          },
-          {
-            semveristConfig: _.get(swaggerSrcOptions, ['templates', 'semveristConfig'], {}),
-            semverishMolotov: _.get(
-              swaggerSrcOptions,
-              ['templates', 'semveristMolotovOptions'],
-              { overrides: {}, cocktailClasses: [] }
-            ),
-            desiredRealizations: this.getDesiredRealizations(),
-            validate: true,
-            swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['templates', 'targetName'], 'swaggerSrc'),
-          }
-        );
-        const swaggerSrcSchemes = new SemverizeParameters(
-          _.get(swaggerSrcOptions, ['schemes', 'schemes'], {}),
-          'schemePunkValidator',
-          {
-            dataDefaultsType: 'SwaggerSrcScheme',
-            semveristConfigDefaults: 'SwaggerSrcSchemesSemverist',
-          },
-          {
-            semveristConfig: _.get(swaggerSrcOptions, ['schemes', 'semveristConfig'], {}),
-            semverishMolotov: _.get(
-              swaggerSrcOptions,
-              ['schemes', 'semveristMolotovOptions'],
-              { overrides: {}, cocktailClasses: [] }
-            ),
-            desiredRealizations: this.getDesiredRealizations(),
-            validate: true,
-            swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['schemes', 'targetName'], 'default'),
-          }
-        );
+        const swaggerSrcTemplates = this.spMaker('templates', 'swaggerSrc', swaggerSrcOptions);
+        const swaggerSrcSchemes = this.spMaker('schemes', 'swaggerSrc', swaggerSrcOptions);
         return Promise.all([
           swaggerSrcTemplates.init(),
           // Create a swagger src templates semverize parameters
@@ -451,5 +399,50 @@ module.exports = class SchemaGotSwagger {
    */
   semverStringSplit(semverString: string) {
     return semverString.split('.');
+  }
+
+  /**
+   * Sp maker instantiates a semverize Parameter class.
+   *
+   * @param {string} [configNameSpace='templates']
+   *  a
+   * @param {string} [sgsDataType ='swaggerSrc']
+   *  a
+   * @param {string} [options={}]
+   *  a
+   *  a
+   * @returns {SemverizeParameters}
+   *  A sp.
+   */
+  spMaker(
+    configNameSpaceType: configNameSpace,
+    sgsDataTypeName: sgsDataType,
+    options: mainSwaggerMakerOptions
+  ) {
+    if (!_.has(options, [configNameSpaceType, configNameSpaceType])) {
+      throw new SchemaGotSwaggerError(`Bad config for ${sgsDataTypeName} and ${configNameSpaceType}`); // eslint-disable-line max-len
+    }
+    const dataName = `${sgsDataTypeName}${configNameSpaceType}`;
+    const sp = new SemverizeParameters(
+      _.get(options, [configNameSpaceType, configNameSpaceType], {}),
+      `${dataName}Validator`,
+      {
+        dataDefaultsType: dataName,
+        semveristConfigDefaults: `${dataName}Semverist`,
+      },
+      {
+        semveristConfig: _.get(options, [configNameSpaceType, 'semveristConfig'], {}),
+        semverishMolotov: _.get(
+          options,
+          [configNameSpaceType, 'semveristMolotovOptions'],
+          { overrides: {}, cocktailClasses: [] }
+        ),
+        desiredRealizations: this.getDesiredRealizations(),
+        validate: true,
+        swaggerVersion: this.getConfig().swaggerVersion,
+        targetName: _.get(options, [configNameSpaceType, 'targetName'], sgsDataTypeName),
+      }
+    );
+    return sp;
   }
 };

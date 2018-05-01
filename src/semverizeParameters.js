@@ -39,10 +39,10 @@ const ajv = new Ajv({
 
 const validators = {
   sgsValidator: ajv.getSchema('http://example.com/schemas/sgsConfig.json'),
-  swaggerMainSrcValidator: ajv.getSchema('http://example.com/schemas/swaggerMainData.json'),
+  swaggerSrcdataValidator: ajv.getSchema('http://example.com/schemas/swaggerMainData.json'),
   semveristConfigValidator: ajv.getSchema('http://example.com/schemas/semveristConfig.json'),
-  templateValidator: ajv.getSchema('http://example.com/schemas/swaggerMainTemplate.json'),
-  schemePunkValidator: ajv.getSchema('http://example.com/schemas/schemePunkConfig.json'),
+  swaggerSrctemplatesValidator: ajv.getSchema('http://example.com/schemas/swaggerMainTemplate.json'),
+  swaggerSrcschemesValidator: ajv.getSchema('http://example.com/schemas/schemePunkConfig.json'),
   semverishValidator: ajv.getSchema('http://example.com/schemas/semverish.json'),
 };
 

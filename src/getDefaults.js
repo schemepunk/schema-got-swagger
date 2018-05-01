@@ -1,18 +1,22 @@
 // @flow
 
 const DEFAULT_TYPES = {
-  Sgs: `/../defaults/sgsConfig.yaml`,
-  SgsSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
-  SwaggerSrcScheme: `/../defaults/swaggerSrcScheme.yaml`,
-  SwaggerSrcSchemesSemverist: `/../defaults/swaggerSrcSchemesSemverist.yaml`,
-  SwaggerSrcTemplates: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
-  SwaggerMainTemplates: '',
-  UserInput: '',
+  sgs: `/../defaults/sgsConfig.yaml`,
+  sgsSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  swaggerSrcschemes: `/../defaults/swaggerSrcScheme.yaml`,
+  swaggerSrcdataSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  swaggerSrcschemesSemverist: `/../defaults/swaggerSrcSchemesSemverist.yaml`,
+  swaggerSrctemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
+  swaggerSrctemplates: '',
+  pathstemplates: '',
+  pathstemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
+  swaggerSrcdata: '',
 };
 
 const FUNCTION_DEFAULT_TYPES = [
-  'SwaggerMainTemplates',
-  'UserInput',
+  'swaggerSrctemplates',
+  'pathstemplates',
+  'swaggerSrcdata',
 ];
 
 // gets default configurations for all schemaGotSwagger options and config.
@@ -25,8 +29,8 @@ const {
   YAML_FILE_LOAD_PROBLEM,
   DEFAULT_DID_NOT_EXIST,
 } = require('./_errors');
-const swaggerMainTemplates = require('./../templates/swaggerSrc');
-const swaggerPathsTemplates = require('./../templates/swaggerPaths');
+const swaggerSrctemplates = require('./../templates/swaggerSrc');
+const pathstemplates = require('./../templates/swaggerPaths');
 // load up yaml.
 
 /**
@@ -94,8 +98,8 @@ class GetDefaults<T> {
    *   you are targeting.
    * @memberof Configurator
    */
-  getSwaggerMainTemplatesDefaults(): Promise<T> {
-    return this.getSwaggerTemplateYaml(swaggerMainTemplates);
+  getswaggerSrctemplatesDefaults(): Promise<T> {
+    return this.getSwaggerTemplateYaml(swaggerSrctemplates);
   }
 
   /**
@@ -107,8 +111,8 @@ class GetDefaults<T> {
    *   you are targeting.
    * @memberof Configurator
    */
-  getSwaggerPathsTemplatesDefaults(): Promise<T> {
-    return this.getSwaggerTemplateYaml(swaggerPathsTemplates);
+  getswaggerPathstemplatesDefaults(): Promise<T> {
+    return this.getSwaggerTemplateYaml(pathstemplates);
   }
 
   /**
@@ -140,7 +144,7 @@ class GetDefaults<T> {
    *   Returns a promise bearing and empty object.
    * @memberof GetDefaults
    */
-  getUserInputDefaults(): Promise<{}> {
+  getswaggerSrcdataDefaults(): Promise<{}> {
     return Promise.resolve({})
       .then(data => data);
   }

@@ -12,6 +12,10 @@ export type configNames = (
   "SwaggerSrcTemplatesSemverist" |
   "SwaggerSrcSchemes");
 
+export type sgsDataType = ('swaggerSrc' | 'paths');
+
+export type configNameSpace = ('data' | 'templates' | 'schemes');
+
 export type sgsConfig = {
   swaggerVersion: string,
   apiType: string,
@@ -20,7 +24,8 @@ export type sgsConfig = {
     sgs: boolean
   },
   mainSwaggerSchemeProcessName: string,
-  sgsSemver: semveristConfig
+  sgsSemver: semveristConfig,
+  realizationsSource: ('swaggerSrc' | 'paths')
 }
 
 export type userSgsConfig = {
@@ -29,7 +34,9 @@ export type userSgsConfig = {
   sgsType?: string,
   mergeConfig?: {
     sgs?: boolean
-  }
+  },
+  sgsSemver?: semveristConfig,
+  realizationsSource?: ('swaggerSrc' | 'paths')
 }
 
 export type semverishNumberOrObject = ({[string]: semverishNumberOrObject} | {}); // eslint-disable-line max-len
@@ -203,7 +210,7 @@ export type mainSwaggerMakerOptions = {
   },
   templates: {
     semveristConfig: semveristConfig,
-    templateOverrides: (mainTemplate | templateSemverish);
+    templates: (mainTemplate | templateSemverish);
     semveristMolotovOptions?: molotovConfig,
     targetName: string,
   }
@@ -224,7 +231,7 @@ export type pathSwaggerMakerOptions = {
   },
   templates: {
     semveristConfig: semveristConfig,
-    templateOverrides: (mainTemplate | templateSemverish);
+    templates: (mainTemplate | templateSemverish);
     semveristMolotovOptions: molotovConfig
   }
 }
