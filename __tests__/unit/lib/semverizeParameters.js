@@ -1,6 +1,6 @@
-const SemverizeParameters = require('../../../lib/SemverizeParameters');
+const SemverizeParameters = require('./../../../lib/semverizeParameters');
 const _ = require('lodash');
-const { SchemaGotSwaggerError, SchemaGotSwaggerReThrownError } = require('../../../lib/SchemaGotSwaggerError');
+const { SchemaGotSwaggerError, SchemaGotSwaggerReThrownError } = require('./../../../lib/SchemaGotSwaggerError');
 const semverishTest = require('./../../__helpers__/swaggerMainSemverish');
 const Manifest = require('semverist/lib/supers/manifest');
 

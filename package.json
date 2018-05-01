@@ -16,7 +16,6 @@
     "lint": "eslint .",
     "flowstatus": "./node_modules/.bin/flow status",
     "flowremove": "flow-remove-types -p src -i .test.js -d lib",
-    "flowgen": "flow gen-flow-files ./src/foo.js > ./dist/foo.js.flow",
     "flowstop": "flow stop",
     "travis-deploy-once": "travis-deploy-once",
     "coveralls": "cat ./__coverage__/lcov.info | coveralls"
