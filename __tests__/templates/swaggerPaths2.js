@@ -34,7 +34,7 @@ describe('Main Swagger template tests.', () => {
         const options = {
           source: {
             plugin: 'originalSchemeSource',
-            target: 'swaggerPaths.paths[0].operations[1]',
+            target: 'definitions.paths[0].operations[1]',
           },
           transform: {
             plugin: 'tokenTemplateValues',
@@ -56,7 +56,7 @@ describe('Main Swagger template tests.', () => {
 
         return testSchemePunk.enhance(schemas);
       })
-      .then(result => expect(result.newScheme.tempDest).toEqual('"tags": ["pet"], '));
+      .then(result => expect(result.newScheme.tempDest).toEqual('"tags": [{"name":"pet"}], '));
   });
   test('Consumes', () => {
     expect.assertions(1);
@@ -67,7 +67,7 @@ describe('Main Swagger template tests.', () => {
         const options = {
           source: {
             plugin: 'originalSchemeSource',
-            target: 'swaggerPaths.paths[0].operations[1]',
+            target: 'definitions.paths[0].operations[1]',
           },
           transform: {
             plugin: 'tokenTemplateValues',
@@ -100,7 +100,7 @@ describe('Main Swagger template tests.', () => {
         const options = {
           source: {
             plugin: 'originalSchemeSource',
-            target: 'swaggerPaths.paths[0].operations[1]',
+            target: 'definitions.paths[0].operations[1]',
           },
           transform: {
             plugin: 'tokenTemplateValues',
@@ -133,7 +133,7 @@ describe('Main Swagger template tests.', () => {
         const options = {
           source: {
             plugin: 'originalSchemeSource',
-            target: 'swaggerPaths.paths[0].operations[1]',
+            target: 'definitions.paths[0].operations[1]',
           },
           transform: {
             plugin: 'tokenTemplateValues',
@@ -155,7 +155,7 @@ describe('Main Swagger template tests.', () => {
 
         return testSchemePunk.enhance(schemas);
       })
-      .then(result => expect(result.newScheme.tempDest).toEqual('"security": [{"petstore_auth":["write:pets","read:pets"]}],'));
+      .then(result => expect(result.newScheme.tempDest).toEqual('"security": {"petstore_auth":["write:pets","read:pets"]},'));
   });
   test('Responses', () => {
     expect.assertions(1);
@@ -166,7 +166,7 @@ describe('Main Swagger template tests.', () => {
         const options = {
           source: {
             plugin: 'originalSchemeSource',
-            target: 'swaggerPaths.paths[0].operations[1]',
+            target: 'definitions.paths[0].operations[1]',
           },
           transform: {
             plugin: 'tokenTemplateValues',
@@ -199,7 +199,7 @@ describe('Main Swagger template tests.', () => {
         const options = {
           source: {
             plugin: 'originalSchemeSource',
-            target: 'swaggerPaths',
+            target: 'definitions',
           },
           transform: {
             plugin: 'tokenTemplateValues',
@@ -218,6 +218,6 @@ describe('Main Swagger template tests.', () => {
 
         return testSchemePunk.enhance(schemas);
       })
-      .then(result => expect(result.newScheme.tempDest).toEqual('{ "paths":{ "/pets": {   "parameters":[],"get": { "tags":  [], "summary": "Find pets by ID", "description": "Returns pets based on ID", "externalDocs": {}, "operationId": "getPetsById",   "consumes": [],  "produces": ["application/json","text/html"],  "parameters": [{"name":"id","in":"path","description":"ID of pet to use","required":true,"type":"array","items":{"type":"string"},"collectionFormat":"csv"}],  "security": {}, "responses": {"200":{"description":"pet response","schema":{"type":"array","items":null,"$ref":"#/definitions/Pet"}},"default":{"description":"error payload","schema":{"$ref":"#/definitions/ErrorModel"}}} },"put": { "tags": ["pet"],  "summary": "Updates a pet in the store with form data",  "externalDocs": {}, "operationId": "updatePetWithForm",   "consumes": ["application/x-www-form-urlencoded"],  "produces": ["application/json","application/xml"],  "parameters": [{"name":"petId","in":"path","description":"ID of pet that needs to be updated","required":true,"type":"string"},{"name":"name","in":"formData","description":"Updated name of the pet","required":false,"type":"string"},{"name":"status","in":"formData","description":"Updated status of the pet","required":false,"type":"string"}],  "security": [{"petstore_auth":["write:pets","read:pets"]}], "responses": {"200":{"description":"Pet updated."},"405":{"description":"Invalid input"}} }}}, "definitions": {}  }'));
+      .then(result => expect(result.newScheme.tempDest).toEqual('{ "paths":{ "/pets": {   "parameters":[],"get": { "tags":  [], "summary": "Find pets by ID", "description": "Returns pets based on ID", "externalDocs": {}, "operationId": "getPetsById",   "consumes": [],  "produces": ["application/json","text/html"],  "parameters": {"idParam":{"name":"id","in":"path","description":"ID of pet to use","required":true,"type":"array","items":{"type":"string"},"collectionFormat":"csv"}},  "security": {}, "responses": {"200":{"description":"pet response","schema":{"type":"array","items":{"$ref":"#/definitions/Pet"}}},"default":{"description":"error payload","schema":{"$ref":"#/definitions/ErrorModel"}}} },"put": { "tags": [{"name":"pet"}],  "summary": "Updates a pet in the store with form data",  "externalDocs": {}, "operationId": "updatePetWithForm",   "consumes": ["application/x-www-form-urlencoded"],  "produces": ["application/json","application/xml"],  "parameters": {"petIdParam":{"name":"petId","in":"path","description":"ID of pet that needs to be updated","required":true,"type":"string"},"nameParam":{"name":"name","in":"formData","description":"Updated name of the pet","required":false,"type":"string"},"statusParam":{"name":"status","in":"formData","description":"Updated status of the pet","required":false,"type":"string"}},  "security": {"petstore_auth":["write:pets","read:pets"]}, "responses": {"200":{"description":"Pet updated."},"405":{"description":"Invalid input"}} }}}, "definitions": {}  }'));
   });
 });

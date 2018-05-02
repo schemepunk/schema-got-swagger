@@ -21,7 +21,8 @@ module.exports = {
                       'text/html',
                     ],
                   },
-                  responses: { process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
+                  responses: {
+                    process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
                     items: {
                       200: {
                         description: 'pet response',
@@ -43,7 +44,7 @@ module.exports = {
                   parameters: {
                     process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
                     items: {
-                      id: {
+                      idParam: {
                         name: 'id',
                         in: 'path',
                         description: 'ID of pet to use',

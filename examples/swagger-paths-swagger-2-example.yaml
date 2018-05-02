@@ -1,4 +1,4 @@
-swaggerPaths:
+definitions:
   paths:
     -
       pathItem: '/pets'
@@ -23,7 +23,7 @@ swaggerPaths:
                 schema:
                   type: array
                   items:
-                  $ref: '#/definitions/Pet'
+                    $ref: '#/definitions/Pet'
               default:
                 description: error payload
                 schema:
@@ -31,21 +31,22 @@ swaggerPaths:
           parameters:
             process: !!js/function 'function() { return JSON.stringify(this.items); }'
             items:
-            -
-              name: id
-              in: path
-              description: ID of pet to use
-              required: true
-              type: array
-              items:
-                type: string
-              collectionFormat: csv
+              idParam:
+                name: id
+                in: path
+                description: ID of pet to use
+                required: true
+                type: array
+                items:
+                  type: string
+                collectionFormat: csv
         -
           operationName: put
           tags:
             process: !!js/function 'function() { return JSON.stringify(this.items); }'
             items:
-              - pet
+              -
+                name: pet
           summary: Updates a pet in the store with form data
           descriptions: Updates a pet
           operationId: updatePetWithForm
@@ -61,19 +62,19 @@ swaggerPaths:
           parameters:
             process: !!js/function 'function() { return JSON.stringify(this.items); }'
             items:
-              -
+              petIdParam:
                 name: petId
                 in: path
                 description: ID of pet that needs to be updated
                 required: true
                 type: string
-              -
+              nameParam:
                 name: name
                 in: formData
                 description: Updated name of the pet
                 required: false
                 type: string
-              -
+              statusParam:
                 name: status
                 in: formData
                 description: Updated status of the pet
@@ -89,6 +90,6 @@ swaggerPaths:
           security:
             process: !!js/function 'function() { return JSON.stringify(this.items); }'
             items:
-              - petstore_auth:
+              petstore_auth:
                 - write:pets
                 - read:pets
