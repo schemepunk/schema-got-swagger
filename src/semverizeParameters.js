@@ -228,7 +228,8 @@ module.exports = class SemverizeParameters<T> {
   validateRealizedParameters(): SemverizeParameters<T> {
     this.getSemverRealizations().forEach((semverNum) => {
       try {
-        // We will either have known targets or each element here will have our target.
+        // We will either have known targets or each element here will
+        // have our target.
         if (_.has(this.realized, _.concat(semverNum.split('.'), [this.targetName]))) {
           const testCase = _.get(this.realized, _.concat(semverNum.split('.'), [this.targetName]));
           this.validator(this.validatorId, testCase);

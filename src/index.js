@@ -109,19 +109,19 @@ module.exports = class SchemaGotSwagger {
           []
         );
         this.setDesiredRealizations(tmpDesired);
-        const dataSps: {swaggerSrc: SemverizeParameters<swaggerMainData>, paths: SemverizeParameters<pathsData> } = {
+        const dataSps: {swaggerSrc: SemverizeParameters<swaggerMainData>, paths: SemverizeParameters<pathsData> } = { // eslint-disable-line max-len
           swaggerSrc: this.spMaker(swaggerSrc, 'data', 'swaggerSrc', swaggerSrcOptions),
           paths: this.spMaker(pathItemsSrc, 'data', 'paths', pathItemsSrcOptions),
         };
         // $FlowFixMe
-        const dataSpPromises = [dataSps[realizationOrder[0]].init(), Promise.resolve(dataSps[realizationOrder[1]])];
-        // This priority determines who sets the realizations for this Sgs. It can be
-        // either the swaggerSrc (by default) OR the paths data.
+        const dataSpPromises = [dataSps[realizationOrder[0]].init(), Promise.resolve(dataSps[realizationOrder[1]])]; // eslint-disable-line max-len
+        // This priority determines who sets the realizations for this Sgs.
+        // It can be either the swaggerSrc (by default) OR the paths data.
         return Promise.all(dataSpPromises);
       })
       .then((dataSps) => {
-        // the item in the 0 position has been inited and realized. So we can activate this for
-        // everything else.
+        // the item in the 0 position has been inited and realized. So we can
+        // activate this for everything else.
         this.setDesiredRealizations(dataSps[0].getSemverRealizations());
         return Promise.all([dataSps[0], dataSps[1].init()]);
       })
@@ -131,9 +131,9 @@ module.exports = class SchemaGotSwagger {
         this.setPathsDataSpClass(dataSpsInitialized[realizationOrder.indexOf('paths')]);
 
         const templatesData = _.get(swaggerSrcOptions, ['templates', 'templates'], {});
-        const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker(templatesData, 'templates', 'swaggerSrc', swaggerSrcOptions);
+        const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker(templatesData, 'templates', 'swaggerSrc', swaggerSrcOptions); // eslint-disable-line max-len
         const schemesData = _.get(swaggerSrcOptions, ['schemes', 'schemes'], {});
-        const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesData, 'schemes', 'swaggerSrc', swaggerSrcOptions);
+        const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesData, 'schemes', 'swaggerSrc', swaggerSrcOptions); // eslint-disable-line max-len
         return Promise.all([
           swaggerSrcTemplates.init(),
           // Create a swagger src templates semverize parameters
