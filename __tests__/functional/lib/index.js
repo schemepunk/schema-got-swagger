@@ -39,7 +39,7 @@ const swaggerSrcOptions = {
 const pathsConfig = {
   data: {
     semveristConfig: {},
-    targetName: 'paths',
+    targetName: 'definitions',
   },
   schemes: {
     schemes: {},

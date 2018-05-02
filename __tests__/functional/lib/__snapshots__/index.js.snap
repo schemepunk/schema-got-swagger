@@ -1154,7 +1154,7 @@ Object {
         },
       },
     },
-    "2": Object {
+    "1": Object {
       "0": Object {
         "swaggerSrc": Object {
           "apiBasePath": "/api",
@@ -1419,7 +1419,7 @@ Object {
         },
       },
     },
-    "2": Object {
+    "1": Object {
       "0": Object {
         "swagger": Object {
           "consumes": Array [
@@ -1462,7 +1462,7 @@ Object {
               "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
             },
             "title": "Swagger Example APi",
-            "version": "1.2.0",
+            "version": "1.1.0",
           },
           "parameters": Object {
             "skipParam": Object {

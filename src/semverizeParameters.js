@@ -228,8 +228,19 @@ module.exports = class SemverizeParameters<T> {
   validateRealizedParameters(): SemverizeParameters<T> {
     this.getSemverRealizations().forEach((semverNum) => {
       try {
-        const testCase = _.get(this.realized, _.concat(semverNum.split('.'), [this.targetName]));
-        this.validator(this.validatorId, testCase);
+        // We will either have known targets or each element here will have our target.
+        if (_.has(this.realized, _.concat(semverNum.split('.'), [this.targetName]))) {
+          const testCase = _.get(this.realized, _.concat(semverNum.split('.'), [this.targetName]));
+          this.validator(this.validatorId, testCase);
+        }
+        else {
+          // This will be the case for paths.
+          const elementsAtLevel = _.get(this.realized, _.concat(semverNum.split('.')));
+          Object.keys(elementsAtLevel).forEach((key) => {
+            const testCase = _.get(elementsAtLevel, [key, this.targetName]);
+            this.validator(this.validatorId, testCase);
+          });
+        }
       }
       catch (e) {
         throw new SchemaGotSwaggerReThrownError(
