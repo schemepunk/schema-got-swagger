@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`directoryToSemverishObject Can return a semverish object from a given path to a semverish directory 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "violin": Object {
+          "fromViolin": "this is from 1.0.0",
+          "toItem": "violin",
+        },
+      },
+      "1": Object {
+        "violin": Object {
+          "fromViolin": "this is from 1.0.1",
+          "toItem": "violin",
+        },
+      },
+      "2": Object {
+        "violin": Object {
+          "fromViolin": "this is from 1.0.2",
+          "toItem": "violin",
+        },
+      },
+      "viola": Object {
+        "fromViola": "this is from 1.0",
+        "toItem": "viola",
+      },
+      "violin": Object {
+        "fromViolin": "this is from 1.0",
+        "toItem": "violin",
+      },
+    },
+    "1": Object {
+      "1": Object {
+        "clarinet": Object {
+          "fromClarinet": "this is from 1.1.1",
+          "toItem": "clarinet",
+        },
+      },
+      "clarinet": Object {
+        "fromClarinet": "this is from 1.1",
+        "toItem": "clarinet",
+      },
+    },
+    "2": Object {
+      "0": Object {
+        "flute": Object {
+          "fromFlute": "this is from 1.2.0",
+          "toItem": "flute",
+        },
+      },
+      "clarinet": Object {
+        "fromClarinet": "this is from 1.2",
+        "toItem": "clarinet",
+      },
+    },
+    "3": Object {
+      "0": Object {
+        "flute": Object {
+          "fromFlute": "this is from 1.3.0",
+          "toItem": "flute",
+        },
+        "viola": Object {
+          "fromViola": "this is from 1.3.0",
+          "toItem": "viola",
+        },
+      },
+      "clarinet": Object {
+        "fromClarinet": "this is from 1.3",
+        "toItem": "clarinet",
+      },
+    },
+    "flute": Object {
+      "fromFlute": "this is from 1",
+      "toItem": "flute",
+    },
+    "orchestraDefault": Object {
+      "fromDefault": "this is from 1",
+      "toItem": "default",
+    },
+    "strings": Object {
+      "fromStrings": "this is from 1",
+      "toItem": "strings",
+    },
+    "viola": Object {
+      "fromViola": "this is from 1",
+      "toItem": "viola",
+    },
+    "violin": Object {
+      "fromViolin": "this is from 1",
+      "toItem": "violin",
+    },
+    "winds": Object {
+      "fromWinds": "this is from 1",
+      "toItem": "winds",
+    },
+  },
+  "2": Object {
+    "0": Object {
+      "0": Object {
+        "trumpet": Object {
+          "fromTrumpet": "this is from 2.0.0",
+          "toItem": "trumpet",
+        },
+      },
+      "0-alpha": Object {
+        "0": Object {
+          "harp": Object {
+            "fromHarp": "this is only 2.0.0-alpha.0",
+            "toItem": "harp",
+          },
+          "viola": Object {
+            "fromViola": "this is from 2.0.0-alpha.0",
+            "toItem": "viola",
+          },
+        },
+        "1": Object {
+          "clarinet": Object {
+            "fromClarinet": "this is from 2.0.0-alpha.1",
+            "toItem": "clarinet",
+          },
+          "winds": Object {
+            "fromWinds": "this is from 2.0.0-alpha.1",
+            "toItem": "winds",
+          },
+        },
+        "saxophone": Object {
+          "fromSaxophone": "this is from 2.0.0-alpha",
+          "toItem": "saxophone",
+        },
+      },
+      "0-beta": Object {
+        "trombone": Object {
+          "fromTrombone": "this is from 2.0.0-beta",
+          "toItem": "trombone",
+        },
+      },
+      "1": Object {
+        "flute": Object {
+          "fromFlute": "this is from 2.0.1",
+          "toItem": "flute",
+        },
+      },
+      "brass": Object {
+        "fromBrass": "this is from 2.0",
+        "toItem": "brass",
+      },
+    },
+    "brass": Object {
+      "fromBrass": "this is from 2",
+      "toItem": "brass",
+    },
+    "clarinet": Object {
+      "fromClarinet": "this is from 2",
+      "toItem": "clarinet",
+    },
+    "flute": Object {
+      "fromFlute": "this is from 2",
+      "toItem": "flute",
+    },
+    "strings": Object {
+      "fromStrings": "this is from 2",
+      "toItem": "strings",
+    },
+    "trombone": Object {
+      "fromTrombone": "this is from 2",
+      "toItem": "trombone",
+    },
+    "trumpet": Object {
+      "fromTrumpet": "this is from 2",
+      "toItem": "tumpet",
+    },
+    "viola": Object {
+      "fromViola": "this is from 2",
+      "toItem": "viola",
+    },
+    "violin": Object {
+      "fromViolin": "this is from 2",
+      "toItem": "violin",
+    },
+    "winds": Object {
+      "fromWinds": "this is from 2",
+      "toItem": "winds",
+    },
+  },
+}
+`;
