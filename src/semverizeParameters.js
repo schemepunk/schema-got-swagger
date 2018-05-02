@@ -341,7 +341,10 @@ module.exports = class SemverizeParameters<T> {
     const validator = _.get(validators, validationType);
 
     if (!validator(data)) {
-      throw validator.errors.map(({ schemaPath, message }) => new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_VALIDATION_ERROR} For: ${schemaPath} ${message}`)); // eslint-disable-line max-len
+      const validatorErrors = validator.errors.map(({ schemaPath, message }) =>
+        ` For: ${schemaPath} Message: ${message}`);
+
+      throw new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_VALIDATION_ERROR} ${validatorErrors}`);
     }
 
     return validator;
