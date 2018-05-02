@@ -4,6 +4,7 @@ const SchemaGotSwagger = require('./../../../lib/index');
 const SemverizeParameters = require('./../../../lib/semverizeParameters');
 const { SchemaGotSwaggerError } = require('./../../../lib/SchemaGotSwaggerError');
 const swaggerMainHelper = require('./../../__helpers__/swaggerMainSemverish');
+const paths = require('./../../__helpers__/semverishPathItems');
 
 let tmpMocks = [];
 
@@ -14,7 +15,8 @@ const config = {
   mergeConfig: {
     sgs: true
   },
-  mainSwaggerSchemeProcessName: 'processTemplates'
+  mainSwaggerSchemeProcessName: 'processTemplates',
+  realizationSource: 'swaggerSrc'
 };
 
 const swaggerSrcOptions = {
@@ -34,13 +36,30 @@ const swaggerSrcOptions = {
   }
 };
 
+const pathsConfig = {
+  data: {
+    semveristConfig: {},
+    targetName: 'paths',
+  },
+  schemes: {
+    schemes: {},
+    semveristConfig: {},
+    targetName: 'paths'
+  },
+  templates: {
+    semveristConfig: {},
+    templates: {},
+    targetName: 'paths'
+  }
+};
+
 const swaggerSrc = swaggerMainHelper;
 
 describe('Index functional', () => {
   test('Index full with object output.', () => {
     expect.assertions(8);
     const schemaGotSwagger = new SchemaGotSwagger();
-    return schemaGotSwagger.init(swaggerSrc, {}, config, swaggerSrcOptions)
+    return schemaGotSwagger.init(swaggerSrc, paths, config, swaggerSrcOptions, pathsConfig)
     .then((sgs) => {
       expect(sgs).toBeInstanceOf(SchemaGotSwagger)
       expect(sgs.getSwaggerSrcSchemesSpClass()).toBeInstanceOf(SemverizeParameters);
@@ -58,8 +77,8 @@ describe('Index functional simple swagger Src', () => {
   test('Simple swagger src..', () => {
     expect.assertions(6);
     const schemaGotSwagger = new SchemaGotSwagger();
-    schemaGotSwagger.setDesiredRealizations(['1.0.0', '1.2.0'])
-    return schemaGotSwagger.init(swaggerSrc[1][0], {}, config, swaggerSrcOptions)
+    schemaGotSwagger.setDesiredRealizations(['1.0.0', '1.1.0', '1.1.0'])
+    return schemaGotSwagger.init(swaggerSrc[1][0], paths, config, swaggerSrcOptions, pathsConfig)
     .then((sgs) => {
       expect(sgs).toBeInstanceOf(SchemaGotSwagger)
       expect(sgs.getSwaggerSrcSchemesSpClass()).toBeInstanceOf(SemverizeParameters);

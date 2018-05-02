@@ -5,12 +5,14 @@ const DEFAULT_TYPES = {
   sgsSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
   swaggerSrcschemes: `/../defaults/swaggerSrcScheme.yaml`,
   swaggerSrcdataSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  pathsdataSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
   swaggerSrcschemesSemverist: `/../defaults/swaggerSrcSchemesSemverist.yaml`,
   swaggerSrctemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
   swaggerSrctemplates: '',
   pathstemplates: '',
   pathstemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
   swaggerSrcdata: '',
+  pathsdata: '',
 };
 
 const FUNCTION_DEFAULT_TYPES = [
@@ -133,7 +135,6 @@ class GetDefaults<T> {
       .then(data => data);
   }
 
-
   /**
    * Unifies setting of defaults for
    *   user provided data. Since there
@@ -145,6 +146,21 @@ class GetDefaults<T> {
    * @memberof GetDefaults
    */
   getswaggerSrcdataDefaults(): Promise<{}> {
+    return Promise.resolve({})
+      .then(data => data);
+  }
+
+  /**
+   * Unifies setting of defaults for
+   *   user provided data. Since there
+   *   can be no defaults for this data
+   *   that would be relevant.
+   *
+   * @returns {Promise<{}>}
+   *   Returns a promise bearing and empty object.
+   * @memberof GetDefaults
+   */
+  getpathsdataDefaults(): Promise<{}> {
     return Promise.resolve({})
       .then(data => data);
   }

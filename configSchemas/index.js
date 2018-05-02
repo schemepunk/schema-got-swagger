@@ -5,8 +5,10 @@ const schemePunkConfig = require('./schemePunkConfig');
 const semverishMainData = require('./semverishMainData');
 const swaggerMainTemplates = require('./swaggerMainTemplates');
 const swaggerMainData = require('./swaggerMainData');
+const pathsData = require('./pathsData');
 
 module.exports = {
+  pathsData,
   schemePunkConfig,
   sgsConfig,
   semverish,

@@ -124,39 +124,6 @@ describe('Main Swagger template tests.', () => {
       })
       .then(result => expect(result.newScheme.tempDest).toEqual('"produces": ["application/json","application/xml"], '));
   });
-  test('Empty Schemes produces emptyArray', () => {
-    expect.assertions(1);
-    // return file
-    return data
-      .then((file) => {
-        // Set up scheme options
-        const options = {
-          source: {
-            plugin: 'originalSchemeSource',
-            target: 'swaggerPaths.paths[0].operations[1]',
-          },
-          transform: {
-            plugin: 'tokenTemplateValues',
-            template: {
-              targetPartial: 'schemes',
-            },
-          },
-          destination: {
-            target: 'tempDest',
-          },
-          templateObject: swagger2Template,
-        };
-        const testSchemePunk = new SchemePunk(options);
-        // Set up schemas:
-        const schemas = SchemePunk.createScheme();
-        schemas.originalScheme = file;
-        schemas.activeScheme = { tempDest: {} };
-        schemas.newScheme = { tempDest: {} };
-
-        return testSchemePunk.enhance(schemas);
-      })
-      .then(result => expect(result.newScheme.tempDest).toEqual('"schemes": [], '));
-  });
   test('Security', () => {
     expect.assertions(1);
     // return file
@@ -251,6 +218,6 @@ describe('Main Swagger template tests.', () => {
 
         return testSchemePunk.enhance(schemas);
       })
-      .then(result => expect(result.newScheme.tempDest).toEqual('{ "paths":{ "/pets": {   "parameters":[],"get": { "tags":  [], "summary": "Find pets by ID", "description": "Returns pets based on ID", "externalDocs": {}, "operationId": "getPetsById",   "consumes": [],  "produces": ["application/json","text/html"],  "parameters": [{"name":"id","in":"path","description":"ID of pet to use","required":true,"type":"array","items":{"type":"string"},"collectionFormat":"csv"}], "schemes": [],  "security": {}, "responses": {"200":{"description":"pet response","schema":{"type":"array","items":null,"$ref":"#/definitions/Pet"}},"default":{"description":"error payload","schema":{"$ref":"#/definitions/ErrorModel"}}} },"put": { "tags": ["pet"],  "summary": "Updates a pet in the store with form data",  "externalDocs": {}, "operationId": "updatePetWithForm",   "consumes": ["application/x-www-form-urlencoded"],  "produces": ["application/json","application/xml"],  "parameters": [{"name":"petId","in":"path","description":"ID of pet that needs to be updated","required":true,"type":"string"},{"name":"name","in":"formData","description":"Updated name of the pet","required":false,"type":"string"},{"name":"status","in":"formData","description":"Updated status of the pet","required":false,"type":"string"}], "schemes": [],  "security": [{"petstore_auth":["write:pets","read:pets"]}], "responses": {"200":{"description":"Pet updated."},"405":{"description":"Invalid input"}} }}}, "definitions": {}  }'));
+      .then(result => expect(result.newScheme.tempDest).toEqual('{ "paths":{ "/pets": {   "parameters":[],"get": { "tags":  [], "summary": "Find pets by ID", "description": "Returns pets based on ID", "externalDocs": {}, "operationId": "getPetsById",   "consumes": [],  "produces": ["application/json","text/html"],  "parameters": [{"name":"id","in":"path","description":"ID of pet to use","required":true,"type":"array","items":{"type":"string"},"collectionFormat":"csv"}],  "security": {}, "responses": {"200":{"description":"pet response","schema":{"type":"array","items":null,"$ref":"#/definitions/Pet"}},"default":{"description":"error payload","schema":{"$ref":"#/definitions/ErrorModel"}}} },"put": { "tags": ["pet"],  "summary": "Updates a pet in the store with form data",  "externalDocs": {}, "operationId": "updatePetWithForm",   "consumes": ["application/x-www-form-urlencoded"],  "produces": ["application/json","application/xml"],  "parameters": [{"name":"petId","in":"path","description":"ID of pet that needs to be updated","required":true,"type":"string"},{"name":"name","in":"formData","description":"Updated name of the pet","required":false,"type":"string"},{"name":"status","in":"formData","description":"Updated status of the pet","required":false,"type":"string"}],  "security": [{"petstore_auth":["write:pets","read:pets"]}], "responses": {"200":{"description":"Pet updated."},"405":{"description":"Invalid input"}} }}}, "definitions": {}  }'));
   });
 });

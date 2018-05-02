@@ -32,6 +32,7 @@ const ajv = new Ajv({
     configSchemas.swaggerMainData,
     configSchemas.swaggerMainTemplates,
     configSchemas.semveristConfig,
+    configSchemas.pathsData,
   ],
   allErrors: true,
   jsonPointers: true,
@@ -44,8 +45,8 @@ const validators = {
   swaggerSrctemplatesValidator: ajv.getSchema('http://example.com/schemas/swaggerMainTemplate.json'),
   swaggerSrcschemesValidator: ajv.getSchema('http://example.com/schemas/schemePunkConfig.json'),
   semverishValidator: ajv.getSchema('http://example.com/schemas/semverish.json'),
+  pathsdataValidator: ajv.getSchema('http://example.com/schemas/pathsData.json'),
 };
-
 
 module.exports = class SemverizeParameters<T> {
   mergeSemveristConfig: boolean

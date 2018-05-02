@@ -12,6 +12,7 @@ import type {
   mainTemplate,
   sgsDataType,
   configNameSpace,
+  pathsData,
 } from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
@@ -44,6 +45,7 @@ module.exports = class SchemaGotSwagger {
   desiredRealizations: Array<string>
   realizedMainSwagger: semverish
   swaggerComposer: *
+  pathsDataSp: SemverizeParameters<pathsData>
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -76,6 +78,7 @@ module.exports = class SchemaGotSwagger {
     pathItemsSrcOptions: pathSwaggerMakerOptions
   ): Promise<SchemaGotSwagger> {
     const getterDefaults: GetDefaults<sgsConfig> = new GetDefaults('sgs'); // eslint-disable-line max-len
+    const realizationOrder: Array<('swaggerSrc' | 'paths')> = [];
 
     return getterDefaults.getDefaults()
       .then((defaults) => {
@@ -84,26 +87,53 @@ module.exports = class SchemaGotSwagger {
       })
       .then((sgsMergedConfig) => {
         this.setConfig(sgsMergedConfig);
+        // Check to see who will be responsible for our semver Realizations
+
+        const realizationSource = _.get(this.getConfig(), ['realizationSource'], 'swaggerSrc');
+        let optionsForDesiredRealizations;
+        if (realizationSource === 'paths') {
+          realizationOrder.push('paths');
+          realizationOrder.push('swaggerSrc');
+          optionsForDesiredRealizations = pathItemsSrcOptions;
+        }
+        else {
+          realizationOrder.push('swaggerSrc');
+          realizationOrder.push('paths');
+          optionsForDesiredRealizations = swaggerSrcOptions;
+        }
+
         // Create a swaggerSrc semverize parameters.
         const tmpDesired = this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(
-          swaggerSrcOptions,
+          optionsForDesiredRealizations,
           ['data', 'desiredRealizations'],
           []
         );
         this.setDesiredRealizations(tmpDesired);
-        _.set(swaggerSrcOptions, ['data', 'data'], swaggerSrc);
-        const swaggerSrcSp: SemverizeParameters<swaggerMainData> = this.spMaker(
-          'data',
-          'swaggerSrc',
-          swaggerSrcOptions
-        );
-        return swaggerSrcSp.init();
+        const dataSps: {swaggerSrc: SemverizeParameters<swaggerMainData>, paths: SemverizeParameters<pathsData> } = {
+          swaggerSrc: this.spMaker(swaggerSrc, 'data', 'swaggerSrc', swaggerSrcOptions),
+          paths: this.spMaker(pathItemsSrc, 'data', 'paths', pathItemsSrcOptions),
+        };
+        // $FlowFixMe
+        const dataSpPromises = [dataSps[realizationOrder[0]].init(), Promise.resolve(dataSps[realizationOrder[1]])];
+        // This priority determines who sets the realizations for this Sgs. It can be
+        // either the swaggerSrc (by default) OR the paths data.
+        return Promise.all(dataSpPromises);
       })
-      .then(swaggerMain => this.setMainDataSpClass(swaggerMain)
-        .setDesiredRealizations(this.getMainDataSpClass().getSemverRealizations()))
-      .then(() => {
-        const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker('templates', 'swaggerSrc', swaggerSrcOptions);
-        const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker('schemes', 'swaggerSrc', swaggerSrcOptions);
+      .then((dataSps) => {
+        // the item in the 0 position has been inited and realized. So we can activate this for
+        // everything else.
+        this.setDesiredRealizations(dataSps[0].getSemverRealizations());
+        return Promise.all([dataSps[0], dataSps[1].init()]);
+      })
+      .then((dataSpsInitialized) => {
+        this.setMainDataSpClass(dataSpsInitialized[realizationOrder.indexOf('swaggerSrc')]);
+        // $FlowFixMe
+        this.setPathsDataSpClass(dataSpsInitialized[realizationOrder.indexOf('paths')]);
+
+        const templatesData = _.get(swaggerSrcOptions, ['templates', 'templates'], {});
+        const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker(templatesData, 'templates', 'swaggerSrc', swaggerSrcOptions);
+        const schemesData = _.get(swaggerSrcOptions, ['schemes', 'schemes'], {});
+        const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesData, 'schemes', 'swaggerSrc', swaggerSrcOptions);
         return Promise.all([
           swaggerSrcTemplates.init(),
           // Create a swagger src templates semverize parameters
@@ -265,6 +295,28 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
+   * Set Path Data Semverized Parameters Class.
+   * @param {SemverizeParameters} pathsDataSp
+   *   A semverized Parameter class.
+   * @returns {SchemaGotSwagger}
+   *   Returns an instance of this class.
+   */
+  setPathsDataSpClass(pathsDataSp: SemverizeParameters<pathsData>): SchemaGotSwagger { // eslint-disable-line max-len
+    this.pathsDataSp = pathsDataSp;
+    return this;
+  }
+
+  /**
+   * Gets the sp class for the paths swagger data.
+   *
+   * @returns {SemverizeParameters}
+   *   The semverize parameters class for the paths swagger data.
+   */
+  getPathsDataSpClass(): SemverizeParameters<pathsData> {
+    return this.pathsDataSp;
+  }
+
+  /**
    * Sets the desired realizations for this Schema Got Swagger.
    * This can be set after create a new instance to set desired
    * realizations for the main swagger data. Otherwise this will
@@ -411,7 +463,8 @@ module.exports = class SchemaGotSwagger {
 
   /**
    * Sp maker instantiates a semverize Parameter class.
-   *
+   * @param {*} data
+   *   A data source to use with the spMaker.
    * @param {configNameSpace} configNameSpaceType
    *   A config name space, data, templates, or schemes.
    * @param {sgsDataType} sgsDataTypeName
@@ -422,16 +475,14 @@ module.exports = class SchemaGotSwagger {
    *  A sp.
    */
   spMaker(
+    data: *,
     configNameSpaceType: configNameSpace,
     sgsDataTypeName: sgsDataType,
     options: *
   ) {
-    if (!_.has(options, [configNameSpaceType, configNameSpaceType])) {
-      throw new SchemaGotSwaggerError(`Bad config for ${sgsDataTypeName} and ${configNameSpaceType}`); // eslint-disable-line max-len
-    }
     const dataName = `${sgsDataTypeName}${configNameSpaceType}`;
     const sp = new SemverizeParameters(
-      _.get(options, [configNameSpaceType, configNameSpaceType], {}),
+      data,
       `${dataName}Validator`,
       {
         dataDefaultsType: dataName,

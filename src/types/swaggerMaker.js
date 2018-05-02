@@ -236,3 +236,49 @@ export type pathSwaggerMakerOptions = {
   }
 }
 
+export type pathsData = {
+  definitions?: {
+    items: {}
+  },
+  paths: Array<{
+    pathItem: string,
+    '$ref'?: string,
+    last?: boolean,
+    parameters?: {
+      items: {}
+    },
+    operations: Array<{
+      operationId: string,
+      operationName: string,
+      tags?: {
+        items: {}
+      },
+      comma?: boolean,
+      deprecated?: string,
+      description?: string,
+      externalDocs?: {
+        description: string,
+        url: string
+      },
+      summary?: string,
+      produces?: {
+        items: Array<string>
+      },
+      consumes?: {
+        items: Array<string>
+      },
+      responses: {
+        items: {
+          [string]: {}
+        }
+      },
+      parameters?: {
+        items: Array<{}>
+      },
+      security?: {
+        items: Array<string>
+      }
+    }>
+  }>
+}
+
