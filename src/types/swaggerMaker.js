@@ -24,6 +24,7 @@ export type sgsConfig = {
     sgs: boolean
   },
   mainSwaggerSchemeProcessName: string,
+  pathsSchemeProcessName?: string,
   sgsSemver: semveristConfig,
   realizationsSource: ('swaggerSrc' | 'paths')
 }
@@ -36,6 +37,8 @@ export type userSgsConfig = {
     sgs?: boolean
   },
   sgsSemver?: semveristConfig,
+  mainSwaggerSchemeProcessName?: string,
+  pathsSchemeProcessName?: string,
   realizationsSource?: ('swaggerSrc' | 'paths')
 }
 

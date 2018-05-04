@@ -159,7 +159,7 @@ module.exports = class SchemaGotSwagger {
         .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp)
         .setPathsTemplatesSpClass(pathsTemplatesSp)
         .setPathsSchemesSpClass(pathsSchemesSp))
-      .then(() => this.integrateTemplatesAndSchemes())
+      .then(() => this.integrateSwaggerSrcTemplatesAndSchemes())
       .then(() => this.schemeRunner(this.getMainDataSpClass(), this.getSwaggerSrcSchemesSpClass()))
       .then((realizedMainSemverish) => {
         this.realizedMainSwagger = realizedMainSemverish;
@@ -237,7 +237,7 @@ module.exports = class SchemaGotSwagger {
    *   returns an instance of this.
    *
    */
-  integrateTemplatesAndSchemes(): SchemaGotSwagger {
+  integrateSwaggerSrcTemplatesAndSchemes(): SchemaGotSwagger {
     const schemes = this.getSwaggerSrcSchemesSpClass().realized;
     const schemesTarget = this.getSwaggerSrcSchemesSpClass().targetName;
     const templatesTarget = this.getSwaggerSrcTemplatesSpClass().targetName;
@@ -286,11 +286,117 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
+   * Integrate templates and schemas.
+   *
+   * @returns {SchemaGotSwagger}
+   *   returns an instance of this.
+   *
+   */
+  integratePathsTemplatesAndSchemes(): SchemaGotSwagger {
+    // For each semverRealization get the attributes at that level in pathData
+    const semverRealizations = this.getPathsDataSpClass().getSemverRealizations();
+    const schemes = {};
+    semverRealizations.forEach((semver) => {
+      const currentSemverArray = this.semverStringSplit(semver);
+      // Set SchemesSP with new composition.
+      const schemesAttributesAtLevel = this.pathsEntitySpGuarantee(
+        currentSemverArray,
+        _.get(this.getPathsDataSpClass().realized, currentSemverArray),
+        this.getPathsSchemesSpClass()
+      );
+
+      const templatesAttributesAtLevel = this.pathsEntitySpGuarantee(
+        currentSemverArray,
+        _.get(this.getPathsDataSpClass().realized, currentSemverArray), // $FlowFixMe
+        this.getPathsTemplatesSpClass()
+      );
+
+      // Take the templates and add them to the schemes.
+      _.forEach(schemesAttributesAtLevel, (value, key) => {
+        const tempSchemeArray = _.get(
+          value,
+          _.concat(
+            [this.getPathsSchemesSpClass().targetName],
+            [this.getConfig().pathsSchemeProcessName],
+          )
+        );
+
+        tempSchemeArray.forEach((innerArray, index) => {
+          if (innerArray[0].transform.plugin === 'tokenTemplateValues') {
+            const tmpArray = innerArray[0];
+            // Set api version for templates use as a holdOver.
+            const holdOvers = _.get(tmpArray, 'holdOvers', {});
+            tmpArray.holdOvers = _.merge(holdOvers, { apiSemver: semver, entityName: key });
+            // Now set templates.
+            tmpArray.templateObject = _.get(
+              templatesAttributesAtLevel,
+              _.concat([key], [this.getPathsTemplatesSpClass().targetName])
+            );
+            tempSchemeArray[index][0] = tmpArray;
+          }
+        });
+        _.set(
+          schemesAttributesAtLevel,
+          _.concat(
+            key,
+            [this.getPathsSchemesSpClass().targetName],
+            [this.getConfig().pathsSchemeProcessName]
+          ),
+          tempSchemeArray
+        );
+      });
+      _.setWith(schemes, currentSemverArray, schemesAttributesAtLevel, Object);
+    });
+    const tempSpClass = this.getPathsSchemesSpClass();
+    tempSpClass.realized = schemes;
+    tempSpClass.composer.setComposition(schemes);
+    this.setPathsSchemesSpClass(tempSpClass);
+    // then we merge the templates into the schemes and reset schemes.
+    return this;
+  }
+
+  /**
+   * Guarantees that the attribute or entity paths in passed sp class
+   *   match the passed data attributes at a given semver level.
+   *
+   * @param {Array<string>} currentSemverArray
+   *   A semver number broken into a path string.
+   * @param {{}} dataAttributesAtLevel
+   *   An object with data attributes.
+   * @param {any} spClassToGuarantee
+   *   The Sp Class we want to guarantee.
+   * @returns {Object}
+   *   The guaranteed attributes at this level for the passed spClass.
+   */
+  pathsEntitySpGuarantee(currentSemverArray: Array<string>, dataAttributesAtLevel: {}, spClassToGuarantee: SemverizeParameters<*>) { // eslint-disable-line max-len
+    const pathsAttributesArray: Array<string> = Object.keys(dataAttributesAtLevel);
+    // Check for matches in sp class.. If all attributes are there the user has
+    let spAttributesAtLevel: {} = _.get(spClassToGuarantee.realized, currentSemverArray);
+    const spAttributeNamesArray: Array<string> = Object.keys(spAttributesAtLevel);
+    // See if sp has all the entity keys it is supposed to and if not make it so or throw.
+    const spArrayDiff = _.difference(pathsAttributesArray, spAttributeNamesArray);
+    if (spArrayDiff.length) {
+      if (spAttributeNamesArray.length > 1 || !_.has(spAttributesAtLevel, spClassToGuarantee.targetName)) {
+        // Either we have multiple schemes at level but not all the correct ones or we do not have our default scheme.
+        throw new SchemaGotSwaggerError(`The Path ${spClassToGuarantee.dataDefaultsType} that was passed should either be a single scheme item at the path schemes target name: ${spClassToGuarantee.targetName} or a semverish object that corresponds to the paths data object.`); // eslint-disable-line max-len
+      }
+      // Otherwise we want to create all of the same attributes at this level in the schemes realization and add the target name scheme.
+      const newSchemes = {};
+      pathsAttributesArray.forEach((path) => {
+        _.setWith(newSchemes, _.concat(currentSemverArray, [path]), _.get(spAttributesAtLevel, spClassToGuarantee.targetName), Object);
+      });
+      spAttributesAtLevel = newSchemes;
+    }
+    // Set SchemesSP with new composition.
+    return spAttributesAtLevel;
+  }
+
+  /**
    * Set Main Data Semverized Parameters Class.
-   * @param {SemverizeParameters} mainDataSp
+   * @param {SemverizeParameters<swaggerMainData>} mainDataSp
    *   A semverized Parameter class.
    * @returns {SchemaGotSwagger}
-   *   Returns an instance of this class.
+   *  An instance of this.
    */
   setMainDataSpClass(mainDataSp: SemverizeParameters<swaggerMainData>): SchemaGotSwagger { // eslint-disable-line max-len
     this.mainDataSp = mainDataSp;
@@ -445,7 +551,7 @@ module.exports = class SchemaGotSwagger {
    * @returns {SemverizeParameters<schemePunkScheme>}
    *  Returns an sp class for the scheme punk schemes.
    */
-  getPathschemesSpClass() {
+  getPathsSchemesSpClass() {
     return this.pathsSchemesSp;
   }
 
