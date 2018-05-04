@@ -373,17 +373,34 @@ module.exports = class SchemaGotSwagger {
     // Check for matches in sp class.. If all attributes are there the user has
     let spAttributesAtLevel: {} = _.get(spClassToGuarantee.realized, currentSemverArray);
     const spAttributeNamesArray: Array<string> = Object.keys(spAttributesAtLevel);
-    // See if sp has all the entity keys it is supposed to and if not make it so or throw.
+    // See if sp has all the entity keys it is supposed to and if
+    // not make it so or throw.
     const spArrayDiff = _.difference(pathsAttributesArray, spAttributeNamesArray);
     if (spArrayDiff.length) {
-      if (spAttributeNamesArray.length > 1 || !_.has(spAttributesAtLevel, spClassToGuarantee.targetName)) {
-        // Either we have multiple schemes at level but not all the correct ones or we do not have our default scheme.
+      if (
+        spAttributeNamesArray.length > 1 ||
+        !_.has(spAttributesAtLevel, spClassToGuarantee.targetName)
+      ) {
+        // Either we have multiple schemes at level but not all the correct
+        // ones or we do not have our default scheme.
         throw new SchemaGotSwaggerError(`The Path ${spClassToGuarantee.dataDefaultsType} that was passed should either be a single scheme item at the path schemes target name: ${spClassToGuarantee.targetName} or a semverish object that corresponds to the paths data object.`); // eslint-disable-line max-len
       }
-      // Otherwise we want to create all of the same attributes at this level in the schemes realization and add the target name scheme.
+      // Otherwise we want to create all of the same attributes at this level
+      // in the schemes realization and add the target name scheme.
       const newSchemes = {};
       pathsAttributesArray.forEach((path) => {
-        _.setWith(newSchemes, _.concat(currentSemverArray, [path]), _.get(spAttributesAtLevel, spClassToGuarantee.targetName), Object);
+        _.setWith(
+          newSchemes,
+          _.concat(
+            currentSemverArray,
+            [path]
+          ),
+          _.get(
+            spAttributesAtLevel,
+            spClassToGuarantee.targetName
+          ),
+          Object
+        );
       });
       spAttributesAtLevel = newSchemes;
     }
