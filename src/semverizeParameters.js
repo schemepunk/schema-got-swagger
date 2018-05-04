@@ -65,6 +65,7 @@ module.exports = class SemverizeParameters<T> {
   semverishMolotov: (molotovConfig | molotovConfigDefaults)
   composer: *
   realized: semverish
+  validate: boolean
   validatorId: string
   /**
    * Creates an instance of SemverizeParameters.
@@ -116,6 +117,7 @@ module.exports = class SemverizeParameters<T> {
     this.targetName = options.targetName;
     this.semverishMolotov = options.semverishMolotov;
     this.validatorId = validatorId;
+    this.validate = options.validate;
   }
 
   /**
@@ -150,7 +152,12 @@ module.exports = class SemverizeParameters<T> {
         this.semverishMolotov
       ))
       .then(composer => this.parseComposerAttributes(composer))
-      .then(() => this.validateRealizedParameters());
+      .then(() => {
+        if (this.validate) {
+          return this.validateRealizedParameters();
+        }
+        return this;
+      });
   }
 
   /**
