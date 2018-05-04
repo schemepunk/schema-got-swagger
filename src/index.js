@@ -10,6 +10,7 @@ import type {
   schemePunkScheme,
   swaggerMainData,
   mainTemplate,
+  pathTemplate,
   sgsDataType,
   configNameSpace,
   pathsData,
@@ -46,6 +47,8 @@ module.exports = class SchemaGotSwagger {
   realizedMainSwagger: semverish
   swaggerComposer: *
   pathsDataSp: SemverizeParameters<pathsData>
+  pathTemplatesSp: SemverizeParameters<pathTemplate>
+  pathsSchemesSp: SemverizeParameters<schemePunkScheme>
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -132,20 +135,30 @@ module.exports = class SchemaGotSwagger {
 
         const templatesData = _.get(swaggerSrcOptions, ['templates', 'templates'], {});
         const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker(templatesData, 'templates', 'swaggerSrc', swaggerSrcOptions); // eslint-disable-line max-len
+        const templatesPaths = _.get(pathItemsSrcOptions, ['templates', 'templates'], {});
+        const pathsTemplates: SemverizeParameters<pathTemplate> = this.spMaker(templatesPaths, 'templates', 'paths', pathItemsSrcOptions);
         const schemesData = _.get(swaggerSrcOptions, ['schemes', 'schemes'], {});
         const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesData, 'schemes', 'swaggerSrc', swaggerSrcOptions); // eslint-disable-line max-len
+        const schemesPaths = _.get(pathItemsSrcOptions, ['schemes', 'schemes'], {});
+        const pathsSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesPaths, 'schemes', 'paths', pathItemsSrcOptions); // eslint-disable-line max-len
         return Promise.all([
           swaggerSrcTemplates.init(),
           // Create a swagger src templates semverize parameters
           swaggerSrcSchemes.init(),
           // Create a swagger schemePunk schemes semverize parameters
+          pathsTemplates.init(),
+          pathsSchemes.init(),
         ]);
       })
       .then(([
         swaggerSrcTemplatesSp,
         swaggerSrcSchemesSp,
+        pathsTemplatesSp,
+        pathsSchemesSp,
       ]) => this.setSwaggerSrcTemplatesSpClass(swaggerSrcTemplatesSp)
-        .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp))
+        .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp)
+        .setPathsTemplatesSpClass(pathsTemplatesSp)
+        .setPathsSchemesSpClass(pathsSchemesSp))
       .then(() => this.integrateTemplatesAndSchemes())
       .then(() => this.schemeRunner(this.getMainDataSpClass(), this.getSwaggerSrcSchemesSpClass()))
       .then((realizedMainSemverish) => {
@@ -368,7 +381,30 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
-   * Sets the main swagger src templates Semverized Parameters Class.
+   * Sets the paths templates Semverized Parameters Class.
+   *
+   * @param {SemverizeParameters<pathTemplate>} templatesSp
+   *   A semverized Parameter class.
+   * @returns {SchemaGotSwagger}
+   *   Returns an instance of this class.
+   */
+  setPathsTemplatesSpClass(templatesSp: SemverizeParameters<pathTemplate>): SchemaGotSwagger {
+    this.pathTemplatesSp = templatesSp;
+    return this;
+  }
+
+  /**
+   * Gets the templates Sp class.
+   *
+   * @returns {SemverizeParameters<pathTemplate>}
+   * Returns a templates Sp class.
+   */
+  getPathsTemplatesSpClass() {
+    return this.pathTemplatesSp;
+  }
+
+  /**
+   * Sets the main swagger src Schemes' Semverized Parameters Class.
    *
    * @param {SemverizeParameters<schemePunkScheme>} schemesSp
    *   A semverized Parameter class.
@@ -381,13 +417,36 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
-   * Gets the templates Sp class.
+   * Gets the swaggerSrc schemes Sp class.
    *
    * @returns {SemverizeParameters<schemePunkScheme>}
    *  Returns an sp class for the scheme punk schemes.
    */
   getSwaggerSrcSchemesSpClass() {
     return this.schemesSp;
+  }
+
+  /**
+   * Sets the paths Schemes Semverized Parameters Class.
+   *
+   * @param {SemverizeParameters<schemePunkScheme>} schemesSp
+   *   A semverized Parameter class.
+   * @returns {SchemaGotSwagger}
+   *   Returns an instance of this class.
+   */
+  setPathsSchemesSpClass(schemesSp: SemverizeParameters<schemePunkScheme>): SchemaGotSwagger {
+    this.pathsSchemesSp = schemesSp;
+    return this;
+  }
+
+  /**
+   * Gets the paths schemes Sp class.
+   *
+   * @returns {SemverizeParameters<schemePunkScheme>}
+   *  Returns an sp class for the scheme punk schemes.
+   */
+  getPathschemesSpClass() {
+    return this.pathsSchemesSp;
   }
 
   /**

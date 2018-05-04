@@ -162,7 +162,23 @@ export type mainTemplate = {
   security?: string,
   tags?: string,
   externalsDocs?: string,
-  destinationTemplate: string
+  destinationTemplate: string,
+  [string]: string
+}
+
+export type pathTemplate = {
+  definitions?: string,
+  parameters: string,
+  tags: string,
+  externaldocs: string,
+  consumes: string,
+  produces: string,
+  security: string,
+  responses: string,
+  operations: string,
+  paths: string,
+  destinationTemplate: string,
+  [string]: string
 }
 
 export type semverishNumberOrTemplate = ({[string]: semverishNumberOrTemplate} | mainTemplate); // eslint-disable-line max-len

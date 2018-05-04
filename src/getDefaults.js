@@ -11,6 +11,8 @@ const DEFAULT_TYPES = {
   swaggerSrctemplates: '',
   pathstemplates: '',
   pathstemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
+  pathsschemes: `/../defaults/pathsScheme.yaml`,
+  pathsschemesSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
   swaggerSrcdata: '',
   pathsdata: '',
 };
@@ -113,7 +115,7 @@ class GetDefaults<T> {
    *   you are targeting.
    * @memberof Configurator
    */
-  getswaggerPathstemplatesDefaults(): Promise<T> {
+  getpathstemplatesDefaults(): Promise<T> {
     return this.getSwaggerTemplateYaml(pathstemplates);
   }
 

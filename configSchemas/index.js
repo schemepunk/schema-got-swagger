@@ -6,6 +6,7 @@ const semverishMainData = require('./semverishMainData');
 const swaggerMainTemplates = require('./swaggerMainTemplates');
 const swaggerMainData = require('./swaggerMainData');
 const pathsData = require('./pathsData');
+const pathsTemplates = require('./swaggerPathsTemplates');
 
 module.exports = {
   pathsData,
@@ -16,4 +17,5 @@ module.exports = {
   semverishMainData,
   swaggerMainTemplates,
   swaggerMainData,
+  pathsTemplates,
 };
