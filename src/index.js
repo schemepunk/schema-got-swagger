@@ -371,15 +371,15 @@ module.exports = class SchemaGotSwagger {
   pathsEntitySpGuarantee(currentSemverArray: Array<string>, dataAttributesAtLevel: {}, spClassToGuarantee: SemverizeParameters<*>) { // eslint-disable-line max-len
     const pathsAttributesArray: Array<string> = Object.keys(dataAttributesAtLevel);
     // Check for matches in sp class.. If all attributes are there the user has
-    let spAttributesAtLevel: {} = _.get(spClassToGuarantee.realized, currentSemverArray);
-    const spAttributeNamesArray: Array<string> = Object.keys(spAttributesAtLevel);
+    let spAttributesAtLevel: {} = spClassToGuarantee.realized;
+    const spAttributeNamesArray: Array<string> = Object.keys(_.get(spClassToGuarantee.realized, currentSemverArray));
     // See if sp has all the entity keys it is supposed to and if
     // not make it so or throw.
     const spArrayDiff = _.difference(pathsAttributesArray, spAttributeNamesArray);
     if (spArrayDiff.length) {
       if (
         spAttributeNamesArray.length > 1 ||
-        !_.has(spAttributesAtLevel, spClassToGuarantee.targetName)
+        !_.has(_.get(spClassToGuarantee.realized, currentSemverArray), spClassToGuarantee.targetName)
       ) {
         // Either we have multiple schemes at level but not all the correct
         // ones or we do not have our default scheme.
@@ -393,10 +393,11 @@ module.exports = class SchemaGotSwagger {
           newSchemes,
           _.concat(
             currentSemverArray,
-            [path]
+            [path],
+            spClassToGuarantee.targetName
           ),
           _.get(
-            spAttributesAtLevel,
+            _.get(spClassToGuarantee.realized, currentSemverArray),
             spClassToGuarantee.targetName
           ),
           Object

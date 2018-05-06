@@ -53,6 +53,63 @@ const pathsConfig = {
   }
 };
 
+const data = {
+  1: {
+    0: {
+      0: {
+        example: {
+          schemes: {
+            processTemplates: [
+              [
+                {
+                  source: {
+                    target: 'swaggerSrc',
+                    plugin: 'originalSchemeSource',
+                  },
+                  transform: {
+                    plugin: 'tokenTemplateValues'
+                  },
+                  destination: {
+                    target: 'swaggerSrc'
+                  }
+                }
+              ]
+            ]
+          }
+        },
+        test: {
+          schemes: {
+            processTemplates: [
+              [
+                {
+                  source: {
+                    target: 'swaggerSrc',
+                    plugin: 'originalSchemeSource',
+                  },
+                  transform: {
+                    plugin: 'tokenTemplateValues'
+                  },
+                  destination: {
+                    target: 'swaggerSrc'
+                  }
+                }
+              ]
+            ]
+          }
+        }
+      }
+    }
+  }
+};
+const schemesConfig = {
+  semveristConfig: {},
+  semverishMolotov: { overrides: {}, cocktailClasses: []},
+  desiredRealizations: ['1.0.0'],
+  validate: true,
+  swaggerVersion: '2.0.0',
+  targetName: 'schemes'
+}
+
 const swaggerSrc = swaggerMainHelper;
 
 describe('Index functional', () => {
@@ -92,3 +149,42 @@ describe('Index functional simple swagger Src', () => {
   });
 });
 
+describe('Paths entity sp Guarantee', ()  => {
+  test('Sp Guarantee same entities', () => {
+    expect.assertions(1);
+    // Create a Semverize parameters
+
+    const spClass = new SemverizeParameters(data, 'pathsschemesValidator', { dataDefaultsType: 'pathsschemes', semveristConfigDefaults: 'pathsschemesSemverist' }, schemesConfig);
+    const testData = { example: {}, test: {}};
+    const schemaGotSwagger = new SchemaGotSwagger();
+    return spClass.init()
+    .then((sp) => expect(schemaGotSwagger.pathsEntitySpGuarantee(['1', '0', '0'], testData, sp)).toMatchSnapshot());
+  });
+});
+
+describe('Paths entity sp Guarantee no entities', ()  => {
+  test('Sp Guarantee no entities', () => {
+    expect.assertions(1);
+    // Create a Semverize parameters
+
+    const spClass = new SemverizeParameters(data[1][0][0].example.schemes, 'pathsschemesValidator', { dataDefaultsType: 'pathsschemes', semveristConfigDefaults: 'pathsschemesSemverist' }, schemesConfig);
+    const testData = { example: {}, test: {}};
+    const schemaGotSwagger = new SchemaGotSwagger();
+    return spClass.init()
+    .then((sp) => expect(schemaGotSwagger.pathsEntitySpGuarantee(['1', '0', '0'], testData, sp)).toMatchSnapshot());
+  });
+});
+
+describe('Entity mismatch', ()  => {
+  test('Sp Guarantee not all entities', () => {
+    expect.assertions(1);
+    // Create a Semverize parameters
+
+    const spClass = new SemverizeParameters(data, 'pathsschemesValidator', { dataDefaultsType: 'pathsschemes', semveristConfigDefaults: 'pathsschemesSemverist' }, schemesConfig);
+    const testData = { example: {}, test: {}, snarf: {}};
+    const schemaGotSwagger = new SchemaGotSwagger();
+    return spClass.init()
+    .then((sp) => schemaGotSwagger.pathsEntitySpGuarantee(['1', '0', '0'], testData, sp))
+    .catch((e) => expect(e).toBeInstanceOf(SchemaGotSwaggerError));
+  });
+});

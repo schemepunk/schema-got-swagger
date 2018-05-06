@@ -1536,3 +1536,105 @@ Object {
   },
 }
 `;
+
+exports[`Paths entity sp Guarantee Sp Guarantee same entities 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "example": Object {
+          "schemes": Object {
+            "processTemplates": Array [
+              Array [
+                Object {
+                  "destination": Object {
+                    "target": "swaggerSrc",
+                  },
+                  "source": Object {
+                    "plugin": "originalSchemeSource",
+                    "target": "swaggerSrc",
+                  },
+                  "transform": Object {
+                    "plugin": "tokenTemplateValues",
+                  },
+                },
+              ],
+            ],
+          },
+        },
+        "test": Object {
+          "schemes": Object {
+            "processTemplates": Array [
+              Array [
+                Object {
+                  "destination": Object {
+                    "target": "swaggerSrc",
+                  },
+                  "source": Object {
+                    "plugin": "originalSchemeSource",
+                    "target": "swaggerSrc",
+                  },
+                  "transform": Object {
+                    "plugin": "tokenTemplateValues",
+                  },
+                },
+              ],
+            ],
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Paths entity sp Guarantee no entities Sp Guarantee no entities 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "example": Object {
+          "schemes": Object {
+            "processTemplates": Array [
+              Array [
+                Object {
+                  "destination": Object {
+                    "target": "swaggerSrc",
+                  },
+                  "source": Object {
+                    "plugin": "originalSchemeSource",
+                    "target": "swaggerSrc",
+                  },
+                  "transform": Object {
+                    "plugin": "tokenTemplateValues",
+                  },
+                },
+              ],
+            ],
+          },
+        },
+        "test": Object {
+          "schemes": Object {
+            "processTemplates": Array [
+              Array [
+                Object {
+                  "destination": Object {
+                    "target": "swaggerSrc",
+                  },
+                  "source": Object {
+                    "plugin": "originalSchemeSource",
+                    "target": "swaggerSrc",
+                  },
+                  "transform": Object {
+                    "plugin": "tokenTemplateValues",
+                  },
+                },
+              ],
+            ],
+          },
+        },
+      },
+    },
+  },
+}
+`;
