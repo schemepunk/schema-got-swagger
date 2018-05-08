@@ -15,7 +15,7 @@ module.exports = {
                   summary: 'Find pets by ID',
                   operationId: 'getPetsById',
                   produces: {
-                    process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
+                    process: function () { return JSON.stringify(this.items) }, // eslint-disable-line
                     items: [
                       'application/json',
                       'text/html',
@@ -122,7 +122,7 @@ module.exports = {
                     },
                   },
                   security: {
-                    process: function () {return JSON.stringify(this.items)}, // eslint-disable-line
+                    process: function () { return JSON.stringify(this.items) }, // eslint-disable-line
                     items: {
                       petstore_auth: [
                         'write:pets',
@@ -153,13 +153,14 @@ module.exports = {
                     summary: 'Find pets by ID',
                     operationId: 'getPetsById',
                     produces: {
-                      process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
+                      process: function () { return JSON.stringify(this.items) }, // eslint-disable-line
                       items: [
                         'application/json',
                         'text/html',
                       ],
                     },
-                    responses: { process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
+                    responses: {
+                      process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
                       items: {
                         200: {
                           description: 'pet response',
@@ -259,7 +260,7 @@ module.exports = {
                       },
                     },
                     security: {
-                      process: function () {return JSON.stringify(this.items)}, // eslint-disable-line
+                      process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
                       items: {
                         petstore_auth: [
                           'write:pets',
@@ -274,10 +275,10 @@ module.exports = {
           },
         },
       },
-      pet: {
-        definitions: {
-          paths: [
-            {
+      0: {
+        pet: {
+          definitions: {
+            paths: [{
               pathItem: '/pets',
               last: true,
               operations: [
@@ -395,7 +396,7 @@ module.exports = {
                     },
                   },
                   security: {
-                    process: function () {return JSON.stringify(this.items)}, // eslint-disable-line
+                    process: function () { return JSON.stringify(this.items)}, // eslint-disable-line
                     items: {
                       petstore_auth: [
                         'write:pets',
@@ -406,7 +407,8 @@ module.exports = {
                 },
               ],
             },
-          ],
+            ],
+          },
         },
       },
     },

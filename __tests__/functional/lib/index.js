@@ -134,7 +134,7 @@ describe('Index functional simple swagger Src', () => {
   test('Simple swagger src..', () => {
     expect.assertions(8);
     const schemaGotSwagger = new SchemaGotSwagger();
-    schemaGotSwagger.setDesiredRealizations(['1.0.0', '1.1.0', '1.1.0'])
+    schemaGotSwagger.setDesiredRealizations(['1.0.0', '1.1.0', '1.1.1'])
     return schemaGotSwagger.init(swaggerSrc[1][0], paths, config, swaggerSrcOptions, pathsConfig)
     .then((sgs) => {
       expect(sgs).toBeInstanceOf(SchemaGotSwagger)
