@@ -3,7 +3,7 @@ module.exports = {
   description: 'A schema describing the shape of swagger data for Schema got swagger.',
   $id: 'http://example.com/schemas/swaggerMainData.json',
   type: 'object',
-  additionalProperties: false,
+  additionalProperties: true,
   required: [
     'apiName',
   ],

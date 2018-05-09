@@ -5,8 +5,6 @@ module.exports = {
   type: 'object',
   additionalProperties: true,
   required: [
-    'title',
-    'version',
     'destinationTemplate',
   ],
   properties: {

@@ -12,6 +12,10 @@ export type configNames = (
   "SwaggerSrcTemplatesSemverist" |
   "SwaggerSrcSchemes");
 
+export type sgsDataType = ('swaggerSrc' | 'paths');
+
+export type configNameSpace = ('data' | 'templates' | 'schemes');
+
 export type sgsConfig = {
   swaggerVersion: string,
   apiType: string,
@@ -20,7 +24,9 @@ export type sgsConfig = {
     sgs: boolean
   },
   mainSwaggerSchemeProcessName: string,
-  sgsSemver: semveristConfig
+  pathsSchemeProcessName?: string,
+  sgsSemver: semveristConfig,
+  realizationsSource: ('swaggerSrc' | 'paths')
 }
 
 export type userSgsConfig = {
@@ -29,7 +35,11 @@ export type userSgsConfig = {
   sgsType?: string,
   mergeConfig?: {
     sgs?: boolean
-  }
+  },
+  sgsSemver?: semveristConfig,
+  mainSwaggerSchemeProcessName?: string,
+  pathsSchemeProcessName?: string,
+  realizationsSource?: ('swaggerSrc' | 'paths')
 }
 
 export type semverishNumberOrObject = ({[string]: semverishNumberOrObject} | {}); // eslint-disable-line max-len
@@ -155,7 +165,23 @@ export type mainTemplate = {
   security?: string,
   tags?: string,
   externalsDocs?: string,
-  destinationTemplate: string
+  destinationTemplate: string,
+  [string]: string
+}
+
+export type pathTemplate = {
+  definitions?: string,
+  parameters: string,
+  tags: string,
+  externaldocs: string,
+  consumes: string,
+  produces: string,
+  security: string,
+  responses: string,
+  operations: string,
+  paths: string,
+  destinationTemplate: string,
+  [string]: string
 }
 
 export type semverishNumberOrTemplate = ({[string]: semverishNumberOrTemplate} | mainTemplate); // eslint-disable-line max-len
@@ -203,7 +229,7 @@ export type mainSwaggerMakerOptions = {
   },
   templates: {
     semveristConfig: semveristConfig,
-    templateOverrides: (mainTemplate | templateSemverish);
+    templates: (mainTemplate | templateSemverish);
     semveristMolotovOptions?: molotovConfig,
     targetName: string,
   }
@@ -224,8 +250,54 @@ export type pathSwaggerMakerOptions = {
   },
   templates: {
     semveristConfig: semveristConfig,
-    templateOverrides: (mainTemplate | templateSemverish);
+    templates: (mainTemplate | templateSemverish);
     semveristMolotovOptions: molotovConfig
   }
+}
+
+export type pathsData = {
+  definitions?: {
+    items: {}
+  },
+  paths: Array<{
+    pathItem: string,
+    '$ref'?: string,
+    last?: boolean,
+    parameters?: {
+      items: {}
+    },
+    operations: Array<{
+      operationId: string,
+      operationName: string,
+      tags?: {
+        items: {}
+      },
+      comma?: boolean,
+      deprecated?: string,
+      description?: string,
+      externalDocs?: {
+        description: string,
+        url: string
+      },
+      summary?: string,
+      produces?: {
+        items: Array<string>
+      },
+      consumes?: {
+        items: Array<string>
+      },
+      responses: {
+        items: {
+          [string]: {}
+        }
+      },
+      parameters?: {
+        items: Array<{}>
+      },
+      security?: {
+        items: Array<string>
+      }
+    }>
+  }>
 }
 

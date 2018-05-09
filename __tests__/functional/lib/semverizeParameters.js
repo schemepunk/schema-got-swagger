@@ -52,10 +52,10 @@ describe('Basic functional swagger main data', () => {
     expect.assertions(1);
     const semverizeParameters = new SemverizeParameters(
       semverishTest,
-      'swaggerMainSrcValidator',
+      'swaggerSrcdataValidator',
       {
-        dataDefaultsType: 'SwaggerSrcSchemes',
-        semveristConfigDefaults: 'SgsSemverist'
+        dataDefaultsType: 'swaggerSrcsdata',
+        semveristConfigDefaults: 'swaggerSrcdataSemverist'
       },
       {
         semveristConfig: semveristToPass,
@@ -69,6 +69,31 @@ describe('Basic functional swagger main data', () => {
     return semverizeParameters.init()
      .then((semPar) => {
        expect(semPar).toBeInstanceOf(SemverizeParameters);
+     })
+  })
+  test('Custom data shape that turns off validation still formed.', () => {
+    expect.assertions(2);
+    const semverishCustomData = {  1: { 0: { 0: {totallyCustom: 'totallyCustom'}}}};
+    const semverizeParameters = new SemverizeParameters(
+      semverishCustomData,
+      'swaggerSrcdataValidator',
+      {
+        dataDefaultsType: 'swaggerSrcsdata',
+        semveristConfigDefaults: 'swaggerSrcdataSemverist'
+      },
+      {
+        semveristConfig: semveristToPass,
+        semverishMolotov: { overrides: {}, cocktailClasses: [] },
+        desiredRealizations: [],
+        validate: false,
+        swaggerVersion: '2.0.0',
+        targetName: 'swaggerSrc',
+      }
+    );
+    return semverizeParameters.init()
+     .then((semPar) => {
+       expect(semPar).toBeInstanceOf(SemverizeParameters)
+       expect(semPar.realized).toEqual({"1": {"0": {"0": {"totallyCustom": "totallyCustom"}}}});
      })
   })
 });

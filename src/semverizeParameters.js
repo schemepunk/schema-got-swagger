@@ -32,6 +32,8 @@ const ajv = new Ajv({
     configSchemas.swaggerMainData,
     configSchemas.swaggerMainTemplates,
     configSchemas.semveristConfig,
+    configSchemas.pathsData,
+    configSchemas.pathsTemplates,
   ],
   allErrors: true,
   jsonPointers: true,
@@ -39,13 +41,15 @@ const ajv = new Ajv({
 
 const validators = {
   sgsValidator: ajv.getSchema('http://example.com/schemas/sgsConfig.json'),
-  swaggerMainSrcValidator: ajv.getSchema('http://example.com/schemas/swaggerMainData.json'),
+  swaggerSrcdataValidator: ajv.getSchema('http://example.com/schemas/swaggerMainData.json'),
   semveristConfigValidator: ajv.getSchema('http://example.com/schemas/semveristConfig.json'),
-  templateValidator: ajv.getSchema('http://example.com/schemas/swaggerMainTemplate.json'),
-  schemePunkValidator: ajv.getSchema('http://example.com/schemas/schemePunkConfig.json'),
+  swaggerSrctemplatesValidator: ajv.getSchema('http://example.com/schemas/swaggerMainTemplate.json'),
+  swaggerSrcschemesValidator: ajv.getSchema('http://example.com/schemas/schemePunkConfig.json'),
   semverishValidator: ajv.getSchema('http://example.com/schemas/semverish.json'),
+  pathsdataValidator: ajv.getSchema('http://example.com/schemas/pathsData.json'),
+  pathstemplatesValidator: ajv.getSchema('http://example.com/schemas/swaggerPathsTemplate.json'),
+  pathsschemesValidator: ajv.getSchema('http://example.com/schemas/schemePunkConfig.json'),
 };
-
 
 module.exports = class SemverizeParameters<T> {
   mergeSemveristConfig: boolean
@@ -61,6 +65,7 @@ module.exports = class SemverizeParameters<T> {
   semverishMolotov: (molotovConfig | molotovConfigDefaults)
   composer: *
   realized: semverish
+  validate: boolean
   validatorId: string
   /**
    * Creates an instance of SemverizeParameters.
@@ -112,6 +117,7 @@ module.exports = class SemverizeParameters<T> {
     this.targetName = options.targetName;
     this.semverishMolotov = options.semverishMolotov;
     this.validatorId = validatorId;
+    this.validate = options.validate;
   }
 
   /**
@@ -146,7 +152,12 @@ module.exports = class SemverizeParameters<T> {
         this.semverishMolotov
       ))
       .then(composer => this.parseComposerAttributes(composer))
-      .then(() => this.validateRealizedParameters());
+      .then(() => {
+        if (this.validate) {
+          return this.validateRealizedParameters();
+        }
+        return this;
+      });
   }
 
   /**
@@ -227,8 +238,20 @@ module.exports = class SemverizeParameters<T> {
   validateRealizedParameters(): SemverizeParameters<T> {
     this.getSemverRealizations().forEach((semverNum) => {
       try {
-        const testCase = _.get(this.realized, _.concat(semverNum.split('.'), [this.targetName]));
-        this.validator(this.validatorId, testCase);
+        // We will either have known targets or each element here will
+        // have our target.
+        if (_.has(this.realized, _.concat(semverNum.split('.'), [this.targetName]))) {
+          const testCase = _.get(this.realized, _.concat(semverNum.split('.'), [this.targetName]));
+          this.validator(this.validatorId, testCase);
+        }
+        else {
+          // This will be the case for paths.
+          const elementsAtLevel = _.get(this.realized, _.concat(semverNum.split('.')));
+          Object.keys(elementsAtLevel).forEach((key) => {
+            const testCase = _.get(elementsAtLevel, [key, this.targetName]);
+            this.validator(this.validatorId, testCase);
+          });
+        }
       }
       catch (e) {
         throw new SchemaGotSwaggerReThrownError(

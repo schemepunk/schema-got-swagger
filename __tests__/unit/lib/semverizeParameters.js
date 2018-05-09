@@ -136,7 +136,7 @@ describe('Composer related', () => {
     expect.assertions(5);
     const semverizeParameters = new SemverizeParameters(
       {apiName: 'Swagger Example APi override'},
-      'UserInput'
+      'swaggerSrcdata'
     );
 
     return SemverizeParameters.createComposer(semverishTest, { test: semveristToPass }, 'test')
@@ -144,8 +144,8 @@ describe('Composer related', () => {
       expect(value.getComposition()).toMatchSnapshot()
       semverizeParameters.parseComposerAttributes(value);
       semverizeParameters.targetName = 'swaggerSrc';
-      semverizeParameters.validatorId = 'swaggerMainSrcValidator';
-      semverizeParameters.dataDefaultsType = 'UserInput';
+      semverizeParameters.validatorId = 'swaggerSrcdataValidator';
+      semverizeParameters.dataDefaultsType = 'swaggerSrcdata';
       expect(semverizeParameters.getSemverRealizations()).toEqual(
         [
           "1.0.0",
@@ -176,7 +176,7 @@ describe('Prepare semverish', () => {
     expect.assertions(1);
     const semverizeParameters = new SemverizeParameters(
       {test: 'example'},
-      'UserInput'
+      'swaggerSrcdata'
     );
 
     return semverizeParameters.prepareSemverish(semverishTest)
@@ -187,9 +187,9 @@ describe('Prepare semverish', () => {
     expect.assertions(1);
     const semverizeParameters = new SemverizeParameters(
       {test: 'example'},
-      'UserInput'
+      'swaggerSrctemplates'
     );
-    semverizeParameters.dataDefaultsType = 'SwaggerSrcTemplates';
+    semverizeParameters.dataDefaultsType = 'swaggerSrctemplates';
     semverizeParameters.targetName = 'swagger';
     semverizeParameters.desiredRealizations = ['1.1.0', '2.0.0'];
     return semverizeParameters.prepareSemverish({test: 'example'})
@@ -200,7 +200,7 @@ describe('Prepare semverish', () => {
     expect.assertions(1);
     const semverizeParameters = new SemverizeParameters(
       {test: 'example'},
-      'UserInput'
+      'swaggerSrcdata'
     );
     semverizeParameters.desiredRealizations = ['1.1.0', '2.0.0'];
     expect(semverizeParameters.semverizeToRealizations({test: 'example'})).toEqual(
