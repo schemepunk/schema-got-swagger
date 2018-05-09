@@ -45,6 +45,7 @@ module.exports = class SchemaGotSwagger {
   schemesSp: SemverizeParameters<schemePunkScheme>
   desiredRealizations: Array<string>
   realizedMainSwagger: semverish
+  realizedPathsSwagger: semverish
   swaggerComposer: *
   pathsDataSp: SemverizeParameters<pathsData>
   pathTemplatesSp: SemverizeParameters<pathTemplate>
@@ -159,19 +160,45 @@ module.exports = class SchemaGotSwagger {
         .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp)
         .setPathsTemplatesSpClass(pathsTemplatesSp)
         .setPathsSchemesSpClass(pathsSchemesSp))
-      .then(() => this.integrateSwaggerSrcTemplatesAndSchemes())
+      .then(() => {
+        this.integrateSwaggerSrcTemplatesAndSchemes();
+        this.integratePathsTemplatesAndSchemes();
+        return this;
+      }) // $FlowFixMe
+      .then(() => this.schemeRunner(this.getPathsDataSpClass(), this.getPathsSchemesSpClass()))
+      .then((realizedPaths) => {
+        // Merge all paths arrays into one.
+        const realizedPathsSwagger = {};
+        let mergedPaths = {};
+        this.mainDataSp.getSemverRealizations().forEach((semver) => {
+          const semverReal = this.semverStringSplit(semver);
+          const pathRenderAtLevel = _.get(realizedPaths, semverReal);
+
+          Object.keys(pathRenderAtLevel).forEach((key) => {
+            mergedPaths = _.assign(mergedPaths, JSON.parse(pathRenderAtLevel[key].swagger).paths);
+          });
+          _.setWith(realizedPathsSwagger, _.concat(semverReal, ['paths']), mergedPaths, Object);
+        });
+
+        this.realizedPathsSwagger = realizedPathsSwagger;
+        return this;
+      })
       .then(() => this.schemeRunner(this.getMainDataSpClass(), this.getSwaggerSrcSchemesSpClass()))
       .then((realizedMainSemverish) => {
         this.realizedMainSwagger = realizedMainSemverish;
         // Run realizedMainSwagger through semverist.
         this.mainDataSp.getSemverRealizations().forEach((semver) => {
+          // Get main swagger file.
+          const mainSwags = JSON.parse(_.get(
+            this.realizedMainSwagger,
+            _.concat(this.semverStringSplit(semver), ['swagger'])
+          ));
+          mainSwags.paths = _.get(this.realizedPathsSwagger, _.concat(this.semverStringSplit(semver), ['paths']));
+          // Add paths from paths realizations.
           _.set(
             this.realizedMainSwagger,
             _.concat(this.semverStringSplit(semver), ['swagger']),
-            JSON.parse(_.get(
-              this.realizedMainSwagger,
-              _.concat(this.semverStringSplit(semver), ['swagger'])
-            ))
+            mainSwags
           );
         });
         return SemverizeParameters.createComposer(
@@ -296,6 +323,7 @@ module.exports = class SchemaGotSwagger {
     // For each semverRealization get the attributes at that level in pathData
     const semverRealizations = this.getPathsDataSpClass().getSemverRealizations();
     const schemes = {};
+    const schemeTest = {};
     semverRealizations.forEach((semver) => {
       const currentSemverArray = this.semverStringSplit(semver);
       // Set SchemesSP with new composition.
@@ -310,10 +338,10 @@ module.exports = class SchemaGotSwagger {
         _.get(this.getPathsDataSpClass().realized, currentSemverArray), // $FlowFixMe
         this.getPathsTemplatesSpClass()
       );
-
+      let tempSchemeArray = [];
       // Take the templates and add them to the schemes.
       _.forEach(schemesAttributesAtLevel, (value, key) => {
-        const tempSchemeArray = _.get(
+        tempSchemeArray = _.get(
           value,
           _.concat(
             [this.getPathsSchemesSpClass().targetName],
@@ -336,7 +364,7 @@ module.exports = class SchemaGotSwagger {
           }
         });
         _.set(
-          schemesAttributesAtLevel,
+          schemeTest,
           _.concat(
             key,
             [this.getPathsSchemesSpClass().targetName],
@@ -345,7 +373,7 @@ module.exports = class SchemaGotSwagger {
           tempSchemeArray
         );
       });
-      _.setWith(schemes, currentSemverArray, schemesAttributesAtLevel, Object);
+      _.setWith(schemes, currentSemverArray, schemeTest, Object);
     });
     const tempSpClass = this.getPathsSchemesSpClass();
     tempSpClass.realized = schemes;
@@ -372,7 +400,8 @@ module.exports = class SchemaGotSwagger {
     const pathsAttributesArray: Array<string> = Object.keys(dataAttributesAtLevel);
     // Check for matches in sp class.. If all attributes are there the user has
     let spAttributesAtLevel: {} = spClassToGuarantee.realized;
-    const spAttributeNamesArray: Array<string> = Object.keys(_.get(spClassToGuarantee.realized, currentSemverArray));
+
+    const spAttributeNamesArray: Array<string> = _.keys(_.get(spClassToGuarantee.realized, currentSemverArray));
     // See if sp has all the entity keys it is supposed to and if
     // not make it so or throw.
     const spArrayDiff = _.difference(pathsAttributesArray, spAttributeNamesArray);
@@ -392,7 +421,6 @@ module.exports = class SchemaGotSwagger {
         _.setWith(
           newSchemes,
           _.concat(
-            currentSemverArray,
             [path],
             spClassToGuarantee.targetName
           ),
@@ -589,44 +617,42 @@ module.exports = class SchemaGotSwagger {
   ): Promise<semverish> {
     const schemeTransformedData = {};
     const items = [];
-    dataSp.getSemverRealizations().forEach((semverNum) => {
-      if (_.has(
-        schemesSp.realized,
-        _.concat(this.semverStringSplit(semverNum), [schemesSp.targetName])
-      )) {
-        // We have a matching scheme. So we can move forward with
-        // schemePunk processing.
-        const schemeConfig = _.get(
-          schemesSp.realized,
-          _.concat(this.semverStringSplit(semverNum), [schemesSp.targetName])
-        );
+    this.getMainDataSpClass().getSemverRealizations().forEach((semverNum) => {
+      const semverArray = this.semverStringSplit(semverNum);
+      const schemeConfig = this.getTargetOrNestedTarget(schemesSp.realized, semverArray, schemesSp.targetName);
+      const dataObject = this.getTargetOrNestedTarget(dataSp.realized, semverArray, dataSp.targetName, false);
 
-        const obj = _.get(
-          dataSp.realized,
-          _.concat(this.semverStringSplit(semverNum))
-        );
-
+      Object.keys(schemeConfig).forEach((val) => {
         const schemeRunner = new SchemeRunner();
-
+        const pathage = _.clone(val);
+        let tmp;
+        if (_.isArray(schemeConfig[val])) {
+          tmp = schemeConfig;
+        }
+        else {
+          tmp = _.values(schemeConfig[val]);
+        }
         items.push(schemeRunner.init(
-          _.cloneDeep(obj),
-          _.cloneDeep(schemeConfig),
+          _.cloneDeep(dataObject[pathage]),
+          _.cloneDeep(tmp),
           {
-            overrides: {},
+            overrides: [],
             cocktailClasses: [],
           }
         )
           .then(sr => sr.runScheme())
-          .then(data => _.setWith(
-            schemeTransformedData,
-            _.concat(
-              this.semverStringSplit(semverNum),
-              ['swagger']
-            ),
-            data[dataSp.targetName],
-            Object
-          )));
-      }
+          .then((data) => {
+            _.setWith(
+              schemeTransformedData,
+              _.concat(
+                _.filter(pathage.split('.'), (vale => vale !== this.getMainDataSpClass().targetName)),
+                ['swagger']
+              ),
+              data[dataSp.targetName],
+              Object,
+            );
+          }));
+      });
     });
     return Promise.all(items)
       .then(() => schemeTransformedData);
@@ -685,5 +711,42 @@ module.exports = class SchemaGotSwagger {
       }
     );
     return sp;
+  }
+
+  /**
+   * Returns an array of targets. Will work for either a single item
+   *   or a series of nested targets, like encountered in paths entities.
+   *
+   * @param {{}} holdingObject
+   *   An object you wish to inspect at the passed semverArray and targetName.
+   * @param {Array} semverArray
+   *   An array of semver parts, major, minor, patch, or pre-release.
+   * @param {string} targetName
+   *   The target name for which we should search.
+   * @param {boolean} onlyTarget
+   *   Whether to filter to the only the target (true) or include the containing object (false)
+   * @returns {Object}
+   *   Retuns an array of target objects.
+   */
+  getTargetOrNestedTarget(holdingObject: {}, semverArray: Array<string>, targetName: string, onlyTarget: boolean = true): {} {
+    const targets: {} = {};
+    const atLevelAttributes = _.get(holdingObject, semverArray);
+    if (_.has(atLevelAttributes, targetName)) {
+      targets[`${semverArray.join('.')}.${targetName}`] = atLevelAttributes;
+      if (onlyTarget) {
+        targets[`${semverArray.join('.')}.${targetName}`] = atLevelAttributes[targetName];
+      }
+    }
+    else {
+      Object.keys(atLevelAttributes).forEach((attKey) => {
+        if (_.has(atLevelAttributes, [attKey, targetName])) {
+          targets[`${semverArray.join('.')}.${attKey}`] = atLevelAttributes[attKey];
+          if (onlyTarget) {
+            targets[`${semverArray.join('.')}.${attKey}`] = atLevelAttributes[attKey][targetName];
+          }
+        }
+      });
+    }
+    return targets;
   }
 };

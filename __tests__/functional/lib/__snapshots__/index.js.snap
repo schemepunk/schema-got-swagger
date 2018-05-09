@@ -718,7 +718,208 @@ Object {
               "type": "integer",
             },
           },
-          "paths": Object {},
+          "paths": Object {
+            "/examples{id}": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns examples",
+                "externalDocs": Object {},
+                "operationId": "getExamples",
+                "parameters": Object {
+                  "idParam": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "example response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find examples",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+            "/pets": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns pets based on ID",
+                "externalDocs": Object {},
+                "operationId": "getPetsById",
+                "parameters": Object {
+                  "id": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "pet response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find pets by ID",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a pet in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+          },
           "produces": Array [
             "vnd.api+json",
           ],
@@ -832,7 +1033,208 @@ Object {
               "type": "integer",
             },
           },
-          "paths": Object {},
+          "paths": Object {
+            "/examples{id}": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns examples",
+                "externalDocs": Object {},
+                "operationId": "getExamples",
+                "parameters": Object {
+                  "idParam": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "example response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find examples",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+            "/pets": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns pets based on ID",
+                "externalDocs": Object {},
+                "operationId": "getPetsById",
+                "parameters": Object {
+                  "id": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "pet response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find pets by ID",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a pet in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+          },
           "produces": Array [
             "vnd.api+json",
           ],
@@ -944,7 +1346,208 @@ Object {
               "type": "integer",
             },
           },
-          "paths": Object {},
+          "paths": Object {
+            "/examples{id}": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns examples",
+                "externalDocs": Object {},
+                "operationId": "getExamples",
+                "parameters": Object {
+                  "idParam": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "example response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find examples",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+            "/pets": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns pets based on ID",
+                "externalDocs": Object {},
+                "operationId": "getPetsById",
+                "parameters": Object {
+                  "id": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "pet response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find pets by ID",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a pet in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+          },
           "produces": Array [
             "vnd.api+json",
           ],
@@ -1502,7 +2105,208 @@ Object {
               "type": "integer",
             },
           },
-          "paths": Object {},
+          "paths": Object {
+            "/examples{id}": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns examples",
+                "externalDocs": Object {},
+                "operationId": "getExamples",
+                "parameters": Object {
+                  "idParam": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "example response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find examples",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+            "/pets": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns pets based on ID",
+                "externalDocs": Object {},
+                "operationId": "getPetsById",
+                "parameters": Object {
+                  "id": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "pet response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find pets by ID",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a pet in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+          },
           "produces": Array [
             "vnd.api+json",
           ],
@@ -1616,7 +2420,208 @@ Object {
               "type": "integer",
             },
           },
-          "paths": Object {},
+          "paths": Object {
+            "/examples{id}": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns examples",
+                "externalDocs": Object {},
+                "operationId": "getExamples",
+                "parameters": Object {
+                  "idParam": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "example response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find examples",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+            "/pets": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns pets based on ID",
+                "externalDocs": Object {},
+                "operationId": "getPetsById",
+                "parameters": Object {
+                  "id": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "pet response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find pets by ID",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a pet in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+          },
           "produces": Array [
             "vnd.api+json",
           ],
@@ -1728,7 +2733,208 @@ Object {
               "type": "integer",
             },
           },
-          "paths": Object {},
+          "paths": Object {
+            "/examples{id}": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns examples",
+                "externalDocs": Object {},
+                "operationId": "getExamples",
+                "parameters": Object {
+                  "idParam": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "example response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find examples",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+            "/pets": Object {
+              "get": Object {
+                "consumes": Array [],
+                "description": "Returns pets based on ID",
+                "externalDocs": Object {},
+                "operationId": "getPetsById",
+                "parameters": Object {
+                  "id": Object {
+                    "collectionFormat": "csv",
+                    "description": "ID of pet to use",
+                    "in": "path",
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "name": "id",
+                    "required": true,
+                    "type": "array",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "text/html",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "pet response",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Pet",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "default": Object {
+                    "description": "error payload",
+                    "schema": Object {
+                      "$ref": "#/definitions/ErrorModel",
+                    },
+                  },
+                },
+                "security": Object {},
+                "summary": "Find pets by ID",
+                "tags": Array [],
+              },
+              "parameters": Array [],
+              "put": Object {
+                "consumes": Array [
+                  "application/x-www-form-urlencoded",
+                ],
+                "externalDocs": Object {},
+                "operationId": "updatePetWithForm",
+                "parameters": Object {
+                  "nameParam": Object {
+                    "description": "Updated name of the pet",
+                    "in": "formData",
+                    "name": "name",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "petIdParam": Object {
+                    "description": "ID of pet that needs to be updated",
+                    "in": "path",
+                    "name": "petId",
+                    "required": true,
+                    "type": "string",
+                  },
+                  "statusParam": Object {
+                    "description": "Updated status of the pet",
+                    "in": "formData",
+                    "name": "status",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/json",
+                  "application/xml",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Pet updated",
+                  },
+                  "405": Object {
+                    "description": "Invalid input",
+                  },
+                },
+                "security": Object {
+                  "petstore_auth": Array [
+                    "write:pets",
+                    "read:pets",
+                  ],
+                },
+                "summary": "Updates a pet in the store with form data",
+                "tags": Array [
+                  Object {
+                    "name": "pet",
+                  },
+                ],
+              },
+            },
+          },
           "produces": Array [
             "vnd.api+json",
           ],
@@ -1784,6 +2990,629 @@ Object {
               "name": "carrot",
             },
           ],
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Index functional simple swagger Src Simple swagger src.. 3`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "paths": Object {
+          "/examples{id}": Object {
+            "get": Object {
+              "consumes": Array [],
+              "description": "Returns examples",
+              "externalDocs": Object {},
+              "operationId": "getExamples",
+              "parameters": Object {
+                "idParam": Object {
+                  "collectionFormat": "csv",
+                  "description": "ID of pet to use",
+                  "in": "path",
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "name": "id",
+                  "required": true,
+                  "type": "array",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "text/html",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "example response",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Pet",
+                    },
+                    "type": "array",
+                  },
+                },
+                "default": Object {
+                  "description": "error payload",
+                  "schema": Object {
+                    "$ref": "#/definitions/ErrorModel",
+                  },
+                },
+              },
+              "security": Object {},
+              "summary": "Find examples",
+              "tags": Array [],
+            },
+            "parameters": Array [],
+            "put": Object {
+              "consumes": Array [
+                "application/x-www-form-urlencoded",
+              ],
+              "externalDocs": Object {},
+              "operationId": "updatePetWithForm",
+              "parameters": Object {
+                "nameParam": Object {
+                  "description": "Updated name of the pet",
+                  "in": "formData",
+                  "name": "name",
+                  "required": false,
+                  "type": "string",
+                },
+                "petIdParam": Object {
+                  "description": "ID of pet that needs to be updated",
+                  "in": "path",
+                  "name": "petId",
+                  "required": true,
+                  "type": "string",
+                },
+                "statusParam": Object {
+                  "description": "Updated status of the pet",
+                  "in": "formData",
+                  "name": "status",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "application/xml",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Pet updated",
+                },
+                "405": Object {
+                  "description": "Invalid input",
+                },
+              },
+              "security": Object {
+                "petstore_auth": Array [
+                  "write:pets",
+                  "read:pets",
+                ],
+              },
+              "summary": "Updates a in the store with form data",
+              "tags": Array [
+                Object {
+                  "name": "pet",
+                },
+              ],
+            },
+          },
+          "/pets": Object {
+            "get": Object {
+              "consumes": Array [],
+              "description": "Returns pets based on ID",
+              "externalDocs": Object {},
+              "operationId": "getPetsById",
+              "parameters": Object {
+                "id": Object {
+                  "collectionFormat": "csv",
+                  "description": "ID of pet to use",
+                  "in": "path",
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "name": "id",
+                  "required": true,
+                  "type": "array",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "text/html",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "pet response",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Pet",
+                    },
+                    "type": "array",
+                  },
+                },
+                "default": Object {
+                  "description": "error payload",
+                  "schema": Object {
+                    "$ref": "#/definitions/ErrorModel",
+                  },
+                },
+              },
+              "security": Object {},
+              "summary": "Find pets by ID",
+              "tags": Array [],
+            },
+            "parameters": Array [],
+            "put": Object {
+              "consumes": Array [
+                "application/x-www-form-urlencoded",
+              ],
+              "externalDocs": Object {},
+              "operationId": "updatePetWithForm",
+              "parameters": Object {
+                "nameParam": Object {
+                  "description": "Updated name of the pet",
+                  "in": "formData",
+                  "name": "name",
+                  "required": false,
+                  "type": "string",
+                },
+                "petIdParam": Object {
+                  "description": "ID of pet that needs to be updated",
+                  "in": "path",
+                  "name": "petId",
+                  "required": true,
+                  "type": "string",
+                },
+                "statusParam": Object {
+                  "description": "Updated status of the pet",
+                  "in": "formData",
+                  "name": "status",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "application/xml",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Pet updated",
+                },
+                "405": Object {
+                  "description": "Invalid input",
+                },
+              },
+              "security": Object {
+                "petstore_auth": Array [
+                  "write:pets",
+                  "read:pets",
+                ],
+              },
+              "summary": "Updates a pet in the store with form data",
+              "tags": Array [
+                Object {
+                  "name": "pet",
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+    "1": Object {
+      "0": Object {
+        "paths": Object {
+          "/examples{id}": Object {
+            "get": Object {
+              "consumes": Array [],
+              "description": "Returns examples",
+              "externalDocs": Object {},
+              "operationId": "getExamples",
+              "parameters": Object {
+                "idParam": Object {
+                  "collectionFormat": "csv",
+                  "description": "ID of pet to use",
+                  "in": "path",
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "name": "id",
+                  "required": true,
+                  "type": "array",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "text/html",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "example response",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Pet",
+                    },
+                    "type": "array",
+                  },
+                },
+                "default": Object {
+                  "description": "error payload",
+                  "schema": Object {
+                    "$ref": "#/definitions/ErrorModel",
+                  },
+                },
+              },
+              "security": Object {},
+              "summary": "Find examples",
+              "tags": Array [],
+            },
+            "parameters": Array [],
+            "put": Object {
+              "consumes": Array [
+                "application/x-www-form-urlencoded",
+              ],
+              "externalDocs": Object {},
+              "operationId": "updatePetWithForm",
+              "parameters": Object {
+                "nameParam": Object {
+                  "description": "Updated name of the pet",
+                  "in": "formData",
+                  "name": "name",
+                  "required": false,
+                  "type": "string",
+                },
+                "petIdParam": Object {
+                  "description": "ID of pet that needs to be updated",
+                  "in": "path",
+                  "name": "petId",
+                  "required": true,
+                  "type": "string",
+                },
+                "statusParam": Object {
+                  "description": "Updated status of the pet",
+                  "in": "formData",
+                  "name": "status",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "application/xml",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Pet updated",
+                },
+                "405": Object {
+                  "description": "Invalid input",
+                },
+              },
+              "security": Object {
+                "petstore_auth": Array [
+                  "write:pets",
+                  "read:pets",
+                ],
+              },
+              "summary": "Updates a in the store with form data",
+              "tags": Array [
+                Object {
+                  "name": "pet",
+                },
+              ],
+            },
+          },
+          "/pets": Object {
+            "get": Object {
+              "consumes": Array [],
+              "description": "Returns pets based on ID",
+              "externalDocs": Object {},
+              "operationId": "getPetsById",
+              "parameters": Object {
+                "id": Object {
+                  "collectionFormat": "csv",
+                  "description": "ID of pet to use",
+                  "in": "path",
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "name": "id",
+                  "required": true,
+                  "type": "array",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "text/html",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "pet response",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Pet",
+                    },
+                    "type": "array",
+                  },
+                },
+                "default": Object {
+                  "description": "error payload",
+                  "schema": Object {
+                    "$ref": "#/definitions/ErrorModel",
+                  },
+                },
+              },
+              "security": Object {},
+              "summary": "Find pets by ID",
+              "tags": Array [],
+            },
+            "parameters": Array [],
+            "put": Object {
+              "consumes": Array [
+                "application/x-www-form-urlencoded",
+              ],
+              "externalDocs": Object {},
+              "operationId": "updatePetWithForm",
+              "parameters": Object {
+                "nameParam": Object {
+                  "description": "Updated name of the pet",
+                  "in": "formData",
+                  "name": "name",
+                  "required": false,
+                  "type": "string",
+                },
+                "petIdParam": Object {
+                  "description": "ID of pet that needs to be updated",
+                  "in": "path",
+                  "name": "petId",
+                  "required": true,
+                  "type": "string",
+                },
+                "statusParam": Object {
+                  "description": "Updated status of the pet",
+                  "in": "formData",
+                  "name": "status",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "application/xml",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Pet updated",
+                },
+                "405": Object {
+                  "description": "Invalid input",
+                },
+              },
+              "security": Object {
+                "petstore_auth": Array [
+                  "write:pets",
+                  "read:pets",
+                ],
+              },
+              "summary": "Updates a pet in the store with form data",
+              "tags": Array [
+                Object {
+                  "name": "pet",
+                },
+              ],
+            },
+          },
+        },
+      },
+      "1": Object {
+        "paths": Object {
+          "/examples{id}": Object {
+            "get": Object {
+              "consumes": Array [],
+              "description": "Returns examples",
+              "externalDocs": Object {},
+              "operationId": "getExamples",
+              "parameters": Object {
+                "idParam": Object {
+                  "collectionFormat": "csv",
+                  "description": "ID of pet to use",
+                  "in": "path",
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "name": "id",
+                  "required": true,
+                  "type": "array",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "text/html",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "example response",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Pet",
+                    },
+                    "type": "array",
+                  },
+                },
+                "default": Object {
+                  "description": "error payload",
+                  "schema": Object {
+                    "$ref": "#/definitions/ErrorModel",
+                  },
+                },
+              },
+              "security": Object {},
+              "summary": "Find examples",
+              "tags": Array [],
+            },
+            "parameters": Array [],
+            "put": Object {
+              "consumes": Array [
+                "application/x-www-form-urlencoded",
+              ],
+              "externalDocs": Object {},
+              "operationId": "updatePetWithForm",
+              "parameters": Object {
+                "nameParam": Object {
+                  "description": "Updated name of the pet",
+                  "in": "formData",
+                  "name": "name",
+                  "required": false,
+                  "type": "string",
+                },
+                "petIdParam": Object {
+                  "description": "ID of pet that needs to be updated",
+                  "in": "path",
+                  "name": "petId",
+                  "required": true,
+                  "type": "string",
+                },
+                "statusParam": Object {
+                  "description": "Updated status of the pet",
+                  "in": "formData",
+                  "name": "status",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "application/xml",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Pet updated",
+                },
+                "405": Object {
+                  "description": "Invalid input",
+                },
+              },
+              "security": Object {
+                "petstore_auth": Array [
+                  "write:pets",
+                  "read:pets",
+                ],
+              },
+              "summary": "Updates a in the store with form data",
+              "tags": Array [
+                Object {
+                  "name": "pet",
+                },
+              ],
+            },
+          },
+          "/pets": Object {
+            "get": Object {
+              "consumes": Array [],
+              "description": "Returns pets based on ID",
+              "externalDocs": Object {},
+              "operationId": "getPetsById",
+              "parameters": Object {
+                "id": Object {
+                  "collectionFormat": "csv",
+                  "description": "ID of pet to use",
+                  "in": "path",
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "name": "id",
+                  "required": true,
+                  "type": "array",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "text/html",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "pet response",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Pet",
+                    },
+                    "type": "array",
+                  },
+                },
+                "default": Object {
+                  "description": "error payload",
+                  "schema": Object {
+                    "$ref": "#/definitions/ErrorModel",
+                  },
+                },
+              },
+              "security": Object {},
+              "summary": "Find pets by ID",
+              "tags": Array [],
+            },
+            "parameters": Array [],
+            "put": Object {
+              "consumes": Array [
+                "application/x-www-form-urlencoded",
+              ],
+              "externalDocs": Object {},
+              "operationId": "updatePetWithForm",
+              "parameters": Object {
+                "nameParam": Object {
+                  "description": "Updated name of the pet",
+                  "in": "formData",
+                  "name": "name",
+                  "required": false,
+                  "type": "string",
+                },
+                "petIdParam": Object {
+                  "description": "ID of pet that needs to be updated",
+                  "in": "path",
+                  "name": "petId",
+                  "required": true,
+                  "type": "string",
+                },
+                "statusParam": Object {
+                  "description": "Updated status of the pet",
+                  "in": "formData",
+                  "name": "status",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/json",
+                "application/xml",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Pet updated",
+                },
+                "405": Object {
+                  "description": "Invalid input",
+                },
+              },
+              "security": Object {
+                "petstore_auth": Array [
+                  "write:pets",
+                  "read:pets",
+                ],
+              },
+              "summary": "Updates a pet in the store with form data",
+              "tags": Array [
+                Object {
+                  "name": "pet",
+                },
+              ],
+            },
+          },
         },
       },
     },

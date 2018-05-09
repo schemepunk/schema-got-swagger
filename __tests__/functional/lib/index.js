@@ -132,7 +132,7 @@ describe('Index functional', () => {
 
 describe('Index functional simple swagger Src', () => {
   test('Simple swagger src..', () => {
-    expect.assertions(8);
+    expect.assertions(9);
     const schemaGotSwagger = new SchemaGotSwagger();
     schemaGotSwagger.setDesiredRealizations(['1.0.0', '1.1.0', '1.1.1'])
     return schemaGotSwagger.init(swaggerSrc[1][0], paths, config, swaggerSrcOptions, pathsConfig)
@@ -145,6 +145,7 @@ describe('Index functional simple swagger Src', () => {
       expect(sgs.getPathsDataSpClass()).toBeInstanceOf(SemverizeParameters);
       expect(sgs.getPathsTemplatesSpClass()).toBeInstanceOf(SemverizeParameters);
       expect(sgs.getSwagger()).toMatchSnapshot();
+      expect(sgs.realizedPathsSwagger).toMatchSnapshot();
     });
   });
 });

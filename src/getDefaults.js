@@ -5,7 +5,7 @@ const DEFAULT_TYPES = {
   sgsSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
   swaggerSrcschemes: `/../defaults/swaggerSrcScheme.yaml`,
   swaggerSrcdataSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
-  pathsdataSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  pathsdataSemverist: `/../defaults/pathsDataSemverist.yaml`,
   swaggerSrcschemesSemverist: `/../defaults/swaggerSrcSchemesSemverist.yaml`,
   swaggerSrctemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
   swaggerSrctemplates: '',
