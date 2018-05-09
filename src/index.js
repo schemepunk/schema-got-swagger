@@ -23,7 +23,6 @@ const {
 } = require('./_errors');
 const {
   SchemaGotSwaggerError,
-  SchemaGotSwaggerReThrownError,
 } = require('./SchemaGotSwaggerError');
 const Ajv = require('ajv');
 const GetDefaults = require('./getDefaults');
@@ -193,7 +192,13 @@ module.exports = class SchemaGotSwagger {
             this.realizedMainSwagger,
             _.concat(this.semverStringSplit(semver), ['swagger'])
           ));
-          mainSwags.paths = _.get(this.realizedPathsSwagger, _.concat(this.semverStringSplit(semver), ['paths']));
+          mainSwags.paths = _.get(
+            this.realizedPathsSwagger,
+            _.concat(
+              this.semverStringSplit(semver),
+              ['paths']
+            )
+          );
           // Add paths from paths realizations.
           _.set(
             this.realizedMainSwagger,
@@ -401,14 +406,20 @@ module.exports = class SchemaGotSwagger {
     // Check for matches in sp class.. If all attributes are there the user has
     let spAttributesAtLevel: {} = spClassToGuarantee.realized;
 
-    const spAttributeNamesArray: Array<string> = _.keys(_.get(spClassToGuarantee.realized, currentSemverArray));
+    const spAttributeNamesArray: Array<string> = _.keys(_.get(
+      spClassToGuarantee.realized,
+      currentSemverArray
+    ));
     // See if sp has all the entity keys it is supposed to and if
     // not make it so or throw.
     const spArrayDiff = _.difference(pathsAttributesArray, spAttributeNamesArray);
     if (spArrayDiff.length) {
       if (
         spAttributeNamesArray.length > 1 ||
-        !_.has(_.get(spClassToGuarantee.realized, currentSemverArray), spClassToGuarantee.targetName)
+        !_.has(_.get(
+          spClassToGuarantee.realized,
+          currentSemverArray
+        ), spClassToGuarantee.targetName)
       ) {
         // Either we have multiple schemes at level but not all the correct
         // ones or we do not have our default scheme.
@@ -619,8 +630,17 @@ module.exports = class SchemaGotSwagger {
     const items = [];
     this.getMainDataSpClass().getSemverRealizations().forEach((semverNum) => {
       const semverArray = this.semverStringSplit(semverNum);
-      const schemeConfig = this.getTargetOrNestedTarget(schemesSp.realized, semverArray, schemesSp.targetName);
-      const dataObject = this.getTargetOrNestedTarget(dataSp.realized, semverArray, dataSp.targetName, false);
+      const schemeConfig = this.getTargetOrNestedTarget(
+        schemesSp.realized,
+        semverArray,
+        schemesSp.targetName
+      );
+      const dataObject = this.getTargetOrNestedTarget(
+        dataSp.realized,
+        semverArray,
+        dataSp.targetName,
+        false
+      );
 
       Object.keys(schemeConfig).forEach((val) => {
         const schemeRunner = new SchemeRunner();
@@ -645,7 +665,10 @@ module.exports = class SchemaGotSwagger {
             _.setWith(
               schemeTransformedData,
               _.concat(
-                _.filter(pathage.split('.'), (vale => vale !== this.getMainDataSpClass().targetName)),
+                _.filter(
+                  pathage.split('.'),
+                  (vale => vale !== this.getMainDataSpClass().targetName)
+                ),
                 ['swagger']
               ),
               data[dataSp.targetName],
@@ -724,11 +747,17 @@ module.exports = class SchemaGotSwagger {
    * @param {string} targetName
    *   The target name for which we should search.
    * @param {boolean} onlyTarget
-   *   Whether to filter to the only the target (true) or include the containing object (false)
+   *   Whether to filter to the only the target (true) or include the
+   *   containing object (false)
    * @returns {Object}
    *   Retuns an array of target objects.
    */
-  getTargetOrNestedTarget(holdingObject: {}, semverArray: Array<string>, targetName: string, onlyTarget: boolean = true): {} {
+  getTargetOrNestedTarget(
+    holdingObject: {},
+    semverArray: Array<string>,
+    targetName: string,
+    onlyTarget: boolean = true
+  ): {} {
     const targets: {} = {};
     const atLevelAttributes = _.get(holdingObject, semverArray);
     if (_.has(atLevelAttributes, targetName)) {
