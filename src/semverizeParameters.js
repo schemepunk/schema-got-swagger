@@ -96,7 +96,8 @@ module.exports = class SemverizeParameters<T> {
       desiredRealizations: Array<string>,
       validate: boolean,
       swaggerVersion: string,
-      targetName: string
+      targetName: string,
+      type: string
     } = {
       semveristConfig: {},
       semverishMolotov: { overrides: {}, cocktailClasses: [] },
@@ -104,6 +105,7 @@ module.exports = class SemverizeParameters<T> {
       validate: true,
       swaggerVersion: '3.0.0',
       targetName: 'swagger',
+      type: '',
     },
   ) {
     // get semverist config defaults
