@@ -174,6 +174,7 @@ module.exports = class SchemaGotSwagger {
           const pathRenderAtLevel = _.get(realizedPaths, semverReal);
 
           Object.keys(pathRenderAtLevel).forEach((key) => {
+            console.log(pathRenderAtLevel[key].swagger);
             mergedPaths = _.assign(mergedPaths, JSON.parse(pathRenderAtLevel[key].swagger).paths);
           });
           _.setWith(realizedPathsSwagger, _.concat(semverReal, ['paths']), mergedPaths, Object);
@@ -674,6 +675,22 @@ module.exports = class SchemaGotSwagger {
               data[dataSp.targetName],
               Object,
             );
+            // Set definitions at swagger level. If indicated.
+            if (this.getConfig().includePathsInDefinitions) {
+              _.setWith(
+                schemeTransformedData,
+                _.concat(
+                  _.filter(
+                    pathage.split('.'),
+                    (vale => vale !== this.getMainDataSpClass().targetName)
+                  ),
+                  ['definitions'],
+                  [pathage.replace(`${semverNum}.`, '')]
+                ),
+                _.omit(dataObject[pathage], ['$id', '$schema', 'definitions']),
+                Object,
+              );
+            }
           }));
       });
     });
@@ -717,8 +734,8 @@ module.exports = class SchemaGotSwagger {
       data,
       `${dataName}Validator`,
       {
-        dataDefaultsType: dataName,
-        semveristConfigDefaults: `${dataName}Semverist`,
+        dataDefaultsType: _.get(options, [configNameSpaceType, 'dataDefaultsName'], dataName),
+        semveristConfigDefaults: _.get(options, [configNameSpaceType, 'semveristDefaultsName'], `${dataName}Semverist`),
       },
       {
         semveristConfig: _.get(options, [configNameSpaceType, 'semveristConfig'], {}),
@@ -728,9 +745,10 @@ module.exports = class SchemaGotSwagger {
           { overrides: {}, cocktailClasses: [] }
         ),
         desiredRealizations: this.getDesiredRealizations(),
-        validate: true,
+        validate: _.get(options, [configNameSpaceType, 'validate'], true),
         swaggerVersion: this.getConfig().swaggerVersion,
         targetName: _.get(options, [configNameSpaceType, 'targetName'], sgsDataTypeName),
+        type: configNameSpaceType,
       }
     );
     return sp;

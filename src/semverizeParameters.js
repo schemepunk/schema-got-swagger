@@ -67,6 +67,7 @@ module.exports = class SemverizeParameters<T> {
   realized: semverish
   validate: boolean
   validatorId: string
+  type: string
   /**
    * Creates an instance of SemverizeParameters.
    *
@@ -118,6 +119,7 @@ module.exports = class SemverizeParameters<T> {
     this.semverishMolotov = options.semverishMolotov;
     this.validatorId = validatorId;
     this.validate = options.validate;
+    this.type = options.type;
   }
 
   /**
@@ -249,7 +251,9 @@ module.exports = class SemverizeParameters<T> {
           const elementsAtLevel = _.get(this.realized, _.concat(semverNum.split('.')));
           Object.keys(elementsAtLevel).forEach((key) => {
             const testCase = _.get(elementsAtLevel, [key, this.targetName]);
-            this.validator(this.validatorId, testCase);
+            if (this.validate) {
+              this.validator(this.validatorId, testCase);
+            }
           });
         }
       }
@@ -313,6 +317,7 @@ module.exports = class SemverizeParameters<T> {
    */
   semverizeParameters(value: T): Promise<semverish> {
     // Get the defaults for this type of data.
+
     const getterDefaults: GetDefaults<T> = new GetDefaults(this.dataDefaultsType);
 
     return getterDefaults.getDefaults()
@@ -342,6 +347,10 @@ module.exports = class SemverizeParameters<T> {
     }
     catch (e) {
       // This did not validate. It is not semverish.
+      // templates passed in may have a partial with the keyed name - so pass the full thing.
+      if (this.type === 'templates') {
+        return this.semverizeParameters(value);
+      }
       return this.semverizeParameters(_.get(value, this.targetName, value));
     }
   }

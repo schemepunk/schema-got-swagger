@@ -5,6 +5,7 @@ sgsType: semver # or file
 mainSwaggerSchemeProcessName: processTemplates
 pathsSchemeProcessName: processTemplates
 realizationsSource: swaggerSrc
+includePathsInDefinitions: false
 sgsSemver:
   semveristBehaviors:
     inheritence: semverImplied

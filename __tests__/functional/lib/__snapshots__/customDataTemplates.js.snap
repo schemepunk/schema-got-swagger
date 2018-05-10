@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index functional from schemes Simple swagger src.. 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "paths": Object {
+          "/type--video": Object {
+            "get": Object {
+              "description": "Returns a list of video node items.",
+              "operationId": "getVideoNodes",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "filterParam": Object {
+                  "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                  "in": "query",
+                  "name": "filter",
+                  "required": false,
+                  "type": "string",
+                },
+                "offsetParam": Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "offset",
+                  "required": false,
+                  "type": "integer",
+                },
+                "pageParam": Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+                "rangeParam": Object {
+                  "default": 50,
+                  "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                  "in": "query",
+                  "maximum": 50,
+                  "minimum": 1,
+                  "name": "range",
+                  "required": false,
+                  "type": "integer",
+                },
+                "sortParam": Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  "in": "query",
+                  "name": "sort",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of video nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--video",
+                    },
+                    "type": "array",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "List of video nodes items.",
+            },
+            "post": Object {
+              "description": "Generates and returns a single video node item.",
+              "operationId": "postVideoNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of video nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--video",
+                    },
+                    "type": "array",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Generate and list a single video node item.",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
