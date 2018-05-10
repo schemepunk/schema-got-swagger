@@ -348,7 +348,7 @@ module.exports = class SemverizeParameters<T> {
     catch (e) {
       // This did not validate. It is not semverish.
       // templates passed in may have a partial with the keyed name - so pass the full thing.
-      if (this.type === 'templates') {
+      if (this.validatorId === 'pathstemplatesValidator') {
         return this.semverizeParameters(value);
       }
       return this.semverizeParameters(_.get(value, this.targetName, value));

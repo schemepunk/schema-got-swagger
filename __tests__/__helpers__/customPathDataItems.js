@@ -20,6 +20,10 @@ module.exports = {
               type: 'string',
               default: 'Story',
             },
+            entityPathName: {
+              type: 'string',
+              default: 'type--story',
+            },
           },
           required: ['data'],
           properties: {
@@ -72,6 +76,10 @@ module.exports = {
               type: 'string',
               default: 'Article',
             },
+            entityPathName: {
+              type: 'string',
+              default: 'type--article',
+            },
           },
           required: ['data'],
           properties: {
@@ -123,6 +131,10 @@ module.exports = {
             entityOperationIdName: {
               type: 'string',
               default: 'Video',
+            },
+            entityPathName: {
+              type: 'string',
+              default: 'type--video',
             },
           },
           required: ['data'],

@@ -64,14 +64,15 @@ const swaggerSrc = swaggerMainHelper;
 
 describe('Index functional from schemes', () => {
   test('Simple swagger src..', () => {
-    expect.assertions(2);
+    expect.assertions(4);
     const schemaGotSwagger = new SchemaGotSwagger();
     return schemaGotSwagger.init(swaggerSrc, paths, config, swaggerSrcOptions, pathsConfig)
     .then((sgs) => {
       expect(sgs).toBeInstanceOf(SchemaGotSwagger)
       // expect(sgs.getMainDataSpClass().realized).toMatchSnapshot();
       expect(sgs.realizedPathsSwagger).toMatchSnapshot();
-      expect(sgs.getSwagger()).toEqual();
+      expect(sgs.definitions).toMatchSnapshot();
+      expect(sgs.getSwagger()).toMatchSnapshot();
     });
   });
 });
