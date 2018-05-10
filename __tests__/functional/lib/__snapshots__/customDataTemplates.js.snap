@@ -1,0 +1,1543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index functional from schemes Simple swagger src.. 1`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "paths": Object {
+          "/type--article": Object {
+            "get": Object {
+              "description": "Returns a list of article node items.",
+              "operationId": "getArticleNodes",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "filterParam": Object {
+                  "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                  "in": "query",
+                  "name": "filter",
+                  "required": false,
+                  "type": "string",
+                },
+                "offsetParam": Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "offset",
+                  "required": false,
+                  "type": "integer",
+                },
+                "pageParam": Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+                "rangeParam": Object {
+                  "default": 50,
+                  "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                  "in": "query",
+                  "maximum": 50,
+                  "minimum": 1,
+                  "name": "range",
+                  "required": false,
+                  "type": "integer",
+                },
+                "sortParam": Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  "in": "query",
+                  "name": "sort",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of article nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--article",
+                    },
+                    "type": "array",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "List of article nodes items.",
+            },
+            "post": Object {
+              "description": "Generates and returns a single article node item.",
+              "operationId": "postArticleNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of article nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--article",
+                    },
+                    "type": "array",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Generate and list a single article node item.",
+            },
+          },
+          "/type--article/{id}": Object {
+            "get": Object {
+              "description": "Returns a single article node item.",
+              "operationId": "getArticleNode",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "include": Object {
+                  "description": "You can use the include key to load a specific entity connected via relationship",
+                  "in": "query",
+                  "name": "include",
+                  "required": false,
+                  "type": "string",
+                },
+                "loadByFieldName": Object {
+                  "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
+                  "in": "query",
+                  "name": "loadByFieldName",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Single article node item.",
+                  "schema": Object {
+                    "$ref": "#/definitions/type--article",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Single article nodes item.",
+            },
+            "patch": Object {
+              "description": "Modifies and returns a single article node item",
+              "operationId": "patchArticleNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Modified article node item.",
+                  "schema": Object {
+                    "$ref": "#/definitions/type--article",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Modifies and returns a single article node item.",
+            },
+          },
+          "/type--story": Object {
+            "get": Object {
+              "description": "Returns a list of story node items.",
+              "operationId": "getStoryNodes",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "filterParam": Object {
+                  "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                  "in": "query",
+                  "name": "filter",
+                  "required": false,
+                  "type": "string",
+                },
+                "offsetParam": Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "offset",
+                  "required": false,
+                  "type": "integer",
+                },
+                "pageParam": Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+                "rangeParam": Object {
+                  "default": 50,
+                  "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                  "in": "query",
+                  "maximum": 50,
+                  "minimum": 1,
+                  "name": "range",
+                  "required": false,
+                  "type": "integer",
+                },
+                "sortParam": Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  "in": "query",
+                  "name": "sort",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of story nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--story",
+                    },
+                    "type": "array",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "List of story nodes items.",
+            },
+            "post": Object {
+              "description": "Generates and returns a single story node item.",
+              "operationId": "postStoryNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of story nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--story",
+                    },
+                    "type": "array",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Generate and list a single story node item.",
+            },
+          },
+          "/type--story/{id}": Object {
+            "get": Object {
+              "description": "Returns a single story node item.",
+              "operationId": "getStoryNode",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "include": Object {
+                  "description": "You can use the include key to load a specific entity connected via relationship",
+                  "in": "query",
+                  "name": "include",
+                  "required": false,
+                  "type": "string",
+                },
+                "loadByFieldName": Object {
+                  "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
+                  "in": "query",
+                  "name": "loadByFieldName",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Single story node item.",
+                  "schema": Object {
+                    "$ref": "#/definitions/type--story",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Single story nodes item.",
+            },
+            "patch": Object {
+              "description": "Modifies and returns a single story node item",
+              "operationId": "patchStoryNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Modified story node item.",
+                  "schema": Object {
+                    "$ref": "#/definitions/type--story",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Modifies and returns a single story node item.",
+            },
+          },
+          "/type--video": Object {
+            "get": Object {
+              "description": "Returns a list of video node items.",
+              "operationId": "getVideoNodes",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "filterParam": Object {
+                  "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                  "in": "query",
+                  "name": "filter",
+                  "required": false,
+                  "type": "string",
+                },
+                "offsetParam": Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "offset",
+                  "required": false,
+                  "type": "integer",
+                },
+                "pageParam": Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+                "rangeParam": Object {
+                  "default": 50,
+                  "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                  "in": "query",
+                  "maximum": 50,
+                  "minimum": 1,
+                  "name": "range",
+                  "required": false,
+                  "type": "integer",
+                },
+                "sortParam": Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  "in": "query",
+                  "name": "sort",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of video nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--video",
+                    },
+                    "type": "array",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "List of video nodes items.",
+            },
+            "post": Object {
+              "description": "Generates and returns a single video node item.",
+              "operationId": "postVideoNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "List of video nodes.",
+                  "schema": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/type--video",
+                    },
+                    "type": "array",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Generate and list a single video node item.",
+            },
+          },
+          "/type--video/{id}": Object {
+            "get": Object {
+              "description": "Returns a single video node item.",
+              "operationId": "getVideoNode",
+              "parameters": Object {
+                "fieldParam": Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                "include": Object {
+                  "description": "You can use the include key to load a specific entity connected via relationship",
+                  "in": "query",
+                  "name": "include",
+                  "required": false,
+                  "type": "string",
+                },
+                "loadByFieldName": Object {
+                  "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
+                  "in": "query",
+                  "name": "loadByFieldName",
+                  "required": false,
+                  "type": "string",
+                },
+              },
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Single video node item.",
+                  "schema": Object {
+                    "$ref": "#/definitions/type--video",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Single video nodes item.",
+            },
+            "patch": Object {
+              "description": "Modifies and returns a single video node item",
+              "operationId": "patchVideoNode",
+              "produces": Array [
+                "application/vnd.api+json",
+              ],
+              "responses": Object {
+                "200": Object {
+                  "description": "Modified video node item.",
+                  "schema": Object {
+                    "$ref": "#/definitions/type--video",
+                  },
+                },
+                "400": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/400",
+                  },
+                },
+                "403": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/403",
+                  },
+                },
+                "500": Object {
+                  "schema": Object {
+                    "$ref": "#/definitions/responses/500",
+                  },
+                },
+              },
+              "summary": "Modifies and returns a single video node item.",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Index functional from schemes Simple swagger src.. 2`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swagger": Object {
+          "definitions": Object {
+            "type--article": Object {
+              "description": "Object containing content and references pertaining to an article.",
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "attributes": Object {
+                      "additionalProperties": true,
+                      "properties": Object {
+                        "testProp1": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                        "testProp2": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                      },
+                      "required": Array [
+                        "id",
+                        "self",
+                      ],
+                      "type": "object",
+                    },
+                    "id": Object {
+                      "description": "An Id.",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "default": "story",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "type",
+                    "id",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "data",
+              ],
+              "type": "object",
+            },
+            "type--story": Object {
+              "description": "Object containing content and references pertaining to an audio episode.",
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "attributes": Object {
+                      "additionalProperties": true,
+                      "properties": Object {
+                        "testProp1": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                        "testProp2": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                      },
+                      "required": Array [
+                        "id",
+                        "self",
+                      ],
+                      "type": "object",
+                    },
+                    "id": Object {
+                      "description": "An Id.",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "default": "story",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "type",
+                    "id",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "data",
+              ],
+              "type": "object",
+            },
+            "type--video": Object {
+              "description": "Object containing content and references pertaining to a video.",
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "attributes": Object {
+                      "additionalProperties": true,
+                      "properties": Object {
+                        "testProp1": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                        "testProp2": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                      },
+                      "required": Array [
+                        "id",
+                        "self",
+                      ],
+                      "type": "object",
+                    },
+                    "id": Object {
+                      "description": "An Id.",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "default": "story",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "type",
+                    "id",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "data",
+              ],
+              "type": "object",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Index functional from schemes Simple swagger src.. 3`] = `
+Object {
+  "1": Object {
+    "0": Object {
+      "0": Object {
+        "swagger": Object {
+          "consumes": Array [
+            "vnd.api+json",
+          ],
+          "definitions": Object {
+            "example": Object {
+              "properties": Object {
+                "id": Object {
+                  "format": "int64",
+                  "type": "integer",
+                },
+                "name": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "example2": Object {
+              "properties": Object {
+                "name": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "type--article": Object {
+              "description": "Object containing content and references pertaining to an article.",
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "attributes": Object {
+                      "additionalProperties": true,
+                      "properties": Object {
+                        "testProp1": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                        "testProp2": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                      },
+                      "required": Array [
+                        "id",
+                        "self",
+                      ],
+                      "type": "object",
+                    },
+                    "id": Object {
+                      "description": "An Id.",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "default": "story",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "type",
+                    "id",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "data",
+              ],
+              "type": "object",
+            },
+            "type--story": Object {
+              "description": "Object containing content and references pertaining to an audio episode.",
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "attributes": Object {
+                      "additionalProperties": true,
+                      "properties": Object {
+                        "testProp1": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                        "testProp2": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                      },
+                      "required": Array [
+                        "id",
+                        "self",
+                      ],
+                      "type": "object",
+                    },
+                    "id": Object {
+                      "description": "An Id.",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "default": "story",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "type",
+                    "id",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "data",
+              ],
+              "type": "object",
+            },
+            "type--video": Object {
+              "description": "Object containing content and references pertaining to a video.",
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "attributes": Object {
+                      "additionalProperties": true,
+                      "properties": Object {
+                        "testProp1": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                        "testProp2": Object {
+                          "description": "A test property 1",
+                          "type": "string",
+                        },
+                      },
+                      "required": Array [
+                        "id",
+                        "self",
+                      ],
+                      "type": "object",
+                    },
+                    "id": Object {
+                      "description": "An Id.",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "default": "story",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "type",
+                    "id",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "data",
+              ],
+              "type": "object",
+            },
+          },
+          "externalDocs": Object {
+            "description": "Further api docs",
+            "url": "http://example.com/docs",
+          },
+          "info": Object {
+            "contact": Object {
+              "email": "example@example.com",
+              "name": "Dave Example",
+              "url": "http://example.com",
+            },
+            "license": Object {
+              "name": "apache 2.0",
+              "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+            },
+            "title": "Swagger Example APi",
+            "version": "1.0.0",
+          },
+          "parameters": Object {
+            "skipParam": Object {
+              "description": "number of items to skip",
+              "format": "int32",
+              "in": "query",
+              "name": "skip",
+              "required": true,
+              "type": "integer",
+            },
+          },
+          "paths": Object {
+            "/type--article": Object {
+              "get": Object {
+                "description": "Returns a list of article node items.",
+                "operationId": "getArticleNodes",
+                "parameters": Object {
+                  "fieldParam": Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "filterParam": Object {
+                    "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                    "in": "query",
+                    "name": "filter",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "offsetParam": Object {
+                    "default": 0,
+                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "offset",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "pageParam": Object {
+                    "default": 1,
+                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "page",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "rangeParam": Object {
+                    "default": 50,
+                    "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                    "in": "query",
+                    "maximum": 50,
+                    "minimum": 1,
+                    "name": "range",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "sortParam": Object {
+                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                    "in": "query",
+                    "name": "sort",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "List of article nodes.",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/type--article",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "List of article nodes items.",
+              },
+              "post": Object {
+                "description": "Generates and returns a single article node item.",
+                "operationId": "postArticleNode",
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "List of article nodes.",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/type--article",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "400": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/400",
+                    },
+                  },
+                  "403": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/403",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Generate and list a single article node item.",
+              },
+            },
+            "/type--article/{id}": Object {
+              "get": Object {
+                "description": "Returns a single article node item.",
+                "operationId": "getArticleNode",
+                "parameters": Object {
+                  "fieldParam": Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "include": Object {
+                    "description": "You can use the include key to load a specific entity connected via relationship",
+                    "in": "query",
+                    "name": "include",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "loadByFieldName": Object {
+                    "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
+                    "in": "query",
+                    "name": "loadByFieldName",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Single article node item.",
+                    "schema": Object {
+                      "$ref": "#/definitions/type--article",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Single article nodes item.",
+              },
+              "patch": Object {
+                "description": "Modifies and returns a single article node item",
+                "operationId": "patchArticleNode",
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Modified article node item.",
+                    "schema": Object {
+                      "$ref": "#/definitions/type--article",
+                    },
+                  },
+                  "400": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/400",
+                    },
+                  },
+                  "403": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/403",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Modifies and returns a single article node item.",
+              },
+            },
+            "/type--story": Object {
+              "get": Object {
+                "description": "Returns a list of story node items.",
+                "operationId": "getStoryNodes",
+                "parameters": Object {
+                  "fieldParam": Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "filterParam": Object {
+                    "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                    "in": "query",
+                    "name": "filter",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "offsetParam": Object {
+                    "default": 0,
+                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "offset",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "pageParam": Object {
+                    "default": 1,
+                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "page",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "rangeParam": Object {
+                    "default": 50,
+                    "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                    "in": "query",
+                    "maximum": 50,
+                    "minimum": 1,
+                    "name": "range",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "sortParam": Object {
+                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                    "in": "query",
+                    "name": "sort",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "List of story nodes.",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/type--story",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "List of story nodes items.",
+              },
+              "post": Object {
+                "description": "Generates and returns a single story node item.",
+                "operationId": "postStoryNode",
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "List of story nodes.",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/type--story",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "400": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/400",
+                    },
+                  },
+                  "403": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/403",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Generate and list a single story node item.",
+              },
+            },
+            "/type--story/{id}": Object {
+              "get": Object {
+                "description": "Returns a single story node item.",
+                "operationId": "getStoryNode",
+                "parameters": Object {
+                  "fieldParam": Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "include": Object {
+                    "description": "You can use the include key to load a specific entity connected via relationship",
+                    "in": "query",
+                    "name": "include",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "loadByFieldName": Object {
+                    "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
+                    "in": "query",
+                    "name": "loadByFieldName",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Single story node item.",
+                    "schema": Object {
+                      "$ref": "#/definitions/type--story",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Single story nodes item.",
+              },
+              "patch": Object {
+                "description": "Modifies and returns a single story node item",
+                "operationId": "patchStoryNode",
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Modified story node item.",
+                    "schema": Object {
+                      "$ref": "#/definitions/type--story",
+                    },
+                  },
+                  "400": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/400",
+                    },
+                  },
+                  "403": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/403",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Modifies and returns a single story node item.",
+              },
+            },
+            "/type--video": Object {
+              "get": Object {
+                "description": "Returns a list of video node items.",
+                "operationId": "getVideoNodes",
+                "parameters": Object {
+                  "fieldParam": Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "filterParam": Object {
+                    "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
+                    "in": "query",
+                    "name": "filter",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "offsetParam": Object {
+                    "default": 0,
+                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "offset",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "pageParam": Object {
+                    "default": 1,
+                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "page",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "rangeParam": Object {
+                    "default": 50,
+                    "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
+                    "in": "query",
+                    "maximum": 50,
+                    "minimum": 1,
+                    "name": "range",
+                    "required": false,
+                    "type": "integer",
+                  },
+                  "sortParam": Object {
+                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                    "in": "query",
+                    "name": "sort",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "List of video nodes.",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/type--video",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "List of video nodes items.",
+              },
+              "post": Object {
+                "description": "Generates and returns a single video node item.",
+                "operationId": "postVideoNode",
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "List of video nodes.",
+                    "schema": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/type--video",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "400": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/400",
+                    },
+                  },
+                  "403": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/403",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Generate and list a single video node item.",
+              },
+            },
+            "/type--video/{id}": Object {
+              "get": Object {
+                "description": "Returns a single video node item.",
+                "operationId": "getVideoNode",
+                "parameters": Object {
+                  "fieldParam": Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "include": Object {
+                    "description": "You can use the include key to load a specific entity connected via relationship",
+                    "in": "query",
+                    "name": "include",
+                    "required": false,
+                    "type": "string",
+                  },
+                  "loadByFieldName": Object {
+                    "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
+                    "in": "query",
+                    "name": "loadByFieldName",
+                    "required": false,
+                    "type": "string",
+                  },
+                },
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Single video node item.",
+                    "schema": Object {
+                      "$ref": "#/definitions/type--video",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Single video nodes item.",
+              },
+              "patch": Object {
+                "description": "Modifies and returns a single video node item",
+                "operationId": "patchVideoNode",
+                "produces": Array [
+                  "application/vnd.api+json",
+                ],
+                "responses": Object {
+                  "200": Object {
+                    "description": "Modified video node item.",
+                    "schema": Object {
+                      "$ref": "#/definitions/type--video",
+                    },
+                  },
+                  "400": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/400",
+                    },
+                  },
+                  "403": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/403",
+                    },
+                  },
+                  "500": Object {
+                    "schema": Object {
+                      "$ref": "#/definitions/responses/500",
+                    },
+                  },
+                },
+                "summary": "Modifies and returns a single video node item.",
+              },
+            },
+          },
+          "produces": Array [
+            "vnd.api+json",
+          ],
+          "responses": Object {
+            "GeneralError": Object {
+              "description": "General Error",
+            },
+            "IllegalInput": Object {
+              "description": "Illegal input for operation.",
+            },
+            "notFound": Object {
+              "description": "Entity not found.",
+            },
+          },
+          "schemes": Array [
+            "https",
+            "http",
+          ],
+          "security": Object {
+            "petstore_auth": Array [
+              "write:pets",
+              "read:pets",
+            ],
+          },
+          "securityDefinitions": Object {
+            "api_key": Object {
+              "in": "header",
+              "name": "api_key",
+              "type": "apiKey",
+            },
+            "petstore_auth": Object {
+              "authorizationUrl": "http://swagger.io/api/oauth/dialog",
+              "flow": "implicit",
+              "scopes": Object {
+                "read.pets": "read your pets",
+                "write.pets": "modify pets in your account",
+              },
+              "type": "oauth2",
+            },
+          },
+          "swagger": "2.0",
+          "tags": Array [
+            Object {
+              "description": "Pets operations",
+              "externalDocs": Object {
+                "description": "pet docs",
+                "url": "http://example.com/pet",
+              },
+              "name": "pet",
+            },
+            Object {
+              "description": "Vegetable",
+              "name": "carrot",
+            },
+          ],
+        },
+      },
+    },
+  },
+}
+`;

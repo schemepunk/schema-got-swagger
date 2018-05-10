@@ -217,6 +217,8 @@ export type mainSwaggerMakerOptions = {
     semveristMolotovOptions?: molotovConfig,
     targetName: string,
     desiredRealizations: Array<string>,
+    dataDefaultsName: string,
+    semveristDefaultsName: string,
   },
   schemes: {
     schemes: {
@@ -226,19 +228,25 @@ export type mainSwaggerMakerOptions = {
     semveristMolotovOptions: molotovConfig,
     schemePunkMolotovOptions?: molotovConfig,
     targetName: string,
+    dataDefaultsName: string,
+    semveristDefaultsName: string,
   },
   templates: {
     semveristConfig: semveristConfig,
     templates: (mainTemplate | templateSemverish);
     semveristMolotovOptions?: molotovConfig,
     targetName: string,
+    dataDefaultsName: string,
+    semveristDefaultsName: string,
   }
 }
 
 export type pathSwaggerMakerOptions = {
   data: {
     semveristConfig: semveristConfig,
-    semveristMolotovOptions: molotovConfig
+    semveristMolotovOptions: molotovConfig,
+    dataDefaultsName: string,
+    semveristDefaultsName: string,
   },
   schemes: {
     schemes: {
@@ -247,11 +255,15 @@ export type pathSwaggerMakerOptions = {
     semveristConfig: semveristConfig,
     semveristMolotovOptions: molotovConfig,
     schemePunkMolotovOptions: molotovConfig,
+    dataDefaultsName: string,
+    semveristDefaultsName: string,
   },
   templates: {
     semveristConfig: semveristConfig,
     templates: (mainTemplate | templateSemverish);
-    semveristMolotovOptions: molotovConfig
+    semveristMolotovOptions: molotovConfig,
+    dataDefaultsName: string,
+    semveristDefaultsName: string,
   }
 }
 

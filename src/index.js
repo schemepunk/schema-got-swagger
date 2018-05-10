@@ -49,6 +49,7 @@ module.exports = class SchemaGotSwagger {
   pathsDataSp: SemverizeParameters<pathsData>
   pathTemplatesSp: SemverizeParameters<pathTemplate>
   pathsSchemesSp: SemverizeParameters<schemePunkScheme>
+  definitions: semverish
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -82,6 +83,7 @@ module.exports = class SchemaGotSwagger {
   ): Promise<SchemaGotSwagger> {
     const getterDefaults: GetDefaults<sgsConfig> = new GetDefaults('sgs'); // eslint-disable-line max-len
     const realizationOrder: Array<('swaggerSrc' | 'paths')> = [];
+    this.definitions = {};
 
     return getterDefaults.getDefaults()
       .then((defaults) => {
@@ -174,11 +176,10 @@ module.exports = class SchemaGotSwagger {
           const pathRenderAtLevel = _.get(realizedPaths, semverReal);
 
           Object.keys(pathRenderAtLevel).forEach((key) => {
-            mergedPaths = _.assign(mergedPaths, JSON.parse(pathRenderAtLevel[key].swagger).paths);
+            mergedPaths = _.assign({}, _.cloneDeep(mergedPaths), JSON.parse(pathRenderAtLevel[key].swagger).paths);
           });
-          _.setWith(realizedPathsSwagger, _.concat(semverReal, ['paths']), mergedPaths, Object);
+          _.setWith(realizedPathsSwagger, _.concat(semverReal, ['paths']), _.cloneDeep(mergedPaths), Object);
         });
-
         this.realizedPathsSwagger = realizedPathsSwagger;
         return this;
       })
@@ -199,6 +200,18 @@ module.exports = class SchemaGotSwagger {
               ['paths']
             )
           );
+          if (this.getConfig().includePathsInDefinitions) {
+            mainSwags.definitions = _.assign(
+              {},
+              mainSwags.definitions,
+              _.get(this.definitions, _.concat(
+                this.semverStringSplit(semver),
+                ['swagger'],
+                ['definitions']
+              ))
+            );
+          }
+
           // Add paths from paths realizations.
           _.set(
             this.realizedMainSwagger,
@@ -674,6 +687,21 @@ module.exports = class SchemaGotSwagger {
               data[dataSp.targetName],
               Object,
             );
+
+            // Set definitions at swagger level. If indicated.
+            if (this.getConfig().includePathsInDefinitions && dataSp.type === 'paths') {
+              _.setWith(
+                this.definitions,
+                _.concat(
+                  semverNum.split('.'),
+                  ['swagger'],
+                  ['definitions'],
+                  [pathage.replace(`${semverNum}.`, '')]
+                ),
+                _.omit(dataObject[pathage], ['$id', '$schema', 'definitions']),
+                Object,
+              );
+            }
           }));
       });
     });
@@ -717,8 +745,8 @@ module.exports = class SchemaGotSwagger {
       data,
       `${dataName}Validator`,
       {
-        dataDefaultsType: dataName,
-        semveristConfigDefaults: `${dataName}Semverist`,
+        dataDefaultsType: _.get(options, [configNameSpaceType, 'dataDefaultsName'], dataName),
+        semveristConfigDefaults: _.get(options, [configNameSpaceType, 'semveristDefaultsName'], `${dataName}Semverist`),
       },
       {
         semveristConfig: _.get(options, [configNameSpaceType, 'semveristConfig'], {}),
@@ -728,9 +756,10 @@ module.exports = class SchemaGotSwagger {
           { overrides: {}, cocktailClasses: [] }
         ),
         desiredRealizations: this.getDesiredRealizations(),
-        validate: true,
+        validate: _.get(options, [configNameSpaceType, 'validate'], true),
         swaggerVersion: this.getConfig().swaggerVersion,
         targetName: _.get(options, [configNameSpaceType, 'targetName'], sgsDataTypeName),
+        type: sgsDataTypeName,
       }
     );
     return sp;

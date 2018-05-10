@@ -826,7 +826,7 @@ Object {
                 "externalDocs": Object {},
                 "operationId": "getPetsById",
                 "parameters": Object {
-                  "id": Object {
+                  "idParam": Object {
                     "collectionFormat": "csv",
                     "description": "ID of pet to use",
                     "in": "path",
@@ -2213,7 +2213,7 @@ Object {
                 "externalDocs": Object {},
                 "operationId": "getPetsById",
                 "parameters": Object {
-                  "id": Object {
+                  "idParam": Object {
                     "collectionFormat": "csv",
                     "description": "ID of pet to use",
                     "in": "path",
@@ -3110,7 +3110,7 @@ Object {
               "externalDocs": Object {},
               "operationId": "getPetsById",
               "parameters": Object {
-                "id": Object {
+                "idParam": Object {
                   "collectionFormat": "csv",
                   "description": "ID of pet to use",
                   "in": "path",

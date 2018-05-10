@@ -15,12 +15,15 @@ const DEFAULT_TYPES = {
   pathsschemesSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
   swaggerSrcdata: '',
   pathsdata: '',
+  custom: '',
 };
 
 const FUNCTION_DEFAULT_TYPES = [
   'swaggerSrctemplates',
   'pathstemplates',
   'swaggerSrcdata',
+  'pathsdata',
+  'custom',
 ];
 
 // gets default configurations for all schemaGotSwagger options and config.
@@ -163,6 +166,21 @@ class GetDefaults<T> {
    * @memberof GetDefaults
    */
   getpathsdataDefaults(): Promise<{}> {
+    return Promise.resolve({})
+      .then(data => data);
+  }
+
+  /**
+   * Unifies setting of defaults for
+   *   user provided data. Since there
+   *   can be no defaults for this data
+   *   that would be relevant.
+   *
+   * @returns {Promise<{}>}
+   *   Returns a promise bearing and empty object.
+   * @memberof GetDefaults
+   */
+  getcustomDefaults(): Promise<{}> {
     return Promise.resolve({})
       .then(data => data);
   }

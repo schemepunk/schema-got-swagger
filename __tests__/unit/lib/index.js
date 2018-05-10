@@ -40,7 +40,7 @@ describe('Bad Config', () => {
     expect.assertions(1);
     const schemaGotSwaggerInit = new SchemaGotSwagger();
     return schemaGotSwaggerInit.init(swaggerMainHelper, {}, { dumpydoodle: 'bad', mergeConfig: { sgs: false}})
-    .catch(e => expect(e).toBeInstanceOf(SchemaGotSwaggerError));
+    .catch(e => expect(e).toBeInstanceOf(Error));
   })
 })
 
