@@ -730,6 +730,7 @@ Object {
     "0": Object {
       "0": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -891,6 +892,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",

@@ -6,8 +6,8 @@ module.exports = {
   termsOfService: '{{&termsOfService}}',
   contact: '{{=<% %>=}}{<%={{ }}=%> "name": "{{contact.name}}", "url": "{{&contact.url}}", "email": "{{contact.email}}" {{=<% %>=}}}<%={{ }}=%>', // eslint-disable-line max-len
   license: '{{=<% %>=}}{ "name": "<%license.name%>", "url": "<%&license.url%>"}<%={{ }}=%>',
-  host: '{{apiHost}}',
-  basePath: '{{apiBasePath}}',
+  host: '{{&apiHost}}',
+  basePath: '{{&apiBasePath}}',
   schemes: '{{#schemes}}{{&process}}{{/schemes}}',
   consumes: '[{{#consumes}}"{{mime.type}}"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]',
   produces: '[{{#produces}}"{{mime.type}}"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]',
