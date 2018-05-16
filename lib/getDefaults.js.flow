@@ -1,18 +1,29 @@
 // @flow
 
 const DEFAULT_TYPES = {
-  Sgs: `/../defaults/sgsConfig.yaml`,
-  SgsSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
-  SwaggerSrcScheme: `/../defaults/swaggerSrcScheme.yaml`,
-  SwaggerSrcSchemesSemverist: `/../defaults/swaggerSrcSchemesSemverist.yaml`,
-  SwaggerSrcTemplates: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
-  SwaggerMainTemplates: '',
-  UserInput: '',
+  sgs: `/../defaults/sgsConfig.yaml`,
+  sgsSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  swaggerSrcschemes: `/../defaults/swaggerSrcScheme.yaml`,
+  swaggerSrcdataSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  pathsdataSemverist: `/../defaults/pathsDataSemverist.yaml`,
+  swaggerSrcschemesSemverist: `/../defaults/swaggerSrcSchemesSemverist.yaml`,
+  swaggerSrctemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
+  swaggerSrctemplates: '',
+  pathstemplates: '',
+  pathstemplatesSemverist: `/../defaults/swaggerSrcTemplatesSemverist.yaml`,
+  pathsschemes: `/../defaults/pathsScheme.yaml`,
+  pathsschemesSemverist: `/../defaults/swaggerSrcSemverist.yaml`,
+  swaggerSrcdata: '',
+  pathsdata: '',
+  custom: '',
 };
 
 const FUNCTION_DEFAULT_TYPES = [
-  'SwaggerMainTemplates',
-  'UserInput',
+  'swaggerSrctemplates',
+  'pathstemplates',
+  'swaggerSrcdata',
+  'pathsdata',
+  'custom',
 ];
 
 // gets default configurations for all schemaGotSwagger options and config.
@@ -25,7 +36,8 @@ const {
   YAML_FILE_LOAD_PROBLEM,
   DEFAULT_DID_NOT_EXIST,
 } = require('./_errors');
-const swaggerMainTemplates = require('./../templates/swaggerSrc');
+const swaggerSrctemplates = require('./../templates/swaggerSrc');
+const pathstemplates = require('./../templates/swaggerPaths');
 // load up yaml.
 
 /**
@@ -93,11 +105,37 @@ class GetDefaults<T> {
    *   you are targeting.
    * @memberof Configurator
    */
-  getSwaggerMainTemplatesDefaults(): Promise<T> {
+  getswaggerSrctemplatesDefaults(): Promise<T> {
+    return this.getSwaggerTemplateYaml(swaggerSrctemplates);
+  }
+
+  /**
+   * Gets the main swaggerSrc template defaults.  This is not a yaml
+   *   file but a js file and the pathing is a little different.
+   *
+   * @returns {Promise<mainTemplate>}
+   *   A swagger template appropriate to the version of swagger
+   *   you are targeting.
+   * @memberof Configurator
+   */
+  getpathstemplatesDefaults(): Promise<T> {
+    return this.getSwaggerTemplateYaml(pathstemplates);
+  }
+
+  /**
+   * Gets swagger template yaml.
+   *
+   * @param {Object} defaults
+   *   An object containing templates for different versions of swagger.
+   * @returns {Promise<T>}
+   *   Returns a templateData bearing promise.
+   * @memberof GetDefaults
+   */
+  getSwaggerTemplateYaml(defaults: Object): Promise<T> {
     return Promise.resolve(_.get(
-      swaggerMainTemplates,
+      defaults,
       `swagger_${this.swaggerVersion.split('.').join('_')}`,
-      swaggerMainTemplates.swagger_2_0_0
+      defaults.swagger_2_0_0
     ))
       .then(data => data);
   }
@@ -112,7 +150,37 @@ class GetDefaults<T> {
    *   Returns a promise bearing and empty object.
    * @memberof GetDefaults
    */
-  getUserInputDefaults(): Promise<{}> {
+  getswaggerSrcdataDefaults(): Promise<{}> {
+    return Promise.resolve({})
+      .then(data => data);
+  }
+
+  /**
+   * Unifies setting of defaults for
+   *   user provided data. Since there
+   *   can be no defaults for this data
+   *   that would be relevant.
+   *
+   * @returns {Promise<{}>}
+   *   Returns a promise bearing and empty object.
+   * @memberof GetDefaults
+   */
+  getpathsdataDefaults(): Promise<{}> {
+    return Promise.resolve({})
+      .then(data => data);
+  }
+
+  /**
+   * Unifies setting of defaults for
+   *   user provided data. Since there
+   *   can be no defaults for this data
+   *   that would be relevant.
+   *
+   * @returns {Promise<{}>}
+   *   Returns a promise bearing and empty object.
+   * @memberof GetDefaults
+   */
+  getcustomDefaults(): Promise<{}> {
     return Promise.resolve({})
       .then(data => data);
   }

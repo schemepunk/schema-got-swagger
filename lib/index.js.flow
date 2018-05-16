@@ -10,6 +10,10 @@ import type {
   schemePunkScheme,
   swaggerMainData,
   mainTemplate,
+  pathTemplate,
+  sgsDataType,
+  configNameSpace,
+  pathsData,
 } from './types/swaggerMaker';
 
 const configSchemas = require('./../configSchemas');
@@ -19,7 +23,6 @@ const {
 } = require('./_errors');
 const {
   SchemaGotSwaggerError,
-  SchemaGotSwaggerReThrownError,
 } = require('./SchemaGotSwaggerError');
 const Ajv = require('ajv');
 const GetDefaults = require('./getDefaults');
@@ -41,7 +44,12 @@ module.exports = class SchemaGotSwagger {
   schemesSp: SemverizeParameters<schemePunkScheme>
   desiredRealizations: Array<string>
   realizedMainSwagger: semverish
+  realizedPathsSwagger: semverish
   swaggerComposer: *
+  pathsDataSp: SemverizeParameters<pathsData>
+  pathTemplatesSp: SemverizeParameters<pathTemplate>
+  pathsSchemesSp: SemverizeParameters<schemePunkScheme>
+  definitions: semverish
   /**
    * Initializes the SchemaGotSwagger instance with async operations.
    *
@@ -73,7 +81,9 @@ module.exports = class SchemaGotSwagger {
     swaggerSrcOptions?: mainSwaggerMakerOptions,
     pathItemsSrcOptions: pathSwaggerMakerOptions
   ): Promise<SchemaGotSwagger> {
-    const getterDefaults: GetDefaults<sgsConfig> = new GetDefaults('Sgs'); // eslint-disable-line max-len
+    const getterDefaults: GetDefaults<sgsConfig> = new GetDefaults('sgs'); // eslint-disable-line max-len
+    const realizationOrder: Array<('swaggerSrc' | 'paths')> = [];
+    this.definitions = {};
 
     return getterDefaults.getDefaults()
       .then((defaults) => {
@@ -82,97 +92,131 @@ module.exports = class SchemaGotSwagger {
       })
       .then((sgsMergedConfig) => {
         this.setConfig(sgsMergedConfig);
+        // Check to see who will be responsible for our semver Realizations
+
+        const realizationSource = _.get(this.getConfig(), ['realizationSource'], 'swaggerSrc');
+        let optionsForDesiredRealizations;
+        if (realizationSource === 'paths') {
+          realizationOrder.push('paths');
+          realizationOrder.push('swaggerSrc');
+          optionsForDesiredRealizations = pathItemsSrcOptions;
+        }
+        else {
+          realizationOrder.push('swaggerSrc');
+          realizationOrder.push('paths');
+          optionsForDesiredRealizations = swaggerSrcOptions;
+        }
+
         // Create a swaggerSrc semverize parameters.
-        const swaggerSrcSp: SemverizeParameters<swaggerMainData> = new SemverizeParameters(
-          swaggerSrc,
-          'swaggerMainSrcValidator',
-          {
-            dataDefaultsType: 'UserInput',
-            semveristConfigDefaults: 'SgsSemverist',
-          },
-          {
-            semveristConfig: _.get(swaggerSrcOptions, ['data', 'semveristConfig'], {}),
-            semverishMolotov: _.get(
-              swaggerSrcOptions,
-              ['data', 'semveristMolotovOptions'],
-              { overrides: {}, cocktailClasses: [] }
-            ),
-            desiredRealizations: this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(swaggerSrcOptions, ['data', 'desiredRealizations'], []), // eslint-disable-line max-len
-            validate: true,
-            swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['data', 'targetName'], 'swaggerSrc'),
-          }
+        const tmpDesired = this.getDesiredRealizations() ? this.getDesiredRealizations() : _.get(
+          optionsForDesiredRealizations,
+          ['data', 'desiredRealizations'],
+          []
         );
-        return swaggerSrcSp.init();
+        this.setDesiredRealizations(tmpDesired);
+        const dataSps: {swaggerSrc: SemverizeParameters<swaggerMainData>, paths: SemverizeParameters<pathsData> } = { // eslint-disable-line max-len
+          swaggerSrc: this.spMaker(swaggerSrc, 'data', 'swaggerSrc', swaggerSrcOptions),
+          paths: this.spMaker(pathItemsSrc, 'data', 'paths', pathItemsSrcOptions),
+        };
+        // $FlowFixMe
+        const dataSpPromises = [dataSps[realizationOrder[0]].init(), Promise.resolve(dataSps[realizationOrder[1]])]; // eslint-disable-line max-len
+        // This priority determines who sets the realizations for this Sgs.
+        // It can be either the swaggerSrc (by default) OR the paths data.
+        return Promise.all(dataSpPromises);
       })
-      .then(swaggerMain => this.setMainDataSpClass(swaggerMain)
-        .setDesiredRealizations(this.getMainDataSpClass().getSemverRealizations()))
-      .then(() => {
-        const swaggerSrcTemplates = new SemverizeParameters(
-          _.get(swaggerSrcOptions, ['templates', 'templatesOverrides'], {}),
-          'templateValidator',
-          {
-            dataDefaultsType: 'SwaggerMainTemplates',
-            semveristConfigDefaults: 'SwaggerSrcTemplates',
-          },
-          {
-            semveristConfig: _.get(swaggerSrcOptions, ['templates', 'semveristConfig'], {}),
-            semverishMolotov: _.get(
-              swaggerSrcOptions,
-              ['templates', 'semveristMolotovOptions'],
-              { overrides: {}, cocktailClasses: [] }
-            ),
-            desiredRealizations: this.getDesiredRealizations(),
-            validate: true,
-            swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['templates', 'targetName'], 'swaggerSrc'),
-          }
-        );
-        const swaggerSrcSchemes = new SemverizeParameters(
-          _.get(swaggerSrcOptions, ['schemes', 'schemes'], {}),
-          'schemePunkValidator',
-          {
-            dataDefaultsType: 'SwaggerSrcScheme',
-            semveristConfigDefaults: 'SwaggerSrcSchemesSemverist',
-          },
-          {
-            semveristConfig: _.get(swaggerSrcOptions, ['schemes', 'semveristConfig'], {}),
-            semverishMolotov: _.get(
-              swaggerSrcOptions,
-              ['schemes', 'semveristMolotovOptions'],
-              { overrides: {}, cocktailClasses: [] }
-            ),
-            desiredRealizations: this.getDesiredRealizations(),
-            validate: true,
-            swaggerVersion: this.getConfig().swaggerVersion,
-            targetName: _.get(swaggerSrcOptions, ['schemes', 'targetName'], 'default'),
-          }
-        );
+      .then((dataSps) => {
+        // the item in the 0 position has been inited and realized. So we can
+        // activate this for everything else.
+        this.setDesiredRealizations(dataSps[0].getSemverRealizations());
+        return Promise.all([dataSps[0], dataSps[1].init()]);
+      })
+      .then((dataSpsInitialized) => {
+        this.setMainDataSpClass(dataSpsInitialized[realizationOrder.indexOf('swaggerSrc')]);
+        // $FlowFixMe
+        this.setPathsDataSpClass(dataSpsInitialized[realizationOrder.indexOf('paths')]);
+
+        const templatesData = _.get(swaggerSrcOptions, ['templates', 'templates'], {});
+        const swaggerSrcTemplates: SemverizeParameters<mainTemplate> = this.spMaker(templatesData, 'templates', 'swaggerSrc', swaggerSrcOptions); // eslint-disable-line max-len
+        const templatesPaths = _.get(pathItemsSrcOptions, ['templates', 'templates'], {});
+        const pathsTemplates: SemverizeParameters<pathTemplate> = this.spMaker(templatesPaths, 'templates', 'paths', pathItemsSrcOptions); // eslint-disable-line max-len
+        const schemesData = _.get(swaggerSrcOptions, ['schemes', 'schemes'], {});
+        const swaggerSrcSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesData, 'schemes', 'swaggerSrc', swaggerSrcOptions); // eslint-disable-line max-len
+        const schemesPaths = _.get(pathItemsSrcOptions, ['schemes', 'schemes'], {});
+        const pathsSchemes: SemverizeParameters<schemePunkScheme> = this.spMaker(schemesPaths, 'schemes', 'paths', pathItemsSrcOptions); // eslint-disable-line max-len
         return Promise.all([
           swaggerSrcTemplates.init(),
           // Create a swagger src templates semverize parameters
           swaggerSrcSchemes.init(),
           // Create a swagger schemePunk schemes semverize parameters
+          pathsTemplates.init(),
+          pathsSchemes.init(),
         ]);
       })
       .then(([
         swaggerSrcTemplatesSp,
         swaggerSrcSchemesSp,
+        pathsTemplatesSp,
+        pathsSchemesSp,
       ]) => this.setSwaggerSrcTemplatesSpClass(swaggerSrcTemplatesSp)
-        .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp))
-      .then(() => this.integrateTemplatesAndSchemes())
+        .setSwaggerSrcSchemesSpClass(swaggerSrcSchemesSp)
+        .setPathsTemplatesSpClass(pathsTemplatesSp)
+        .setPathsSchemesSpClass(pathsSchemesSp))
+      .then(() => {
+        this.integrateSwaggerSrcTemplatesAndSchemes();
+        this.integratePathsTemplatesAndSchemes();
+        return this;
+      }) // $FlowFixMe
+      .then(() => this.schemeRunner(this.getPathsDataSpClass(), this.getPathsSchemesSpClass()))
+      .then((realizedPaths) => {
+        // Merge all paths arrays into one.
+        const realizedPathsSwagger = {};
+        let mergedPaths = {};
+        this.mainDataSp.getSemverRealizations().forEach((semver) => {
+          const semverReal = this.semverStringSplit(semver);
+          const pathRenderAtLevel = _.get(realizedPaths, semverReal);
+
+          Object.keys(pathRenderAtLevel).forEach((key) => {
+            mergedPaths = _.assign({}, _.cloneDeep(mergedPaths), JSON.parse(pathRenderAtLevel[key].swagger).paths);
+          });
+          _.setWith(realizedPathsSwagger, _.concat(semverReal, ['paths']), _.cloneDeep(mergedPaths), Object);
+        });
+        this.realizedPathsSwagger = realizedPathsSwagger;
+        return this;
+      })
       .then(() => this.schemeRunner(this.getMainDataSpClass(), this.getSwaggerSrcSchemesSpClass()))
       .then((realizedMainSemverish) => {
         this.realizedMainSwagger = realizedMainSemverish;
         // Run realizedMainSwagger through semverist.
         this.mainDataSp.getSemverRealizations().forEach((semver) => {
+          // Get main swagger file.
+          const mainSwags = JSON.parse(_.get(
+            this.realizedMainSwagger,
+            _.concat(this.semverStringSplit(semver), ['swagger'])
+          ));
+          mainSwags.paths = _.get(
+            this.realizedPathsSwagger,
+            _.concat(
+              this.semverStringSplit(semver),
+              ['paths']
+            )
+          );
+          if (this.getConfig().includePathsInDefinitions) {
+            mainSwags.definitions = _.assign(
+              {},
+              mainSwags.definitions,
+              _.get(this.definitions, _.concat(
+                this.semverStringSplit(semver),
+                ['swagger'],
+                ['definitions']
+              ))
+            );
+          }
+
+          // Add paths from paths realizations.
           _.set(
             this.realizedMainSwagger,
             _.concat(this.semverStringSplit(semver), ['swagger']),
-            JSON.parse(_.get(
-              this.realizedMainSwagger,
-              _.concat(this.semverStringSplit(semver), ['swagger'])
-            ))
+            mainSwags
           );
         });
         return SemverizeParameters.createComposer(
@@ -238,7 +282,7 @@ module.exports = class SchemaGotSwagger {
    *   returns an instance of this.
    *
    */
-  integrateTemplatesAndSchemes(): SchemaGotSwagger {
+  integrateSwaggerSrcTemplatesAndSchemes(): SchemaGotSwagger {
     const schemes = this.getSwaggerSrcSchemesSpClass().realized;
     const schemesTarget = this.getSwaggerSrcSchemesSpClass().targetName;
     const templatesTarget = this.getSwaggerSrcTemplatesSpClass().targetName;
@@ -287,11 +331,142 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
+   * Integrate templates and schemas.
+   *
+   * @returns {SchemaGotSwagger}
+   *   returns an instance of this.
+   *
+   */
+  integratePathsTemplatesAndSchemes(): SchemaGotSwagger {
+    // For each semverRealization get the attributes at that level in pathData
+    const semverRealizations = this.getPathsDataSpClass().getSemverRealizations();
+    const schemes = {};
+    const schemeTest = {};
+    semverRealizations.forEach((semver) => {
+      const currentSemverArray = this.semverStringSplit(semver);
+      // Set SchemesSP with new composition.
+      const schemesAttributesAtLevel = this.pathsEntitySpGuarantee(
+        currentSemverArray,
+        _.get(this.getPathsDataSpClass().realized, currentSemverArray),
+        this.getPathsSchemesSpClass()
+      );
+
+      const templatesAttributesAtLevel = this.pathsEntitySpGuarantee(
+        currentSemverArray,
+        _.get(this.getPathsDataSpClass().realized, currentSemverArray), // $FlowFixMe
+        this.getPathsTemplatesSpClass()
+      );
+      let tempSchemeArray = [];
+      // Take the templates and add them to the schemes.
+      _.forEach(schemesAttributesAtLevel, (value, key) => {
+        tempSchemeArray = _.get(
+          value,
+          _.concat(
+            [this.getPathsSchemesSpClass().targetName],
+            [this.getConfig().pathsSchemeProcessName],
+          )
+        );
+
+        tempSchemeArray.forEach((innerArray, index) => {
+          if (innerArray[0].transform.plugin === 'tokenTemplateValues') {
+            const tmpArray = innerArray[0];
+            // Set api version for templates use as a holdOver.
+            const holdOvers = _.get(tmpArray, 'holdOvers', {});
+            tmpArray.holdOvers = _.merge(holdOvers, { apiSemver: semver, entityName: key });
+            // Now set templates.
+            tmpArray.templateObject = _.get(
+              templatesAttributesAtLevel,
+              _.concat([key], [this.getPathsTemplatesSpClass().targetName])
+            );
+            tempSchemeArray[index][0] = tmpArray;
+          }
+        });
+        _.set(
+          schemeTest,
+          _.concat(
+            key,
+            [this.getPathsSchemesSpClass().targetName],
+            [this.getConfig().pathsSchemeProcessName]
+          ),
+          tempSchemeArray
+        );
+      });
+      _.setWith(schemes, currentSemverArray, schemeTest, Object);
+    });
+    const tempSpClass = this.getPathsSchemesSpClass();
+    tempSpClass.realized = schemes;
+    tempSpClass.composer.setComposition(schemes);
+    this.setPathsSchemesSpClass(tempSpClass);
+    // then we merge the templates into the schemes and reset schemes.
+    return this;
+  }
+
+  /**
+   * Guarantees that the attribute or entity paths in passed sp class
+   *   match the passed data attributes at a given semver level.
+   *
+   * @param {Array<string>} currentSemverArray
+   *   A semver number broken into a path string.
+   * @param {{}} dataAttributesAtLevel
+   *   An object with data attributes.
+   * @param {any} spClassToGuarantee
+   *   The Sp Class we want to guarantee.
+   * @returns {Object}
+   *   The guaranteed attributes at this level for the passed spClass.
+   */
+  pathsEntitySpGuarantee(currentSemverArray: Array<string>, dataAttributesAtLevel: {}, spClassToGuarantee: SemverizeParameters<*>) { // eslint-disable-line max-len
+    const pathsAttributesArray: Array<string> = Object.keys(dataAttributesAtLevel);
+    // Check for matches in sp class.. If all attributes are there the user has
+    let spAttributesAtLevel: {} = spClassToGuarantee.realized;
+
+    const spAttributeNamesArray: Array<string> = _.keys(_.get(
+      spClassToGuarantee.realized,
+      currentSemverArray
+    ));
+    // See if sp has all the entity keys it is supposed to and if
+    // not make it so or throw.
+    const spArrayDiff = _.difference(pathsAttributesArray, spAttributeNamesArray);
+    if (spArrayDiff.length) {
+      if (
+        spAttributeNamesArray.length > 1 ||
+        !_.has(_.get(
+          spClassToGuarantee.realized,
+          currentSemverArray
+        ), spClassToGuarantee.targetName)
+      ) {
+        // Either we have multiple schemes at level but not all the correct
+        // ones or we do not have our default scheme.
+        throw new SchemaGotSwaggerError(`The Path ${spClassToGuarantee.dataDefaultsType} that was passed should either be a single scheme item at the path schemes target name: ${spClassToGuarantee.targetName} or a semverish object that corresponds to the paths data object.`); // eslint-disable-line max-len
+      }
+      // Otherwise we want to create all of the same attributes at this level
+      // in the schemes realization and add the target name scheme.
+      const newSchemes = {};
+      pathsAttributesArray.forEach((path) => {
+        _.setWith(
+          newSchemes,
+          _.concat(
+            [path],
+            spClassToGuarantee.targetName
+          ),
+          _.get(
+            _.get(spClassToGuarantee.realized, currentSemverArray),
+            spClassToGuarantee.targetName
+          ),
+          Object
+        );
+      });
+      spAttributesAtLevel = newSchemes;
+    }
+    // Set SchemesSP with new composition.
+    return spAttributesAtLevel;
+  }
+
+  /**
    * Set Main Data Semverized Parameters Class.
-   * @param {SemverizeParameters} mainDataSp
+   * @param {SemverizeParameters<swaggerMainData>} mainDataSp
    *   A semverized Parameter class.
    * @returns {SchemaGotSwagger}
-   *   Returns an instance of this class.
+   *  An instance of this.
    */
   setMainDataSpClass(mainDataSp: SemverizeParameters<swaggerMainData>): SchemaGotSwagger { // eslint-disable-line max-len
     this.mainDataSp = mainDataSp;
@@ -306,6 +481,28 @@ module.exports = class SchemaGotSwagger {
    */
   getMainDataSpClass(): SemverizeParameters<swaggerMainData> {
     return this.mainDataSp;
+  }
+
+  /**
+   * Set Path Data Semverized Parameters Class.
+   * @param {SemverizeParameters} pathsDataSp
+   *   A semverized Parameter class.
+   * @returns {SchemaGotSwagger}
+   *   Returns an instance of this class.
+   */
+  setPathsDataSpClass(pathsDataSp: SemverizeParameters<pathsData>): SchemaGotSwagger { // eslint-disable-line max-len
+    this.pathsDataSp = pathsDataSp;
+    return this;
+  }
+
+  /**
+   * Gets the sp class for the paths swagger data.
+   *
+   * @returns {SemverizeParameters}
+   *   The semverize parameters class for the paths swagger data.
+   */
+  getPathsDataSpClass(): SemverizeParameters<pathsData> {
+    return this.pathsDataSp;
   }
 
   /**
@@ -360,7 +557,30 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
-   * Sets the main swagger src templates Semverized Parameters Class.
+   * Sets the paths templates Semverized Parameters Class.
+   *
+   * @param {SemverizeParameters<pathTemplate>} templatesSp
+   *   A semverized Parameter class.
+   * @returns {SchemaGotSwagger}
+   *   Returns an instance of this class.
+   */
+  setPathsTemplatesSpClass(templatesSp: SemverizeParameters<pathTemplate>): SchemaGotSwagger {
+    this.pathTemplatesSp = templatesSp;
+    return this;
+  }
+
+  /**
+   * Gets the templates Sp class.
+   *
+   * @returns {SemverizeParameters<pathTemplate>}
+   * Returns a templates Sp class.
+   */
+  getPathsTemplatesSpClass() {
+    return this.pathTemplatesSp;
+  }
+
+  /**
+   * Sets the main swagger src Schemes' Semverized Parameters Class.
    *
    * @param {SemverizeParameters<schemePunkScheme>} schemesSp
    *   A semverized Parameter class.
@@ -373,13 +593,36 @@ module.exports = class SchemaGotSwagger {
   }
 
   /**
-   * Gets the templates Sp class.
+   * Gets the swaggerSrc schemes Sp class.
    *
    * @returns {SemverizeParameters<schemePunkScheme>}
    *  Returns an sp class for the scheme punk schemes.
    */
   getSwaggerSrcSchemesSpClass() {
     return this.schemesSp;
+  }
+
+  /**
+   * Sets the paths Schemes Semverized Parameters Class.
+   *
+   * @param {SemverizeParameters<schemePunkScheme>} schemesSp
+   *   A semverized Parameter class.
+   * @returns {SchemaGotSwagger}
+   *   Returns an instance of this class.
+   */
+  setPathsSchemesSpClass(schemesSp: SemverizeParameters<schemePunkScheme>): SchemaGotSwagger {
+    this.pathsSchemesSp = schemesSp;
+    return this;
+  }
+
+  /**
+   * Gets the paths schemes Sp class.
+   *
+   * @returns {SemverizeParameters<schemePunkScheme>}
+   *  Returns an sp class for the scheme punk schemes.
+   */
+  getPathsSchemesSpClass() {
+    return this.pathsSchemesSp;
   }
 
   /**
@@ -398,41 +641,69 @@ module.exports = class SchemaGotSwagger {
   ): Promise<semverish> {
     const schemeTransformedData = {};
     const items = [];
-    dataSp.getSemverRealizations().forEach((semverNum) => {
-      if (_.has(
+    this.getMainDataSpClass().getSemverRealizations().forEach((semverNum) => {
+      const semverArray = this.semverStringSplit(semverNum);
+      const schemeConfig = this.getTargetOrNestedTarget(
         schemesSp.realized,
-        _.concat(this.semverStringSplit(semverNum), [schemesSp.targetName])
-      )) {
-        // We have a matching scheme. So we can move forward with
-        // schemePunk processing.
-        const schemeConfig = _.get(
-          schemesSp.realized,
-          _.concat(this.semverStringSplit(semverNum), [schemesSp.targetName])
-        );
+        semverArray,
+        schemesSp.targetName
+      );
+      const dataObject = this.getTargetOrNestedTarget(
+        dataSp.realized,
+        semverArray,
+        dataSp.targetName,
+        false
+      );
 
-        const obj = _.get(
-          dataSp.realized,
-          _.concat(this.semverStringSplit(semverNum))
-        );
-
+      Object.keys(schemeConfig).forEach((val) => {
         const schemeRunner = new SchemeRunner();
-
+        const pathage = _.clone(val);
+        let tmp;
+        if (_.isArray(schemeConfig[val])) {
+          tmp = schemeConfig;
+        }
+        else {
+          tmp = _.values(schemeConfig[val]);
+        }
         items.push(schemeRunner.init(
-          _.cloneDeep(obj),
-          _.cloneDeep(schemeConfig),
-          { overrides: {}, cocktailClasses: [] }
+          _.cloneDeep(dataObject[pathage]),
+          _.cloneDeep(tmp),
+          {
+            overrides: [],
+            cocktailClasses: [],
+          }
         )
           .then(sr => sr.runScheme())
-          .then(data => _.setWith(
-            schemeTransformedData,
-            _.concat(
-              this.semverStringSplit(semverNum),
-              ['swagger']
-            ),
-            data[dataSp.targetName],
-            Object
-          )));
-      }
+          .then((data) => {
+            _.setWith(
+              schemeTransformedData,
+              _.concat(
+                _.filter(
+                  pathage.split('.'),
+                  (vale => vale !== this.getMainDataSpClass().targetName)
+                ),
+                ['swagger']
+              ),
+              data[dataSp.targetName],
+              Object,
+            );
+
+            // Set definitions at swagger level. If indicated.
+            if (this.getConfig().includePathsInDefinitions && dataSp.type === 'paths') {
+              _.setWith(
+                this.definitions,
+                _.concat(
+                  semverNum.split('.'),
+                  ['swagger'],
+                  ['definitions'],
+                  [pathage.replace(`${semverNum}.`, '')]
+                ),
+                _.omit(dataObject[pathage], ['$id', '$schema', 'definitions']),
+                Object,
+              );
+            }
+          }));
+      });
     });
     return Promise.all(items)
       .then(() => schemeTransformedData);
@@ -448,5 +719,92 @@ module.exports = class SchemaGotSwagger {
    */
   semverStringSplit(semverString: string) {
     return semverString.split('.');
+  }
+
+  /**
+   * Sp maker instantiates a semverize Parameter class.
+   * @param {*} data
+   *   A data source to use with the spMaker.
+   * @param {configNameSpace} configNameSpaceType
+   *   A config name space, data, templates, or schemes.
+   * @param {sgsDataType} sgsDataTypeName
+   *   A sgs data type name swaggerSrc or paths.
+   * @param {*} options
+   *   An options object.
+   * @returns {SemverizeParameters}
+   *  A sp.
+   */
+  spMaker(
+    data: *,
+    configNameSpaceType: configNameSpace,
+    sgsDataTypeName: sgsDataType,
+    options: *
+  ) {
+    const dataName = `${sgsDataTypeName}${configNameSpaceType}`;
+    const sp = new SemverizeParameters(
+      data,
+      `${dataName}Validator`,
+      {
+        dataDefaultsType: _.get(options, [configNameSpaceType, 'dataDefaultsName'], dataName),
+        semveristConfigDefaults: _.get(options, [configNameSpaceType, 'semveristDefaultsName'], `${dataName}Semverist`),
+      },
+      {
+        semveristConfig: _.get(options, [configNameSpaceType, 'semveristConfig'], {}),
+        semverishMolotov: _.get(
+          options,
+          [configNameSpaceType, 'semveristMolotovOptions'],
+          { overrides: {}, cocktailClasses: [] }
+        ),
+        desiredRealizations: this.getDesiredRealizations(),
+        validate: _.get(options, [configNameSpaceType, 'validate'], true),
+        swaggerVersion: this.getConfig().swaggerVersion,
+        targetName: _.get(options, [configNameSpaceType, 'targetName'], sgsDataTypeName),
+        type: sgsDataTypeName,
+      }
+    );
+    return sp;
+  }
+
+  /**
+   * Returns an array of targets. Will work for either a single item
+   *   or a series of nested targets, like encountered in paths entities.
+   *
+   * @param {{}} holdingObject
+   *   An object you wish to inspect at the passed semverArray and targetName.
+   * @param {Array} semverArray
+   *   An array of semver parts, major, minor, patch, or pre-release.
+   * @param {string} targetName
+   *   The target name for which we should search.
+   * @param {boolean} onlyTarget
+   *   Whether to filter to the only the target (true) or include the
+   *   containing object (false)
+   * @returns {Object}
+   *   Retuns an array of target objects.
+   */
+  getTargetOrNestedTarget(
+    holdingObject: {},
+    semverArray: Array<string>,
+    targetName: string,
+    onlyTarget: boolean = true
+  ): {} {
+    const targets: {} = {};
+    const atLevelAttributes = _.get(holdingObject, semverArray);
+    if (_.has(atLevelAttributes, targetName)) {
+      targets[`${semverArray.join('.')}.${targetName}`] = atLevelAttributes;
+      if (onlyTarget) {
+        targets[`${semverArray.join('.')}.${targetName}`] = atLevelAttributes[targetName];
+      }
+    }
+    else {
+      Object.keys(atLevelAttributes).forEach((attKey) => {
+        if (_.has(atLevelAttributes, [attKey, targetName])) {
+          targets[`${semverArray.join('.')}.${attKey}`] = atLevelAttributes[attKey];
+          if (onlyTarget) {
+            targets[`${semverArray.join('.')}.${attKey}`] = atLevelAttributes[attKey][targetName];
+          }
+        }
+      });
+    }
+    return targets;
   }
 };
