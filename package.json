@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A json schema to swagger converter with schemePunk and the Semverist.",
   "scripts": {
-    "npmpublish": "npm-publish-git-tag --access public",
+    "npmpublish": "npm run build && npm-publish-git-tag --access public",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "test": "npm run build && jest --coverage",
     "test-ci": "npm run build && jest --coverage --runInBand",
