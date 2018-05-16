@@ -10,40 +10,29 @@ Object {
             "get": Object {
               "description": "Returns a list of article node items.",
               "operationId": "getArticleNodes",
-              "parameters": Object {
-                "fieldParam": Object {
-                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+              "parameters": Array [
+                Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
                   "in": "query",
-                  "name": "field",
+                  "name": "sort",
                   "required": false,
                   "type": "string",
                 },
-                "filterParam": Object {
+                Object {
                   "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
                   "in": "query",
                   "name": "filter",
                   "required": false,
                   "type": "string",
                 },
-                "offsetParam": Object {
-                  "default": 0,
-                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
                   "in": "query",
-                  "minimum": 1,
-                  "name": "offset",
+                  "name": "field",
                   "required": false,
-                  "type": "integer",
+                  "type": "string",
                 },
-                "pageParam": Object {
-                  "default": 1,
-                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
-                  "in": "query",
-                  "minimum": 1,
-                  "name": "page",
-                  "required": false,
-                  "type": "integer",
-                },
-                "rangeParam": Object {
+                Object {
                   "default": 50,
                   "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
                   "in": "query",
@@ -53,14 +42,25 @@ Object {
                   "required": false,
                   "type": "integer",
                 },
-                "sortParam": Object {
-                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
                   "in": "query",
-                  "name": "sort",
+                  "minimum": 1,
+                  "name": "offset",
                   "required": false,
-                  "type": "string",
+                  "type": "integer",
                 },
-              },
+                Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+              ],
               "produces": Array [
                 "application/vnd.api+json",
               ],
@@ -121,29 +121,29 @@ Object {
             "get": Object {
               "description": "Returns a single article node item.",
               "operationId": "getArticleNode",
-              "parameters": Object {
-                "fieldParam": Object {
-                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
-                  "in": "query",
-                  "name": "field",
-                  "required": false,
-                  "type": "string",
-                },
-                "include": Object {
+              "parameters": Array [
+                Object {
                   "description": "You can use the include key to load a specific entity connected via relationship",
                   "in": "query",
                   "name": "include",
                   "required": false,
                   "type": "string",
                 },
-                "loadByFieldName": Object {
+                Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                Object {
                   "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
                   "in": "query",
                   "name": "loadByFieldName",
                   "required": false,
                   "type": "string",
                 },
-              },
+              ],
               "produces": Array [
                 "application/vnd.api+json",
               ],
@@ -198,40 +198,29 @@ Object {
             "get": Object {
               "description": "Returns a list of story node items.",
               "operationId": "getStoryNodes",
-              "parameters": Object {
-                "fieldParam": Object {
-                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+              "parameters": Array [
+                Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
                   "in": "query",
-                  "name": "field",
+                  "name": "sort",
                   "required": false,
                   "type": "string",
                 },
-                "filterParam": Object {
+                Object {
                   "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
                   "in": "query",
                   "name": "filter",
                   "required": false,
                   "type": "string",
                 },
-                "offsetParam": Object {
-                  "default": 0,
-                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
                   "in": "query",
-                  "minimum": 1,
-                  "name": "offset",
+                  "name": "field",
                   "required": false,
-                  "type": "integer",
+                  "type": "string",
                 },
-                "pageParam": Object {
-                  "default": 1,
-                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
-                  "in": "query",
-                  "minimum": 1,
-                  "name": "page",
-                  "required": false,
-                  "type": "integer",
-                },
-                "rangeParam": Object {
+                Object {
                   "default": 50,
                   "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
                   "in": "query",
@@ -241,14 +230,25 @@ Object {
                   "required": false,
                   "type": "integer",
                 },
-                "sortParam": Object {
-                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
                   "in": "query",
-                  "name": "sort",
+                  "minimum": 1,
+                  "name": "offset",
                   "required": false,
-                  "type": "string",
+                  "type": "integer",
                 },
-              },
+                Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+              ],
               "produces": Array [
                 "application/vnd.api+json",
               ],
@@ -309,29 +309,29 @@ Object {
             "get": Object {
               "description": "Returns a single story node item.",
               "operationId": "getStoryNode",
-              "parameters": Object {
-                "fieldParam": Object {
-                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
-                  "in": "query",
-                  "name": "field",
-                  "required": false,
-                  "type": "string",
-                },
-                "include": Object {
+              "parameters": Array [
+                Object {
                   "description": "You can use the include key to load a specific entity connected via relationship",
                   "in": "query",
                   "name": "include",
                   "required": false,
                   "type": "string",
                 },
-                "loadByFieldName": Object {
+                Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                Object {
                   "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
                   "in": "query",
                   "name": "loadByFieldName",
                   "required": false,
                   "type": "string",
                 },
-              },
+              ],
               "produces": Array [
                 "application/vnd.api+json",
               ],
@@ -386,40 +386,29 @@ Object {
             "get": Object {
               "description": "Returns a list of video node items.",
               "operationId": "getVideoNodes",
-              "parameters": Object {
-                "fieldParam": Object {
-                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+              "parameters": Array [
+                Object {
+                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
                   "in": "query",
-                  "name": "field",
+                  "name": "sort",
                   "required": false,
                   "type": "string",
                 },
-                "filterParam": Object {
+                Object {
                   "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
                   "in": "query",
                   "name": "filter",
                   "required": false,
                   "type": "string",
                 },
-                "offsetParam": Object {
-                  "default": 0,
-                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
                   "in": "query",
-                  "minimum": 1,
-                  "name": "offset",
+                  "name": "field",
                   "required": false,
-                  "type": "integer",
+                  "type": "string",
                 },
-                "pageParam": Object {
-                  "default": 1,
-                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
-                  "in": "query",
-                  "minimum": 1,
-                  "name": "page",
-                  "required": false,
-                  "type": "integer",
-                },
-                "rangeParam": Object {
+                Object {
                   "default": 50,
                   "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
                   "in": "query",
@@ -429,14 +418,25 @@ Object {
                   "required": false,
                   "type": "integer",
                 },
-                "sortParam": Object {
-                  "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                Object {
+                  "default": 0,
+                  "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
                   "in": "query",
-                  "name": "sort",
+                  "minimum": 1,
+                  "name": "offset",
                   "required": false,
-                  "type": "string",
+                  "type": "integer",
                 },
-              },
+                Object {
+                  "default": 1,
+                  "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                  "in": "query",
+                  "minimum": 1,
+                  "name": "page",
+                  "required": false,
+                  "type": "integer",
+                },
+              ],
               "produces": Array [
                 "application/vnd.api+json",
               ],
@@ -497,29 +497,29 @@ Object {
             "get": Object {
               "description": "Returns a single video node item.",
               "operationId": "getVideoNode",
-              "parameters": Object {
-                "fieldParam": Object {
-                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
-                  "in": "query",
-                  "name": "field",
-                  "required": false,
-                  "type": "string",
-                },
-                "include": Object {
+              "parameters": Array [
+                Object {
                   "description": "You can use the include key to load a specific entity connected via relationship",
                   "in": "query",
                   "name": "include",
                   "required": false,
                   "type": "string",
                 },
-                "loadByFieldName": Object {
+                Object {
+                  "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                  "in": "query",
+                  "name": "field",
+                  "required": false,
+                  "type": "string",
+                },
+                Object {
                   "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
                   "in": "query",
                   "name": "loadByFieldName",
                   "required": false,
                   "type": "string",
                 },
-              },
+              ],
               "produces": Array [
                 "application/vnd.api+json",
               ],
@@ -919,40 +919,29 @@ Object {
               "get": Object {
                 "description": "Returns a list of article node items.",
                 "operationId": "getArticleNodes",
-                "parameters": Object {
-                  "fieldParam": Object {
-                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                "parameters": Array [
+                  Object {
+                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
                     "in": "query",
-                    "name": "field",
+                    "name": "sort",
                     "required": false,
                     "type": "string",
                   },
-                  "filterParam": Object {
+                  Object {
                     "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
                     "in": "query",
                     "name": "filter",
                     "required": false,
                     "type": "string",
                   },
-                  "offsetParam": Object {
-                    "default": 0,
-                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
                     "in": "query",
-                    "minimum": 1,
-                    "name": "offset",
+                    "name": "field",
                     "required": false,
-                    "type": "integer",
+                    "type": "string",
                   },
-                  "pageParam": Object {
-                    "default": 1,
-                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
-                    "in": "query",
-                    "minimum": 1,
-                    "name": "page",
-                    "required": false,
-                    "type": "integer",
-                  },
-                  "rangeParam": Object {
+                  Object {
                     "default": 50,
                     "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
                     "in": "query",
@@ -962,14 +951,25 @@ Object {
                     "required": false,
                     "type": "integer",
                   },
-                  "sortParam": Object {
-                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  Object {
+                    "default": 0,
+                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
                     "in": "query",
-                    "name": "sort",
+                    "minimum": 1,
+                    "name": "offset",
                     "required": false,
-                    "type": "string",
+                    "type": "integer",
                   },
-                },
+                  Object {
+                    "default": 1,
+                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "page",
+                    "required": false,
+                    "type": "integer",
+                  },
+                ],
                 "produces": Array [
                   "application/vnd.api+json",
                 ],
@@ -1030,29 +1030,29 @@ Object {
               "get": Object {
                 "description": "Returns a single article node item.",
                 "operationId": "getArticleNode",
-                "parameters": Object {
-                  "fieldParam": Object {
-                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
-                    "in": "query",
-                    "name": "field",
-                    "required": false,
-                    "type": "string",
-                  },
-                  "include": Object {
+                "parameters": Array [
+                  Object {
                     "description": "You can use the include key to load a specific entity connected via relationship",
                     "in": "query",
                     "name": "include",
                     "required": false,
                     "type": "string",
                   },
-                  "loadByFieldName": Object {
+                  Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  Object {
                     "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
                     "in": "query",
                     "name": "loadByFieldName",
                     "required": false,
                     "type": "string",
                   },
-                },
+                ],
                 "produces": Array [
                   "application/vnd.api+json",
                 ],
@@ -1107,40 +1107,29 @@ Object {
               "get": Object {
                 "description": "Returns a list of story node items.",
                 "operationId": "getStoryNodes",
-                "parameters": Object {
-                  "fieldParam": Object {
-                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                "parameters": Array [
+                  Object {
+                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
                     "in": "query",
-                    "name": "field",
+                    "name": "sort",
                     "required": false,
                     "type": "string",
                   },
-                  "filterParam": Object {
+                  Object {
                     "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
                     "in": "query",
                     "name": "filter",
                     "required": false,
                     "type": "string",
                   },
-                  "offsetParam": Object {
-                    "default": 0,
-                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
                     "in": "query",
-                    "minimum": 1,
-                    "name": "offset",
+                    "name": "field",
                     "required": false,
-                    "type": "integer",
+                    "type": "string",
                   },
-                  "pageParam": Object {
-                    "default": 1,
-                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
-                    "in": "query",
-                    "minimum": 1,
-                    "name": "page",
-                    "required": false,
-                    "type": "integer",
-                  },
-                  "rangeParam": Object {
+                  Object {
                     "default": 50,
                     "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
                     "in": "query",
@@ -1150,14 +1139,25 @@ Object {
                     "required": false,
                     "type": "integer",
                   },
-                  "sortParam": Object {
-                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  Object {
+                    "default": 0,
+                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
                     "in": "query",
-                    "name": "sort",
+                    "minimum": 1,
+                    "name": "offset",
                     "required": false,
-                    "type": "string",
+                    "type": "integer",
                   },
-                },
+                  Object {
+                    "default": 1,
+                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "page",
+                    "required": false,
+                    "type": "integer",
+                  },
+                ],
                 "produces": Array [
                   "application/vnd.api+json",
                 ],
@@ -1218,29 +1218,29 @@ Object {
               "get": Object {
                 "description": "Returns a single story node item.",
                 "operationId": "getStoryNode",
-                "parameters": Object {
-                  "fieldParam": Object {
-                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
-                    "in": "query",
-                    "name": "field",
-                    "required": false,
-                    "type": "string",
-                  },
-                  "include": Object {
+                "parameters": Array [
+                  Object {
                     "description": "You can use the include key to load a specific entity connected via relationship",
                     "in": "query",
                     "name": "include",
                     "required": false,
                     "type": "string",
                   },
-                  "loadByFieldName": Object {
+                  Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  Object {
                     "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
                     "in": "query",
                     "name": "loadByFieldName",
                     "required": false,
                     "type": "string",
                   },
-                },
+                ],
                 "produces": Array [
                   "application/vnd.api+json",
                 ],
@@ -1295,40 +1295,29 @@ Object {
               "get": Object {
                 "description": "Returns a list of video node items.",
                 "operationId": "getVideoNodes",
-                "parameters": Object {
-                  "fieldParam": Object {
-                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
+                "parameters": Array [
+                  Object {
+                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
                     "in": "query",
-                    "name": "field",
+                    "name": "sort",
                     "required": false,
                     "type": "string",
                   },
-                  "filterParam": Object {
+                  Object {
                     "description": "You can use the filter key to apply a filter to your API query. You can add as many filter parameters as you wish. You can additionally specify an operator to a filter by creating a new filter parameter.",
                     "in": "query",
                     "name": "filter",
                     "required": false,
                     "type": "string",
                   },
-                  "offsetParam": Object {
-                    "default": 0,
-                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
+                  Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string. For example, if you wanted to simply get the title and date for a given entity, you could add the following parameter to your request: api.com/node--stories/12345?fields=title,date",
                     "in": "query",
-                    "minimum": 1,
-                    "name": "offset",
+                    "name": "field",
                     "required": false,
-                    "type": "integer",
+                    "type": "string",
                   },
-                  "pageParam": Object {
-                    "default": 1,
-                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
-                    "in": "query",
-                    "minimum": 1,
-                    "name": "page",
-                    "required": false,
-                    "type": "integer",
-                  },
-                  "rangeParam": Object {
+                  Object {
                     "default": 50,
                     "description": "You can use the range key to control the number of objects a list resource should return on the given page. For example: api.com?range=10",
                     "in": "query",
@@ -1338,14 +1327,25 @@ Object {
                     "required": false,
                     "type": "integer",
                   },
-                  "sortParam": Object {
-                    "description": "You can use the sort key to sort the list of entities by multiple properties. List every property in a comma-separated string, in the order that you want to sort by. Prefixing the property name with a dash (-) will sort by that property in a descending order; the default is ascending. The notation for this parameter, when used to sort by a field in a descending order, is as follows: api.com?sort=-field_name,second_field_name",
+                  Object {
+                    "default": 0,
+                    "description": "You can use the offset key to control the offset count from which you would like the results from a list resource to start. For example, to skip the first 10 items available for a given query: api.com?offset=10",
                     "in": "query",
-                    "name": "sort",
+                    "minimum": 1,
+                    "name": "offset",
                     "required": false,
-                    "type": "string",
+                    "type": "integer",
                   },
-                },
+                  Object {
+                    "default": 1,
+                    "description": "You can use the page key to paginate your list resource requests. By default, the page is set to 1, but you can increment the page number from there if needed, like so: api.com?page=2",
+                    "in": "query",
+                    "minimum": 1,
+                    "name": "page",
+                    "required": false,
+                    "type": "integer",
+                  },
+                ],
                 "produces": Array [
                   "application/vnd.api+json",
                 ],
@@ -1406,29 +1406,29 @@ Object {
               "get": Object {
                 "description": "Returns a single video node item.",
                 "operationId": "getVideoNode",
-                "parameters": Object {
-                  "fieldParam": Object {
-                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
-                    "in": "query",
-                    "name": "field",
-                    "required": false,
-                    "type": "string",
-                  },
-                  "include": Object {
+                "parameters": Array [
+                  Object {
                     "description": "You can use the include key to load a specific entity connected via relationship",
                     "in": "query",
                     "name": "include",
                     "required": false,
                     "type": "string",
                   },
-                  "loadByFieldName": Object {
+                  Object {
+                    "description": "You can use the fields key to explicitly declare (and limit) which fields should be returned. List every field you are looking to fetch in a comma-separated string.",
+                    "in": "query",
+                    "name": "field",
+                    "required": false,
+                    "type": "string",
+                  },
+                  Object {
                     "description": "You can use the loadByFieldName key to load a specific entity by a property other than its ID.",
                     "in": "query",
                     "name": "loadByFieldName",
                     "required": false,
                     "type": "string",
                   },
-                },
+                ],
                 "produces": Array [
                   "application/vnd.api+json",
                 ],
