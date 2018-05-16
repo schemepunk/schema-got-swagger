@@ -443,14 +443,14 @@ Object {
     "0": Object {
       "0": Object {
         "swaggerSrc": Object {
-          "basePath": "{{apiBasePath}}",
+          "basePath": "{{&apiBasePath}}",
           "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
           "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
           "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
           "description": "{{apiDescription}}",
-          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#apiHost}}\\"host\\": \\"{{> host}}\\",{{/apiHost}} {{#apiBasePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/apiBasePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
           "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
-          "host": "{{apiHost}}",
+          "host": "{{&apiHost}}",
           "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
           "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
           "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
@@ -468,14 +468,14 @@ Object {
     "1": Object {
       "0": Object {
         "swaggerSrc": Object {
-          "basePath": "{{apiBasePath}}",
+          "basePath": "{{&apiBasePath}}",
           "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
           "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
           "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
           "description": "{{apiDescription}}",
-          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#apiHost}}\\"host\\": \\"{{> host}}\\",{{/apiHost}} {{#apiBasePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/apiBasePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
           "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
-          "host": "{{apiHost}}",
+          "host": "{{&apiHost}}",
           "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
           "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
           "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
@@ -491,14 +491,14 @@ Object {
       },
       "1": Object {
         "swaggerSrc": Object {
-          "basePath": "{{apiBasePath}}",
+          "basePath": "{{&apiBasePath}}",
           "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
           "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
           "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
           "description": "{{apiDescription}}",
-          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+          "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#apiHost}}\\"host\\": \\"{{> host}}\\",{{/apiHost}} {{#apiBasePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/apiBasePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
           "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
-          "host": "{{apiHost}}",
+          "host": "{{&apiHost}}",
           "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
           "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
           "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
@@ -537,14 +537,14 @@ Object {
                   "target": "swaggerSrc",
                 },
                 "templateObject": Object {
-                  "basePath": "{{apiBasePath}}",
+                  "basePath": "{{&apiBasePath}}",
                   "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
                   "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
                   "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
                   "description": "{{apiDescription}}",
-                  "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+                  "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#apiHost}}\\"host\\": \\"{{> host}}\\",{{/apiHost}} {{#apiBasePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/apiBasePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
                   "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
-                  "host": "{{apiHost}}",
+                  "host": "{{&apiHost}}",
                   "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
                   "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
                   "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
@@ -583,14 +583,14 @@ Object {
                   "target": "swaggerSrc",
                 },
                 "templateObject": Object {
-                  "basePath": "{{apiBasePath}}",
+                  "basePath": "{{&apiBasePath}}",
                   "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
                   "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
                   "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
                   "description": "{{apiDescription}}",
-                  "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+                  "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#apiHost}}\\"host\\": \\"{{> host}}\\",{{/apiHost}} {{#apiBasePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/apiBasePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
                   "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
-                  "host": "{{apiHost}}",
+                  "host": "{{&apiHost}}",
                   "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
                   "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
                   "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
@@ -627,14 +627,14 @@ Object {
                   "target": "swaggerSrc",
                 },
                 "templateObject": Object {
-                  "basePath": "{{apiBasePath}}",
+                  "basePath": "{{&apiBasePath}}",
                   "consumes": "[{{#consumes}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/consumes}}]",
                   "contact": "{{=<% %>=}}{<%={{ }}=%> \\"name\\": \\"{{contact.name}}\\", \\"url\\": \\"{{&contact.url}}\\", \\"email\\": \\"{{contact.email}}\\" {{=<% %>=}}}<%={{ }}=%>",
                   "definitions": "{{#definitions}}{{&process}}{{/definitions}}",
                   "description": "{{apiDescription}}",
-                  "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#host}}\\"host\\": \\"{{> host}}\\",{{/host}} {{#basePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/basePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
+                  "destinationTemplate": "{{=<% %>=}}{<%={{ }}=%>\\"swagger\\": \\"2.0\\", \\"info\\": {{=<% %>=}}{<%={{ }}=%> \\"title\\": \\"{{> title}}\\", {{#description}}\\"description\\": \\"{{> description}}\\",{{/description}} {{#termsOfService}}\\"termsOfService\\": \\"{{> termsOfService}}\\",{{/termsOfService}} \\"version\\": \\"{{> version}}\\", {{#contact}}\\"contact\\": {{> contact}},{{/contact}} {{#license}}\\"license\\": {{> license}}{{/license}}{{=<% %>=}}}<%={{ }}=%>, {{#apiHost}}\\"host\\": \\"{{> host}}\\",{{/apiHost}} {{#apiBasePath}}\\"basePath\\": \\"{{> basePath}}\\",{{/apiBasePath}} {{#schemes}}\\"schemes\\": {{> schemes}}, {{/schemes}} {{#consumes}}\\"consumes\\": {{> consumes}}, {{/consumes}} {{#produces}}\\"produces\\": {{> produces}}, {{/produces}} \\"paths\\": {}, {{#definitions}}\\"definitions\\": {{> definitions}},{{/definitions}} {{#parameters}}\\"parameters\\": {{> parameters }},{{/parameters}} {{#responses}}\\"responses\\": {{> responses }},{{/responses}} {{#securityDefinitions}}\\"securityDefinitions\\": {{> securityDefinitions}},{{/securityDefinitions}} {{#security}}\\"security\\": {{> security}},{{/security}} {{#tags}}\\"tags\\": {{> tags}},{{/tags}} {{#externalDocs}}\\"externalDocs\\": {{> externalDocs}}{{/externalDocs}} {{=<% %>=}}}<%={{ }}=%>",
                   "externalDocs": "{{#externalDocs}}{{=<% %>=}}{<%={{ }}=%>{{#description}}\\"description\\": \\"{{description}}\\", {{/description}}\\"url\\": \\"{{&url}}\\"{{=<% %>=}}}<%={{ }}=%>{{/externalDocs}}",
-                  "host": "{{apiHost}}",
+                  "host": "{{&apiHost}}",
                   "license": "{{=<% %>=}}{ \\"name\\": \\"<%license.name%>\\", \\"url\\": \\"<%&license.url%>\\"}<%={{ }}=%>",
                   "parameters": "{{#parameters}}{{&process}}{{/parameters}}",
                   "produces": "[{{#produces}}\\"{{mime.type}}\\"{{#mime.comma}}, {{/mime.comma}}{{/produces}}]",
@@ -666,6 +666,7 @@ Object {
     "0": Object {
       "0": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -695,6 +696,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",
@@ -981,6 +983,7 @@ Object {
     "1": Object {
       "0": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -1010,6 +1013,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",
@@ -1294,6 +1298,7 @@ Object {
       },
       "1": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -1323,6 +1328,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",
@@ -2053,6 +2059,7 @@ Object {
     "0": Object {
       "0": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -2082,6 +2089,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",
@@ -2368,6 +2376,7 @@ Object {
     "1": Object {
       "0": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -2397,6 +2406,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",
@@ -2681,6 +2691,7 @@ Object {
       },
       "1": Object {
         "swagger": Object {
+          "basePath": "/api",
           "consumes": Array [
             "vnd.api+json",
           ],
@@ -2710,6 +2721,7 @@ Object {
             "description": "Further api docs",
             "url": "http://example.com/docs",
           },
+          "host": "example.com",
           "info": Object {
             "contact": Object {
               "email": "example@example.com",
