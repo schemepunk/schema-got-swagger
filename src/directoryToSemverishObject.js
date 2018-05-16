@@ -69,8 +69,6 @@ const directoryToSemverishObject = (semverishDirectoryPath: string): Promise<sem
               if (readErr) {
                 throw new SchemaGotSwaggerError(`${SCHEMA_GOT_SWAGGER_SEMVERISH_FILE_READ_ERROR} File path: ${item.path}`); // eslint-disable-line max-len
               }
-
-              // TODO: This should likely be broken into configurable helper,
               // perhaps a mixin so that more file types can be supported.
               _.set(semverishObject, objPath, JSON.parse(readData));
               constResolve();

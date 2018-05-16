@@ -1,0 +1,95 @@
+definitions:
+  paths:
+    -
+      pathItem: '/pets'
+      last: true
+      operations:
+        -
+          operationName: get
+          comma: true
+          description: Returns pets based on ID
+          summary: Find pets by ID
+          operationId: getPetsById
+          produces:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              - application/json
+              - text/html
+          responses:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              '200':
+                description: pet response
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Pet'
+              default:
+                description: error payload
+                schema:
+                  $ref: '#/definitions/ErrorModel'
+          parameters:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              idParam:
+                name: id
+                in: path
+                description: ID of pet to use
+                required: true
+                type: array
+                items:
+                  type: string
+                collectionFormat: csv
+        -
+          operationName: put
+          tags:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              -
+                name: pet
+          summary: Updates a pet in the store with form data
+          descriptions: Updates a pet
+          operationId: updatePetWithForm
+          consumes:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              - application/x-www-form-urlencoded
+          produces:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              - application/json
+              - application/xml
+          parameters:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              petIdParam:
+                name: petId
+                in: path
+                description: ID of pet that needs to be updated
+                required: true
+                type: string
+              nameParam:
+                name: name
+                in: formData
+                description: Updated name of the pet
+                required: false
+                type: string
+              statusParam:
+                name: status
+                in: formData
+                description: Updated status of the pet
+                required: false
+                type: string
+          responses:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              '200':
+                description: Pet updated.
+              '405':
+                description: Invalid input
+          security:
+            process: !!js/function 'function() { return JSON.stringify(this.items); }'
+            items:
+              petstore_auth:
+                - write:pets
+                - read:pets

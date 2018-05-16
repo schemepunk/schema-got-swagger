@@ -1,0 +1,10 @@
+processTemplates:
+  -
+    -
+      source:
+        target: definitions
+        plugin: originalSchemeSource
+      transform:
+        plugin: tokenTemplateValues
+      destination:
+        target: definitions

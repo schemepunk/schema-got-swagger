@@ -3,7 +3,10 @@
 exports[`Get Defaults Get existing yaml file 1`] = `
 Object {
   "apiType": "jsonApi",
+  "includePathsInDefinitions": false,
   "mainSwaggerSchemeProcessName": "processTemplates",
+  "pathsSchemeProcessName": "processTemplates",
+  "realizationsSource": "swaggerSrc",
   "sgsSemver": Object {
     "composer": Object {
       "composerType": "default",
