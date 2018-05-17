@@ -21,7 +21,10 @@
     "coveralls": "cat ./__coverage__/lcov.info | coveralls"
   },
   "main": "./lib/index.js",
-  "repository": "git@github.com:schemepunk/schema-got-swagger.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:schemepunk/schema-got-swagger.git"
+  },
   "author": "David Diers <david.diers@fourkitchens.com>",
   "license": "MIT",
   "private": false,
