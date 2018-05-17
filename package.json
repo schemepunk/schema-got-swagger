@@ -1,5 +1,5 @@
 {
-  "name": "schema-got-swagger",
+  "name": "@schemepunk/schema-got-swagger",
   "version": "1.0.0",
   "description": "A json schema to swagger converter with schemePunk and the Semverist.",
   "scripts": {
